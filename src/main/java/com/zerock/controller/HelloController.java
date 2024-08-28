@@ -16,4 +16,10 @@ public class HelloController {
 		return "hi11";
 	}
 	
+	
+	@GetMapping("/go")
+	public String go() {
+		
+		return "go";
+	}
 }
