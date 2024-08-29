@@ -1,0 +1,132 @@
+body {
+  padding-top: 170px;
+}
+
+header {
+  background-color: #fff;
+}
+
+.main-btn {
+  background-color: #8ec5fc;
+  border: none;
+  border-radius: 20px;
+  color: white;
+  padding: 10px 20px;
+  font-size: 16px;
+  box-shadow: 0 4px #666;
+}
+
+.main-btn:hover {
+  background-color: #6699cc;
+}
+
+.user-menu a {
+  font-size: large;
+}
+
+.custom-card {
+  border-radius: 20px;
+  background-color: #8ec5fc;
+  color: black;
+  margin-bottom: 20px;
+}
+.custom-button {
+  background-color: green;
+  border: none;
+  color: white;
+  border-radius: 10px;
+  padding: 5px 15px;
+}
+.custom-container {
+  padding-top: 20px;
+}
+.search-bar {
+  margin-bottom: 20px;
+}
+.search-bar input {
+  height: 60px;
+}
+.search-bar .form-control {
+  border-radius: 30px;
+}
+.search-bar .input-group-text {
+  border: 0;
+  background: none;
+}
+.page-indicator {
+  text-align: center;
+  margin-top: 20px;
+}
+
+#meetup {
+  font-size: 50px;
+}
+
+/* card */
+.event-card {
+  background-color: #a8d5ba;
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-family: "Arial", sans-serif;
+}
+
+.event-title {
+  font-size: 1.25em;
+  color: #333;
+}
+
+.event-description {
+  font-size: 1em;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.join-btn {
+  background-color: #a7cba0;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.join-btn:hover {
+  background-color: #3a4e35;
+}
+
+.cus_card-card {
+  width: 30rem;
+  margin: 0 auto;
+  margin-bottom: 30px;
+  background-color: #daf7a6;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.cus_card-title {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: white;
+  border-radius: 10px;
+  padding: 5px 10px;
+  margin-bottom: 10px;
+}
+
+.cus_card-subtitle {
+  padding-top: 20px;
+  text-align: center;
+}
+
+.cus_card-text {
+  text-align: center;
+}
+
+.cus_card-btn {
+  background-color: #4b7a4d;
+  color: white;
+  display: block;
+  margin: 0 auto;
+}
