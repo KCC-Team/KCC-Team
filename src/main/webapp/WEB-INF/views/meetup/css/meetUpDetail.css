@@ -225,6 +225,7 @@ aside {
   border-radius: 10px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   margin-bottom: 10px;
+  cursor: pointer;
 }
 
 .schedule-header {
@@ -281,4 +282,28 @@ aside {
 
 .total-board, .member-count, .meet-total-count, .meet-member-count {
   font-size: 17px;
+}
+
+.modal-header {
+  border-bottom: none !important;
+}
+
+.modal-footer {
+  border-top: none !important;
+}
+
+.meetup-profile {
+  display: inline-block;
+  border-radius: 50%;
+  background-color: #e6e8e6;
+  width: 70px;
+  height: 55px;
+  margin-right: 5px;
+}
+
+.btn-meetup {
+  border-radius: 10px;
+  color: black;
+  border-color: #66cda9;
+  background-color: #66cda9 !important;
 }
