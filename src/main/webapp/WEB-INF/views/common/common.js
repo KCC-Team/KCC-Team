@@ -1,6 +1,6 @@
 $(document).ready(function () {
   // header 불러오기
-  $("#header1").load("../views/common/header.html", function () {
+  $("#header1").load("/src/main/webapp/WEB-INF/views/common/header.html", function () {
     $(document).trigger("headerLoaded");
 
     //로그인시 변경
@@ -22,7 +22,7 @@ $(document).ready(function () {
   });
 
   // footer 불러오기
-  $("#footer1").load("../views/common/footer.html", function () {});
+  $("#footer1").load("/src/main/webapp/WEB-INF/views/common/footer.html", function () {});
 });
 
 $(document).on("headerLoaded", function () {
