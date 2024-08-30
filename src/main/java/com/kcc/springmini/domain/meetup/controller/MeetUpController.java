@@ -1,4 +1,4 @@
 package com.kcc.springmini.domain.meetup.controller;
 
-public class MemberController {
+public class MeetUpController {
 }

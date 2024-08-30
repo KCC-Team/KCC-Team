@@ -1,4 +1,4 @@
 package com.kcc.springmini.domain.schedule.repository;
 
-public interface MemberRepository {
+public class ScheduleRepositoryImpl {
 }

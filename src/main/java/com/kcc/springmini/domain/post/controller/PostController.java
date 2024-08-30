@@ -1,4 +1,4 @@
 package com.kcc.springmini.domain.post.controller;
 
-public class MemberController {
+public class PostController {
 }
