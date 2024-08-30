@@ -5,5 +5,9 @@ import com.kcc.springmini.domain.schedule.model.Schedule;
 import java.util.List;
 
 public interface ScheduleService {
-    List<Schedule> findAll();
+    void save(long meetupId, Schedule schedule);
+    void update(Schedule schedule);
+    void delete(Long id);
+    List<Schedule> findAll(Long meetUpId, int page);
+    Schedule findById(Long id);
 }
