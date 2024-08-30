@@ -1,4 +1,4 @@
 package com.kcc.springmini.domain.post.model.dto;
 
-public class MemberRequestDto {
+public class PostRequestDto {
 }

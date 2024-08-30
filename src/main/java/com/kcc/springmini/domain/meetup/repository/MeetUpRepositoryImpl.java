@@ -1,4 +1,4 @@
 package com.kcc.springmini.domain.meetup.repository;
 
-public class MemberRepositoryImpl {
+public class MeetUpRepositoryImpl {
 }

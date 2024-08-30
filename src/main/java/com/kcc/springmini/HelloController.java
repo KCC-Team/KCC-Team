@@ -1,4 +1,4 @@
-package com.kcc.springmini.controller;
+package com.kcc.springmini;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +10,6 @@ public class HelloController {
 	@GetMapping("/")
 	public String test(Model model) {
 		model.addAttribute("message", "hihi");
-		return "test";
+		return "main";
 	}
 }

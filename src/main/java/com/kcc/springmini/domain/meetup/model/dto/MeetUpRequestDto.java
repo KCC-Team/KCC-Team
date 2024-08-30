@@ -1,4 +1,4 @@
 package com.kcc.springmini.domain.meetup.model.dto;
 
-public class MemberResponseDto {
+public class MeetUpRequestDto {
 }

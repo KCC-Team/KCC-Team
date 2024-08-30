@@ -1,4 +1,4 @@
 package com.kcc.springmini.domain.post.repository;
 
-public interface MemberRepository {
+public interface PostRepository {
 }
