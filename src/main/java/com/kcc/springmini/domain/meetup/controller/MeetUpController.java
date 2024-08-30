@@ -8,6 +8,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/meetup")
 public class MeetUpController {
 
+    @GetMapping("/meetupRegister")
+    public String meetupRegister() {
+        return "meetup/meetupRegister";
+    }
+
    @GetMapping("/meetupDetail")
    public String meetupDetail() {
        return "meetup/meetupDetail";

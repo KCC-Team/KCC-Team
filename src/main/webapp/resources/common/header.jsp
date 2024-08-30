@@ -17,7 +17,7 @@
         <a href="/">홈</a>
         <a href="/loginForm">로그인</a>
         <a href="/joinForm">회원가입</a>
-        <a href="/meetup/meetupDetail" class="btn main-btn">모임 생성</a>
+        <a href="/meetup/meetupRegister" class="btn main-btn">모임 생성</a>
       </nav>
     </section>
     <!-- Dropdown Menu -->
