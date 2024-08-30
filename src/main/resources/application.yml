@@ -2,6 +2,8 @@ server:
   port: 8085
 
 spring:
+  profiles:
+    include: secret
   mvc:
     view:
       prefix: /WEB-INF/views/
