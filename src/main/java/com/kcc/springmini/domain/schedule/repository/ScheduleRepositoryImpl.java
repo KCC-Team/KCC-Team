@@ -15,7 +15,7 @@ public class ScheduleRepositoryImpl implements ScheduleRepository {
 
     @Override
     public void save(Schedule schedule) {
-
+        scheduleMapper.save(schedule);
     }
 
     @Override
