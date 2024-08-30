@@ -15,8 +15,8 @@
       </a>
       <nav class="user-menu">
         <a href="/">홈</a>
-        <a href="/loginForm">로그인</a>
-        <a href="/joinForm">회원가입</a>
+        <a href="/members/loginForm">로그인</a>
+        <a href="/members/joinForm">회원가입</a>
         <a href="/meetup/meetupRegister" class="btn main-btn">모임 생성</a>
       </nav>
     </section>
