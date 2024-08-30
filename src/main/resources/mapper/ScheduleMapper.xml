@@ -11,6 +11,14 @@
                TO_TIMESTAMP(#{appointment_time}, 'YYYY-MM-DD HH24:MI:SS'), systimestamp)
     </insert>
 
+    <delete id="delete" parameterType="long">
+        delete from MeetUpSchedule where schedule_id = #{scheduleId}
+    </delete>
+
+    <select id="findById" parameterType="long" resultType="Schedule">
+        select * from MeetUpSchedule where schedule_id = #{scheduleId}
+    </select>
+
     <select id="findAll" parameterType="map" resultType="Schedule">
         <![CDATA[
         select inline_ms.id, inline_ms.meet_up_id, inline_ms.member_id,

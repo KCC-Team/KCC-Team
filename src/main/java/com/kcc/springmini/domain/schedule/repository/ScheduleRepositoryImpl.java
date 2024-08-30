@@ -19,18 +19,13 @@ public class ScheduleRepositoryImpl implements ScheduleRepository {
     }
 
     @Override
-    public void update(Schedule schedule) {
-
-    }
-
-    @Override
     public void delete(Long id) {
-
+        scheduleMapper.delete(id);
     }
 
     @Override
     public Schedule findById(Long id) {
-        return null;
+        return scheduleMapper.findById(id);
     }
 
     @Override

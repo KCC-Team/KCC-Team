@@ -31,13 +31,13 @@ public class ScheduleServiceImpl implements ScheduleService {
     }
 
     @Override
-    public void update(Schedule schedule) {
-
+    public void delete(Long id) {
+        scheduleRepository.delete(id);
     }
 
     @Override
-    public void delete(Long id) {
-
+    public Schedule findById(Long id) {
+        return scheduleRepository.findById(id);
     }
 
     @Override
@@ -49,10 +49,5 @@ public class ScheduleServiceImpl implements ScheduleService {
         map.put("meetUpId", meetUpId);
         map.put("limit", (long) limit);
         return scheduleRepository.findAll(map);
-    }
-
-    @Override
-    public Schedule findById(Long id) {
-        return null;
     }
 }

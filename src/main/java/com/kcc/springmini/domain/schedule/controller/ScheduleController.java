@@ -18,12 +18,21 @@ public class ScheduleController {
         scheduleService.save(meetupId, schedule);
     }
 
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable(value = "id") Long id) {
+        scheduleService.delete(id);
+    }
+
+    @GetMapping("/{id}")
+    public Schedule findById(@PathVariable(value = "id") Long id) {
+        return scheduleService.findById(id);
+    }
+
     @GetMapping
     public List<Schedule> findAll(
             @PathVariable(value = "meetupId") Long meetupId,
             @RequestParam(value = "page", defaultValue = "1") int page) {
         return scheduleService.findAll(meetupId, page);
     }
-
 
 }
