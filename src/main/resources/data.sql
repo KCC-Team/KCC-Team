@@ -1,4 +1,4 @@
--- -- 삭제
+-- 삭제
 DROP TABLE schedulebelongmember;
 DROP TABLE MeetUpSchedule;
 DROP TABLE REPLY;
