@@ -22,8 +22,6 @@
 
     <link rel="stylesheet" type="text/css" href="../common/common.css"/>
     <link rel="stylesheet" type="text/css" href="css/meetUpDetail.css">
-
-    <script type="text/javascript" src="js/meetUpDetail.js"></script>
 </head>
 
 <body>
@@ -49,13 +47,14 @@
 
     <main>
         <section class="post-section">
-            <div class="post-input">
+            
+            <form class="post-input">
                 <textarea placeholder="게시글을 입력하세요" maxlength="500"></textarea>
                 <div class="post-actions">
                     <span class="char-count">0 / 500</span>
-                    <button class="post-button">게시</button>
+                    <button type="submit" class="post-button">게시</button>
                 </div>
-            </div>
+            </form>
 
             <div class="posts">
                 <span class="profile-group">
@@ -103,7 +102,7 @@
 
             <span class="schedule-header">
                 <span class="meet-date">일정</span>
-                <button>일정 생성</button>
+                <a href="#">일정 생성</a>
             </span>
 
             <section class="schedule">
@@ -204,5 +203,6 @@
         <div id="footer1"></div>
     </footer>
 
+    <script type="text/javascript" src="js/meetUpDetail.js"></script>
 </body>
 </html>
