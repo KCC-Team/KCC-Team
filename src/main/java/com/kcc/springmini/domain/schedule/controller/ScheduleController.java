@@ -3,9 +3,7 @@ package com.kcc.springmini.domain.schedule.controller;
 import com.kcc.springmini.domain.schedule.model.Schedule;
 import com.kcc.springmini.domain.schedule.service.ScheduleService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -15,9 +13,16 @@ import java.util.List;
 public class ScheduleController {
     private final ScheduleService scheduleService;
 
+    @PostMapping
+    public void create(@PathVariable(value = "meetupId") Long meetupId, @RequestBody Schedule schedule) {
+        scheduleService.save(meetupId, schedule);
+    }
+
     @GetMapping
-    public List<Schedule> findAll() {
-        return scheduleService.findAll();
+    public List<Schedule> findAll(
+            @PathVariable(value = "meetupId") Long meetupId,
+            @RequestParam(value = "page", defaultValue = "1") int page) {
+        return scheduleService.findAll(meetupId, page);
     }
 
 

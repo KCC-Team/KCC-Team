@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kcc.springmini.domain.schedule.repository.mapper.ScheduleMapper">
+    <insert id="save" parameterType="Schedule">
+        insert into MeetUpSchedule(id, meet_up_id, member_id, title, content, location, person, deadline, appointment_time, created_at)
+        values(SCHEDULE_SEQ.nextval, #{meetUpId}, #{memberId}, #{title}, #{content}, #{location}, #{person}, #{deadline}, #{appointmentTime}, systimestamp)
+    </insert>
+
+    <select id="findAll" parameterType="map" resultType="Schedule">
+        <![CDATA[
+        select inline_ms.id, inline_ms.meet_up_id, inline_ms.member_id,
+               inline_ms.title, inline_ms.content, inline_ms.location, inline_ms.person,
+               inline_ms.deadline, inline_ms.appointment_time
+        from
+            (
+                select ms.id, ms.meet_up_id, ms.member_id,
+                       ms.title, ms.content, ms.location, ms.person,
+                       ms.deadline, ms.appointment_time, ROWNUM rnum
+                from (
+                    select *
+                    from MeetUpSchedule ms
+                    where ms.meet_up_id = #{meetUpId}
+                    order by created_at desc
+                ) ms
+                where ROWNUM <= #{limit} + #{offset}
+            ) inline_ms
+        where rnum >= #{offset}
+        ]]>
+    </select>
+</mapper>
