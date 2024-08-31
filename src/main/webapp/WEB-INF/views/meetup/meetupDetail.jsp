@@ -50,7 +50,6 @@
 
     <main>
         <section class="post-section">
-            
             <form class="post-input">
                 <textarea placeholder="게시글을 입력하세요" maxlength="500"></textarea>
                 <div class="post-actions">
@@ -101,41 +100,13 @@
 
         </section>
 
-        <aside>
-
+        <aside class="schedule-sec">
             <span class="schedule-header">
                 <span class="meet-date">일정</span>
                 <a href="#">일정 생성</a>
             </span>
 
-            <section class="schedule">
-                <span class="schedule-list">
-                    <span>
-                        <h4> 🌳 다음 주 토요일! 흑석동 반려견 모임 공지 🌳</h4>
-                        <p class="meet-font">안녕하세요, "미친 강아지 동호회" 회원 여러분!
-                            다가오는 주말, 강아지들과 함께 즐거운 시간을 
-                            보낼 모임을 준비했습니다. 이번 모임은 
-                            한강변에서 산책과 놀이를 주제로 진행...</p>
-                        <p class="meet-day">일정: 2024.09.07 ~ 2024.09.07</p>
-                        <p>제한: 인원: 4인</p>
-                    </span>
-                </span>
-            </section>
-
-            <section class="schedule">
-                <span class="schedule-list">
-                    <span>
-                        <h4> 🌳 다음 주 토요일! 흑석동 반려견 모임 공지 🌳</h4>
-                        <p class="meet-font">안녕하세요, "미친 강아지 동호회" 회원 여러분!
-                            다가오는 주말, 강아지들과 함께 즐거운 시간을 
-                            보낼 모임을 준비했습니다. 이번 모임은 
-                            한강변에서 산책과 놀이를 주제로 진행...</p>
-                        <p class="meet-day">일정: 2024.09.07 ~ 2024.09.07</p>
-                        <p>제한: 인원: 4인</p>
-                    </span>
-                </span>
-            </section>
-
+            <div id="scheduleList"></div>
             <div class="pagination">
                 <span>이전</span>
                 <span class="active">1</span>
@@ -145,18 +116,16 @@
                 <span>5</span>
                 <span>다음</span>
             </div>
-
         </aside>
-
     </main>
 
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary meetUpmodal" data-bs-toggle="modal" 
+    <button type="button" class="btn btn-primary meetUpmodal" data-bs-toggle="modal"
         data-bs-target="#meetUpModal">
         Launch demo modal
     </button>
 
-    <!-- Modal -->
+    <!-- 모임일정 Modal -->
     <div class="modal fade" id="meetUpModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
         <div class="modal-content">
