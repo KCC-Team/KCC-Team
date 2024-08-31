@@ -3,8 +3,15 @@ let dup_check = false;
 $(document).ready(function () {
 
     $('#form1').submit(function(){
+        let password = $("#password").val();
+
         if (dup_check === false) {
             alert("아이디 중복 확인 바랍니다.");
+            return false;
+        }
+
+        if (password == '') {
+            alert("비밀번호를 입력해주세요.");
             return false;
         }
     });
