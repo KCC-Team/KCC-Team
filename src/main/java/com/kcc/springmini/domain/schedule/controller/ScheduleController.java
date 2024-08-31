@@ -35,6 +35,16 @@ public class ScheduleController {
         return scheduleService.findById(id);
     }
 
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable(value = "id") Long id) {
+        scheduleService.delete(id);
+    }
+
+    @GetMapping("/{id}")
+    public Schedule findById(@PathVariable(value = "id") Long id) {
+        return scheduleService.findById(id);
+    }
+
     @GetMapping
     @ResponseBody
     public ResponseEntity<PageResponseDto> findAll(
