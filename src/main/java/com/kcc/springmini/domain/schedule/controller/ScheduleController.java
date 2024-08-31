@@ -2,10 +2,12 @@ package com.kcc.springmini.domain.schedule.controller;
 
 import com.kcc.springmini.domain.schedule.model.ScheduleVO;
 import com.kcc.springmini.domain.schedule.model.dto.PageResponseDto;
+import com.kcc.springmini.domain.schedule.model.dto.ScheduleResponseDto;
 import com.kcc.springmini.domain.schedule.service.ScheduleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -30,9 +32,10 @@ public class ScheduleController {
     }
 
     @GetMapping("/{id}")
-    @ResponseBody
-    public ScheduleVO findById(@PathVariable(value = "id") Long id) {
-        return scheduleService.findById(id);
+    public String findById(@PathVariable(value = "id") Long id, Model model) {
+        ScheduleResponseDto response = scheduleService.findById(id);
+        model.addAttribute("schedule", response);
+        return "meetup/meetupDetail";
     }
 
     @GetMapping
