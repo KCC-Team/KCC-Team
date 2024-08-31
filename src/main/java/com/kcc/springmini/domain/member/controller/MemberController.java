@@ -5,8 +5,8 @@ import com.kcc.springmini.domain.member.service.MemberService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 public class MemberController {
 
     private final MemberService memberService;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @GetMapping("/loginForm")
     public String loginForm() {
@@ -47,6 +48,10 @@ public class MemberController {
         if (member == null) {
             return "redirect:/loginForm";
         }
+        String rawPassword = member.getPassword();
+        String encryptedPassword = bCryptPasswordEncoder.encode(rawPassword);
+        member.setPassword(encryptedPassword);
+
         memberService.save(member);
         log.info(member.toString());
         return "/main";
