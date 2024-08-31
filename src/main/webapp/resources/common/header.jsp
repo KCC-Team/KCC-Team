@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 
 <!-- header start -->
 <section class="fixed-top">
@@ -13,12 +15,28 @@
           alt="logo"
         />
       </a>
+
       <nav class="user-menu">
         <a href="/">홈</a>
-        <a href="/members/loginForm">로그인</a>
-        <a href="/members/joinForm">회원가입</a>
+
+        <sec:authorize access="isAnonymous()">
+          <a href="/members/loginForm">로그인</a>
+        </sec:authorize>
+
+        <sec:authorize access="isAnonymous()">
+          <a href="/members/joinForm">회원가입</a>
+        </sec:authorize>
+
+        <sec:authorize access="isAuthenticated()">
+           <form method="POST" action="/logout" class="logout_form">
+              <button type="submit" class="logout_btn">로그아웃</button>
+           </form>
+          <a href="/members/mypage">마이페이지</a>
+        </sec:authorize>
+
         <a href="/meetup/meetupRegister" class="btn main-btn">모임 생성</a>
       </nav>
+
     </section>
     <!-- Dropdown Menu -->
     <section class="menu-dropdown" id="menuDropdown">

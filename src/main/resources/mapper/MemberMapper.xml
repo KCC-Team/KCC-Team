@@ -6,7 +6,9 @@
 <mapper namespace="com.kcc.springmini.domain.member.repository.mapper.MemberMapper">
 
     <select id="findById" resultType="com.kcc.springmini.domain.member.model.vo.MemberVO">
-        select * from member where username = #{username}
+        select * from member
+        where username = #{username}
+        and isdelete = 'F'
     </select>
 
     <insert id="save">
@@ -14,5 +16,17 @@
         (member_id, username, password, nickname, email, gender, birthdate, tel, address, created_at, updated_at, isdelete)
         values (seq_member.nextval, #{username}, #{password}, #{nickname}, #{email}, #{gender}, #{birthdate}, #{tel}, #{address}, sysdate, sysdate, #{isdelete})
     </insert>
+
+<!--    <update id="update">-->
+<!--        update member set-->
+<!--        password = #{password},-->
+<!--        nickname =-->
+<!--        email =-->
+<!--        gender =-->
+<!--        birthdate =-->
+<!--        tel =-->
+<!--        address =-->
+<!--        updated_at =-->
+<!--    </update>-->
 
 </mapper>
