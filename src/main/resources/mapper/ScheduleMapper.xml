@@ -5,9 +5,19 @@
 
 <mapper namespace="com.kcc.springmini.domain.schedule.repository.mapper.ScheduleMapper">
     <insert id="save" parameterType="Schedule">
-        insert into MeetUpSchedule(id, meet_up_id, member_id, title, content, location, person, deadline, appointment_time, created_at)
-        values(SCHEDULE_SEQ.nextval, #{meetUpId}, #{memberId}, #{title}, #{content}, #{location}, #{person}, #{deadline}, #{appointmentTime}, systimestamp)
+        insert into MeetUpSchedule(schedule_id, meet_up_id, member_id, title, content, location, person, deadline, appointment_time, created_at)
+        values(SEQ_MEETUPSCHEDULE.nextval, #{meet_up_id}, #{member_id}, #{title}, #{content}, #{location}, #{person},
+               TO_TIMESTAMP(#{deadline}, 'YYYY-MM-DD HH24:MI:SS'),
+               TO_TIMESTAMP(#{appointment_time}, 'YYYY-MM-DD HH24:MI:SS'), systimestamp)
     </insert>
+
+    <delete id="delete" parameterType="long">
+        delete from MeetUpSchedule where schedule_id = #{scheduleId}
+    </delete>
+
+    <select id="findById" parameterType="long" resultType="Schedule">
+        select * from MeetUpSchedule where schedule_id = #{scheduleId}
+    </select>
 
     <select id="findAll" parameterType="map" resultType="Schedule">
         <![CDATA[

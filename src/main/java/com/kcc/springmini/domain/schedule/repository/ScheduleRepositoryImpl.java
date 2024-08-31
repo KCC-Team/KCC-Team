@@ -15,22 +15,17 @@ public class ScheduleRepositoryImpl implements ScheduleRepository {
 
     @Override
     public void save(Schedule schedule) {
-
-    }
-
-    @Override
-    public void update(Schedule schedule) {
-
+        scheduleMapper.save(schedule);
     }
 
     @Override
     public void delete(Long id) {
-
+        scheduleMapper.delete(id);
     }
 
     @Override
     public Schedule findById(Long id) {
-        return null;
+        return scheduleMapper.findById(id);
     }
 
     @Override

@@ -7,7 +7,6 @@ import java.util.Map;
 
 public interface ScheduleRepository {
     void save(Schedule schedule);
-    void update(Schedule schedule);
     void delete(Long id);
     Schedule findById(Long id);
     List<Schedule> findAll(Map<String, Long> map);

@@ -1,13 +1,12 @@
 package com.kcc.springmini.domain.schedule.service;
 
 import com.kcc.springmini.domain.schedule.model.Schedule;
-import com.kcc.springmini.domain.schedule.model.dto.PageDto;
 import com.kcc.springmini.domain.schedule.repository.ScheduleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
@@ -22,22 +21,23 @@ public class ScheduleServiceImpl implements ScheduleService {
     @Transactional
     @Override
     public void save(long meetupId, Schedule schedule) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
         schedule.setMeet_up_id(meetupId);
-        schedule.setDeadline(String.valueOf(LocalDate.parse(schedule.getDeadline(), formatter)));
-        schedule.setAppointment_time(String.valueOf(LocalDate.parse(schedule.getAppointment_time(), formatter)));
+        schedule.setDeadline(LocalDateTime.parse(schedule.getDeadline(), inputFormatter).format(outputFormatter));
+        schedule.setAppointment_time(LocalDateTime.parse(schedule.getAppointment_time(), inputFormatter).format(outputFormatter));
         scheduleRepository.save(schedule);
     }
 
     @Override
-    public void update(Schedule schedule) {
-
+    public void delete(Long id) {
+        scheduleRepository.delete(id);
     }
 
     @Override
-    public void delete(Long id) {
-
+    public Schedule findById(Long id) {
+        return scheduleRepository.findById(id);
     }
 
     @Override
@@ -49,10 +49,5 @@ public class ScheduleServiceImpl implements ScheduleService {
         map.put("meetUpId", meetUpId);
         map.put("limit", (long) limit);
         return scheduleRepository.findAll(map);
-    }
-
-    @Override
-    public Schedule findById(Long id) {
-        return null;
     }
 }
