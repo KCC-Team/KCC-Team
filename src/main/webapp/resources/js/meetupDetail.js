@@ -2,7 +2,9 @@ $(function() {
   $(".meetUpmodal").hide();
 
   $("body").on("click", ".schedule", function() {
-    $(".meetUpmodal").trigger("click");
+    // $(".meetUpmodal").trigger("click");
+    let meetupId = window.location.pathname.split('/')[2];
+    loadMeetupDetails(meetupId, $(this).find('input[type="hidden"]').val());
   });
 
   $(".posts").click(function () {
@@ -10,11 +12,6 @@ $(function() {
   });
 
   loadSchedules(1);
-
-  $('.view-meetup-details').on('click', function() {
-    const meetupId = $(this).data('meetup-id');  // 버튼에서 data-meetup-id 속성을 읽어옴
-    loadMeetupDetails(meetupId);
-  });
 });
 
 function loadSchedules(page) {
@@ -42,7 +39,8 @@ function updateScheduleList(schedules) {
             <br>
             <p>일정: ${formatDate(schedule.appointment_time)}</p>
             <p>제한 인원: ${schedule.person}인</p>
-        </div>
+            <input type="hidden" value="${schedule.schedule_id}">
+        </div> 
     `).join('');
   $('#scheduleList').html(html);
 }
@@ -61,27 +59,12 @@ function loadMeetupDetails(meetupId, scheduleId) {
     url: `/meetups/${meetupId}/schedules/${scheduleId}`,
     type: 'GET',
     success: function(response) {
-      updateMeetupModal(response);
       $('#meetUpModal').modal('show');
     },
     error: function(xhr) {
       console.error('Failed to load meetup details:', xhr);
     }
   });
-}
-
-function updateMeetupModal(meetup) {
-  // 모달의 내용을 업데이트
-  $('.modal-body').html(`
-        <h4>🌳 ${meetup.title} 🌳</h4>
-        <p>${meetup.description}</p>
-        <p>일정: ${meetup.date} ${meetup.startTime} ~ ${meetup.endTime}</p>
-        <p>제한인원: ${meetup.limit}인</p>
-        <p>마감 기한: ${meetup.deadline}</p>
-        <p>모임장: ${meetup.host}</p>
-        <div class="meetup-profiles">${meetup.participants.map(p => `<img src="${p.image}" alt="이미지">`).join('')}</div>
-    `);
-  $('.modal-footer').html(`<button type="button" class="btn btn-primary btn-meetup">참가 <span>${meetup.registered} / ${meetup.limit}</span></button>`);
 }
 
 function formatDate(dateString) {

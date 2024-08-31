@@ -15,5 +15,5 @@ public class PageResponseDto {
     private int startPage;
     private int endPage;
 
-    private List<ScheduleResponseDto> responses;
+    private List<ScheduleListResponseDto> responses;
 }

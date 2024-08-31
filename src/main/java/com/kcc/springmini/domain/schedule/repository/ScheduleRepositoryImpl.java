@@ -1,6 +1,8 @@
 package com.kcc.springmini.domain.schedule.repository;
 
 import com.kcc.springmini.domain.schedule.model.ScheduleVO;
+import com.kcc.springmini.domain.schedule.model.dto.ScheduleListResponseDto;
+import com.kcc.springmini.domain.schedule.model.dto.ScheduleResponseDto;
 import com.kcc.springmini.domain.schedule.repository.mapper.ScheduleMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -24,12 +26,12 @@ public class ScheduleRepositoryImpl implements ScheduleRepository {
     }
 
     @Override
-    public ScheduleVO findById(Long id) {
+    public ScheduleResponseDto findById(Long id) {
         return scheduleMapper.findById(id);
     }
 
     @Override
-    public List<ScheduleVO> findAll(Map<String, Long> map) {
+    public List<ScheduleListResponseDto> findAll(Map<String, Long> map) {
         return scheduleMapper.findAll(map);
     }
 

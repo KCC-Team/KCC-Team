@@ -2,6 +2,7 @@ package com.kcc.springmini.domain.schedule.service;
 
 import com.kcc.springmini.domain.schedule.model.ScheduleVO;
 import com.kcc.springmini.domain.schedule.model.dto.PageResponseDto;
+import com.kcc.springmini.domain.schedule.model.dto.ScheduleListResponseDto;
 import com.kcc.springmini.domain.schedule.model.dto.ScheduleResponseDto;
 import com.kcc.springmini.domain.schedule.repository.ScheduleRepository;
 import com.kcc.springmini.global.exception.BadRequestException;
@@ -43,15 +44,14 @@ public class ScheduleServiceImpl implements ScheduleService {
     }
 
     @Override
-    public ScheduleVO findById(Long id) {
+    public ScheduleResponseDto findById(Long id) {
         return scheduleRepository.findById(id);
     }
 
     @Override
     public PageResponseDto findAll(Long meetUpId, int page) {
         Map<String, Long> map = prepareParameters(meetUpId, page, LIMIT);
-        List<ScheduleVO> schedules = scheduleRepository.findAll(map);
-        List<ScheduleResponseDto> list = convertToDtoList(schedules);
+        List<ScheduleListResponseDto> schedules = scheduleRepository.findAll(map);
 
         Long totalCount = scheduleRepository.count(meetUpId);
         int realEndPage = (int) Math.ceil((double) totalCount / LIMIT);
@@ -61,7 +61,7 @@ public class ScheduleServiceImpl implements ScheduleService {
             throw new BadRequestException("존재하지 않는 페이지입니다.", HttpStatus.BAD_REQUEST);
         }
 
-        return new PageResponseDto(page, startPage, endPage, list);
+        return new PageResponseDto(page, startPage, endPage, schedules);
     }
 
     private Map<String, Long> prepareParameters(Long meetUpId, int page, int limit) {
@@ -70,15 +70,5 @@ public class ScheduleServiceImpl implements ScheduleService {
         map.put("offset", (long) (page - 1) * limit);
         map.put("limit", (long) limit);
         return map;
-    }
-
-    private List<ScheduleResponseDto> convertToDtoList(List<ScheduleVO> schedules) {
-        return schedules.stream().map(schedule -> ScheduleResponseDto.builder()
-                .title(schedule.getTitle())
-                .content(schedule.getContent())
-                .person(schedule.getPerson())
-                .deadline(schedule.getDeadline())
-                .appointment_time(schedule.getAppointment_time())
-                .build()).toList();
     }
 }

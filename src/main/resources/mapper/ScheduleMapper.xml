@@ -16,20 +16,21 @@
         delete from MeetUpSchedule where schedule_id = #{id}
     </delete>
 
-    <select id="findById" parameterType="long" resultType="ScheduleVO">
-        select * from MeetUpSchedule where schedule_id = #{id}
+    <select id="findById" parameterType="long" resultType="ScheduleResponseDto">
+        select title, content, appointment_time, person, deadline, m.nickname
+        from MeetUpSchedule ms
+        inner join Member m on ms.member_id = m.member_id
+        where schedule_id = #{id}
     </select>
 
-    <select id="findAll" parameterType="map" resultType="ScheduleVO">
+    <select id="findAll" parameterType="map" resultType="ScheduleListResponseDto">
         <![CDATA[
-        select inline_ms.schedule_id, inline_ms.meet_up_id, inline_ms.member_id,
-               inline_ms.title, inline_ms.content, inline_ms.location, inline_ms.person,
-               inline_ms.deadline, inline_ms.appointment_time
+        select inline_ms.title, inline_ms.content, inline_ms.person,
+               inline_ms.deadline, inline_ms.appointment_time, inline_ms.schedule_id
         from
             (
-                select ms.schedule_id, ms.meet_up_id, ms.member_id,
-                       ms.title, ms.content, ms.location, ms.person,
-                       ms.deadline, ms.appointment_time, ROWNUM rnum
+                select ms.title, ms.content, ms.person,
+                       ms.deadline, ms.appointment_time, schedule_id, ROWNUM rnum
                 from (
                     select *
                     from MeetUpSchedule ms
