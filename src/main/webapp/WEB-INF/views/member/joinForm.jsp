@@ -68,7 +68,9 @@
           <label for="address">주소</label>
           <input type="text" id="address" name="address" placeholder="주소">
       </div>
+
       <input type="hidden" name="isdelete" value="F">
+      <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 
       <button type="submit" class="submit-button">가입하기</button>
   </form>

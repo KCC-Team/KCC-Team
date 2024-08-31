@@ -17,7 +17,7 @@ main {
   background-image: url('../../resources/images/meetup_detail_background.jpg') ;
   opacity: 0.7;
   background-repeat: no-repeat;
-  background-size: 68%;
+  background-size: 70%;
   background-position: center;
   background-color: rgba(255, 255, 255, 0.85);
   z-index: 1;
@@ -49,8 +49,8 @@ main {
 
 .group-details {
   display: flex;
-  align-items: center; /* 세로로 가운데 정렬 */
-  gap: 15px; /* 이미지와 텍스트 사이의 간격 */
+  align-items: center;
+  gap: 15px;
   margin-top: 108px;
   margin-left: 75px;
   z-index: 10;
@@ -68,7 +68,7 @@ main {
   font-size: 24px;
   margin: 0;
   color: white;
-  font-weight: bold; /* 글씨를 굵게 설정 */
+  font-weight: bold;
 
 }
 

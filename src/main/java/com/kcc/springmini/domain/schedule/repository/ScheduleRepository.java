@@ -1,14 +1,14 @@
 package com.kcc.springmini.domain.schedule.repository;
 
-import com.kcc.springmini.domain.schedule.model.Schedule;
+import com.kcc.springmini.domain.schedule.model.ScheduleVO;
 
 import java.util.List;
 import java.util.Map;
 
 public interface ScheduleRepository {
-    void save(Schedule schedule);
-    void update(Schedule schedule);
+    void save(ScheduleVO scheduleVO);
     void delete(Long id);
-    Schedule findById(Long id);
-    List<Schedule> findAll(Map<String, Long> map);
+    ScheduleVO findById(Long id);
+    List<ScheduleVO> findAll(Map<String, Long> map);
+    Long count(Long meetUpId);
 }

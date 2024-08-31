@@ -1,13 +1,11 @@
 package com.kcc.springmini.domain.schedule.service;
 
-import com.kcc.springmini.domain.schedule.model.Schedule;
-
-import java.util.List;
+import com.kcc.springmini.domain.schedule.model.ScheduleVO;
+import com.kcc.springmini.domain.schedule.model.dto.PageResponseDto;
 
 public interface ScheduleService {
-    void save(long meetupId, Schedule schedule);
-    void update(Schedule schedule);
+    void save(long meetupId, ScheduleVO scheduleVO);
     void delete(Long id);
-    List<Schedule> findAll(Long meetUpId, int page);
-    Schedule findById(Long id);
+    ScheduleVO findById(Long id);
+    PageResponseDto findAll(Long meetUpId, int page);
 }
