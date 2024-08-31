@@ -33,19 +33,16 @@
 
 <div class="signup-container">
   <h2 class="form-title">회원 정보 입력</h2>
-  <form action="#" method="post">
+
+  <form id="form1" action="/members/save" method="post">
       <div class="form-group">
           <label for="username">아이디</label>
           <input type="text" id="username" name="username"  placeholder="아이디">
-          <a href="#" class="duplicate-check">중복확인</a>
+          <a href="#" class="duplicate-check" onclick="duplicate_check();">중복확인</a>
       </div>
       <div class="form-group">
           <label for="password">비밀번호</label>
           <input type="password" id="password" name="password"  placeholder="비밀번호">
-      </div> 
-      <div class="form-group">
-          <label for="password-confirm">비밀번호확인</label>
-          <input type="password" id="password-confirm" name="password-confirm" placeholder="비밀번호 확인">
       </div>
       <div class="form-group">
           <label for="nickname">이름</label>
@@ -53,11 +50,11 @@
       </div>
       <div class="form-group">
           <label for="gender">성별</label>
-          <input type="text" id="gender" name="gender" placeholder="성별">
+          <input type="text" id="gender" name="gender" placeholder="M">
       </div>
       <div class="form-group">
           <label for="birthdate">생년월일</label>
-          <input type="text" id="birthdate" name="birthdate" placeholder="생년월일">
+          <input type="text" id="birthdate" name="birthdate" placeholder="yyyy/mm/dd">
       </div>
       <div class="form-group">
           <label for="email">이메일</label>
@@ -71,8 +68,11 @@
           <label for="address">주소</label>
           <input type="text" id="address" name="address" placeholder="주소">
       </div>
+      <input type="hidden" name="isdelete" value="F">
+
       <button type="submit" class="submit-button">가입하기</button>
   </form>
+
 </div>
 
 <footer>
@@ -81,5 +81,6 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+<script src="../../../resources/js/joinForm.js"></script>
 </body>
 </html>

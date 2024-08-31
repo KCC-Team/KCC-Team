@@ -22,5 +22,4 @@ public class MeetUpController {
    public String postDetail() {
        return "meetup/postDetail";
    }
-
 }
