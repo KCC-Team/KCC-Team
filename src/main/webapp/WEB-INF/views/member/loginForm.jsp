@@ -24,7 +24,7 @@
   <link rel="stylesheet" type="text/css" href="../../../resources/common/common.css" />
   <link rel="stylesheet" type="text/css" href="../../../resources/css/login.css" />
 
-  <title>Document</title>
+  <title>PET KCC</title>
 </head>
 <body>
 

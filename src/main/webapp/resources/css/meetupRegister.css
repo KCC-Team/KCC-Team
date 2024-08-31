@@ -52,7 +52,8 @@
   cursor: pointer;
   margin-top: 50px;
 }
-input[type=text], input[type=password], #intro, select {
+input[type=text], input[type=password],
+#intro, #content, select {
   border: 1px solid #ccc;
 }
 
@@ -60,7 +61,7 @@ select {
   width: 100px;
 }
 
-#intro {
+#intro, #content {
   width: 300px;
-  height: 250px;
+  height: 100px;
 }
