@@ -5,12 +5,15 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class PageDto {
+public class PageResponseDto {
     private int currentPage;
-    private int totalPage;
     private int startPage;
     private int endPage;
+
+    private List<ScheduleResponseDto> responses;
 }

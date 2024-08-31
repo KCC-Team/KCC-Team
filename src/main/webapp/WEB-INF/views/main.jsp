@@ -30,7 +30,7 @@
 
     <%@ include file="../../resources/common/header.jsp" %>
 
-    <section style="height: 800px">
+    <section class="d-flex flex-column align-items-center min-vh-100">
       <div class="container custom-container">
         <section class="row search-bar">
           <div class="row">
