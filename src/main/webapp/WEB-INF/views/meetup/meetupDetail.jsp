@@ -127,25 +127,26 @@
 
     <!-- 모임일정 Modal -->
     <div class="modal fade" id="meetUpModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <h4>🌳 ${schedule.title} 🌳</h4>
+                    <br>
                     <p>${schedule.content}</p>
                     <p>일정: ${schedule.appointment_time}</p>
                     <p>제한인원: ${schedule.person}인</p>
-                    <p>마감 기한: ${schedule.deadline}</p>
+                    <p>마감일: ${schedule.deadline}</p>
                     <p>모임장: ${schedule.leader}</p>
                     <!-- 예시 이미지 -->
                     <span class="meetup-profile">
                     <img src="#" alt="이미지"> <!-- 실제 이미지 경로 필요 -->
-                </span>
-                    <span class="meetup-profile">
-                    <img src="#" alt="이미지"> <!-- 실제 이미지 경로 필요 -->
-                </span>
+                    </span>
+                        <span class="meetup-profile">
+                        <img src="#" alt="이미지"> <!-- 실제 이미지 경로 필요 -->
+                    </span>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary btn-meetup">참가 <span>${schedule.person} / 4</span></button>

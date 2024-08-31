@@ -59,6 +59,20 @@ function loadMeetupDetails(meetupId, scheduleId) {
     url: `/meetups/${meetupId}/schedules/${scheduleId}`,
     type: 'GET',
     success: function(response) {
+      let appointment_time = formatDate(response.appointment_time);
+        let deadline = formatDate(response.deadline);
+
+        $('#meetUpModal .modal-body').html(`
+        <h4><strong>${response.title}</strong></h4>
+        <br>
+        <p>${response.content}</p>
+        <br>
+        <p>일정: ${appointment_time}</p>
+        <p>제한인원: ${response.person}인</p>
+        <p>모임장: ${response.leader}</p>
+        <br>
+        <p>마감일: <strong>${deadline}</strong> 까지</p>
+        `);
       $('#meetUpModal').modal('show');
     },
     error: function(xhr) {

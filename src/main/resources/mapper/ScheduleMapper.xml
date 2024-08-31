@@ -20,6 +20,7 @@
         select title, content, appointment_time, person, deadline, m.nickname
         from MeetUpSchedule ms
         inner join Member m on ms.member_id = m.member_id
+        inner join Sche
         where schedule_id = #{id}
     </select>
 

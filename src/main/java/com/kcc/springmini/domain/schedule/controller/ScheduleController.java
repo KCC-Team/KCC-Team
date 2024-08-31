@@ -32,10 +32,9 @@ public class ScheduleController {
     }
 
     @GetMapping("/{id}")
-    public String findById(@PathVariable(value = "id") Long id, Model model) {
-        ScheduleResponseDto response = scheduleService.findById(id);
-        model.addAttribute("schedule", response);
-        return "meetup/meetupDetail";
+    @ResponseBody
+    public ResponseEntity<ScheduleResponseDto> findById(@PathVariable(value = "id") Long id) {
+        return ResponseEntity.ok().body(scheduleService.findById(id));
     }
 
     @GetMapping
