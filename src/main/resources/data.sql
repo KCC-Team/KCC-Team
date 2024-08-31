@@ -366,6 +366,276 @@ INSERT INTO MeetUpSchedule VALUES (SEQ_MEETUPSCHEDULE.nextval, 3, 7,
                                    TO_TIMESTAMP('2024-09-25 18:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp
                                   );
 
+INSERT INTO MeetUpSchedule VALUES (SEQ_MEETUPSCHEDULE.nextval, 3, 4,
+                                   '🌳 흑석동 반려견 모임 공지 🌳 12',
+                                   '안녕하세요, 귀여운 강아지 동호회 회원 여러분! 다가오는 주말, 강아지들과 함께 즐거운 시간을 보낼 모임을 준비했습니다',
+                                   '창경궁로 254 동원빌딩 1층', 4,
+                                   TO_TIMESTAMP('2024-09-30 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),
+                                   TO_TIMESTAMP('2024-09-30 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp
+                                  );
+
+
+INSERT INTO MeetUpSchedule VALUES (SEQ_MEETUPSCHEDULE.nextval, 3, 4,
+                                   '🌳 흑석동 반려견 모임 공지 🌳 13',
+                                   '안녕하세요, 귀여운 강아지 동호회 회원 여러분! 다가오는 주말, 강아지들과 함께 즐거운 시간을 보낼 모임을 준비했습니다',
+                                   '창경궁로 254 동원빌딩 1층', 9,
+                                   TO_TIMESTAMP('2024-09-03 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),
+                                   TO_TIMESTAMP('2024-09-03 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp
+                                  );
+
+
+INSERT INTO MeetUpSchedule VALUES (SEQ_MEETUPSCHEDULE.nextval, 4, 7,
+                                   '🌳 흑석동 반려견 모임 공지 🌳 14',
+                                   '안녕하세요, 귀여운 강아지 동호회 회원 여러분! 다가오는 주말, 강아지들과 함께 즐거운 시간을 보낼 모임을 준비했습니다',
+                                   '창경궁로 254 동원빌딩 1층', 4,
+                                   TO_TIMESTAMP('2024-09-12 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),
+                                   TO_TIMESTAMP('2024-09-12 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp
+                                  );
+
+
+INSERT INTO MeetUpSchedule VALUES (SEQ_MEETUPSCHEDULE.nextval, 4, 7,
+                                   '🌳 흑석동 반려견 모임 공지 🌳 15',
+                                   '안녕하세요, 귀여운 강아지 동호회 회원 여러분! 다가오는 주말, 강아지들과 함께 즐거운 시간을 보낼 모임을 준비했습니다',
+                                   '창경궁로 254 동원빌딩 1층', 6,
+                                   TO_TIMESTAMP('2024-09-16 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),
+                                   TO_TIMESTAMP('2024-09-16 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp
+                                  );
+
+
+INSERT INTO MeetUpSchedule VALUES (SEQ_MEETUPSCHEDULE.nextval, 4, 7,
+                                   '🌳 흑석동 반려견 모임 공지 🌳 16',
+                                   '안녕하세요, 귀여운 강아지 동호회 회원 여러분! 다가오는 주말, 강아지들과 함께 즐거운 시간을 보낼 모임을 준비했습니다',
+                                   '창경궁로 254 동원빌딩 1층', 2,
+                                   TO_TIMESTAMP('2024-09-30 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),
+                                   TO_TIMESTAMP('2024-09-30 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp
+                                  );
+
+
+INSERT INTO MeetUpSchedule VALUES (SEQ_MEETUPSCHEDULE.nextval, 4, 3,
+                                   '🌳 흑석동 반려견 모임 공지 🌳 17',
+                                   '안녕하세요, 귀여운 강아지 동호회 회원 여러분! 다가오는 주말, 강아지들과 함께 즐거운 시간을 보낼 모임을 준비했습니다',
+                                   '창경궁로 254 동원빌딩 1층', 5,
+                                   TO_TIMESTAMP('2024-09-30 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),
+                                   TO_TIMESTAMP('2024-09-30 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp
+                                  );
+
+
+INSERT INTO MeetUpSchedule VALUES (SEQ_MEETUPSCHEDULE.nextval, 3, 1,
+                                   '🌳 흑석동 반려견 모임 공지 🌳 18',
+                                   '안녕하세요, 귀여운 강아지 동호회 회원 여러분! 다가오는 주말, 강아지들과 함께 즐거운 시간을 보낼 모임을 준비했습니다',
+                                   '창경궁로 254 동원빌딩 1층', 3,
+                                   TO_TIMESTAMP('2024-09-08 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),
+                                   TO_TIMESTAMP('2024-09-08 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp
+                                  );
+
+
+INSERT INTO MeetUpSchedule VALUES (SEQ_MEETUPSCHEDULE.nextval, 4, 7,
+                                   '🌳 흑석동 반려견 모임 공지 🌳 19',
+                                   '안녕하세요, 귀여운 강아지 동호회 회원 여러분! 다가오는 주말, 강아지들과 함께 즐거운 시간을 보낼 모임을 준비했습니다',
+                                   '창경궁로 254 동원빌딩 1층', 1,
+                                   TO_TIMESTAMP('2024-09-29 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),
+                                   TO_TIMESTAMP('2024-09-29 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp
+                                  );
+
+
+INSERT INTO MeetUpSchedule VALUES (SEQ_MEETUPSCHEDULE.nextval, 3, 1,
+                                   '🌳 흑석동 반려견 모임 공지 🌳 20',
+                                   '안녕하세요, 귀여운 강아지 동호회 회원 여러분! 다가오는 주말, 강아지들과 함께 즐거운 시간을 보낼 모임을 준비했습니다',
+                                   '창경궁로 254 동원빌딩 1층', 8,
+                                   TO_TIMESTAMP('2024-10-01 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),
+                                   TO_TIMESTAMP('2024-10-01 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp
+                                  );
+
+
+INSERT INTO MeetUpSchedule VALUES (SEQ_MEETUPSCHEDULE.nextval, 4, 3,
+                                   '🌳 흑석동 반려견 모임 공지 🌳 21',
+                                   '안녕하세요, 귀여운 강아지 동호회 회원 여러분! 다가오는 주말, 강아지들과 함께 즐거운 시간을 보낼 모임을 준비했습니다',
+                                   '창경궁로 254 동원빌딩 1층', 7,
+                                   TO_TIMESTAMP('2024-10-01 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),
+                                   TO_TIMESTAMP('2024-10-01 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp
+                                  );
+
+
+INSERT INTO MeetUpSchedule VALUES (SEQ_MEETUPSCHEDULE.nextval, 3, 1,
+                                   '🌳 흑석동 반려견 모임 공지 🌳 22',
+                                   '안녕하세요, 귀여운 강아지 동호회 회원 여러분! 다가오는 주말, 강아지들과 함께 즐거운 시간을 보낼 모임을 준비했습니다',
+                                   '창경궁로 254 동원빌딩 1층', 7,
+                                   TO_TIMESTAMP('2024-09-05 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),
+                                   TO_TIMESTAMP('2024-09-05 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp
+                                  );
+
+
+INSERT INTO MeetUpSchedule VALUES (SEQ_MEETUPSCHEDULE.nextval, 4, 7,
+                                   '🌳 흑석동 반려견 모임 공지 🌳 23',
+                                   '안녕하세요, 귀여운 강아지 동호회 회원 여러분! 다가오는 주말, 강아지들과 함께 즐거운 시간을 보낼 모임을 준비했습니다',
+                                   '창경궁로 254 동원빌딩 1층', 2,
+                                   TO_TIMESTAMP('2024-09-04 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),
+                                   TO_TIMESTAMP('2024-09-04 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp
+                                  );
+
+
+INSERT INTO MeetUpSchedule VALUES (SEQ_MEETUPSCHEDULE.nextval, 4, 7,
+                                   '🌳 흑석동 반려견 모임 공지 🌳 24',
+                                   '안녕하세요, 귀여운 강아지 동호회 회원 여러분! 다가오는 주말, 강아지들과 함께 즐거운 시간을 보낼 모임을 준비했습니다',
+                                   '창경궁로 254 동원빌딩 1층', 10,
+                                   TO_TIMESTAMP('2024-09-04 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),
+                                   TO_TIMESTAMP('2024-09-04 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp
+                                  );
+
+
+INSERT INTO MeetUpSchedule VALUES (SEQ_MEETUPSCHEDULE.nextval, 4, 3,
+                                   '🌳 흑석동 반려견 모임 공지 🌳 25',
+                                   '안녕하세요, 귀여운 강아지 동호회 회원 여러분! 다가오는 주말, 강아지들과 함께 즐거운 시간을 보낼 모임을 준비했습니다',
+                                   '창경궁로 254 동원빌딩 1층', 6,
+                                   TO_TIMESTAMP('2024-09-06 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),
+                                   TO_TIMESTAMP('2024-09-06 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp
+                                  );
+
+
+INSERT INTO MeetUpSchedule VALUES (SEQ_MEETUPSCHEDULE.nextval, 4, 3,
+                                   '🌳 흑석동 반려견 모임 공지 🌳 26',
+                                   '안녕하세요, 귀여운 강아지 동호회 회원 여러분! 다가오는 주말, 강아지들과 함께 즐거운 시간을 보낼 모임을 준비했습니다',
+                                   '창경궁로 254 동원빌딩 1층', 2,
+                                   TO_TIMESTAMP('2024-09-19 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),
+                                   TO_TIMESTAMP('2024-09-19 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp
+                                  );
+
+
+INSERT INTO MeetUpSchedule VALUES (SEQ_MEETUPSCHEDULE.nextval, 4, 7,
+                                   '🌳 흑석동 반려견 모임 공지 🌳 27',
+                                   '안녕하세요, 귀여운 강아지 동호회 회원 여러분! 다가오는 주말, 강아지들과 함께 즐거운 시간을 보낼 모임을 준비했습니다',
+                                   '창경궁로 254 동원빌딩 1층', 7,
+                                   TO_TIMESTAMP('2024-09-14 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),
+                                   TO_TIMESTAMP('2024-09-14 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp
+                                  );
+
+
+INSERT INTO MeetUpSchedule VALUES (SEQ_MEETUPSCHEDULE.nextval, 3, 1,
+                                   '🌳 흑석동 반려견 모임 공지 🌳 28',
+                                   '안녕하세요, 귀여운 강아지 동호회 회원 여러분! 다가오는 주말, 강아지들과 함께 즐거운 시간을 보낼 모임을 준비했습니다',
+                                   '창경궁로 254 동원빌딩 1층', 4,
+                                   TO_TIMESTAMP('2024-10-01 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),
+                                   TO_TIMESTAMP('2024-10-01 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp
+                                  );
+
+
+INSERT INTO MeetUpSchedule VALUES (SEQ_MEETUPSCHEDULE.nextval, 4, 3,
+                                   '🌳 흑석동 반려견 모임 공지 🌳 29',
+                                   '안녕하세요, 귀여운 강아지 동호회 회원 여러분! 다가오는 주말, 강아지들과 함께 즐거운 시간을 보낼 모임을 준비했습니다',
+                                   '창경궁로 254 동원빌딩 1층', 2,
+                                   TO_TIMESTAMP('2024-09-28 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),
+                                   TO_TIMESTAMP('2024-09-28 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp
+                                  );
+
+
+INSERT INTO MeetUpSchedule VALUES (SEQ_MEETUPSCHEDULE.nextval, 4, 7,
+                                   '🌳 흑석동 반려견 모임 공지 🌳 30',
+                                   '안녕하세요, 귀여운 강아지 동호회 회원 여러분! 다가오는 주말, 강아지들과 함께 즐거운 시간을 보낼 모임을 준비했습니다',
+                                   '창경궁로 254 동원빌딩 1층', 7,
+                                   TO_TIMESTAMP('2024-09-14 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),
+                                   TO_TIMESTAMP('2024-09-14 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp
+                                  );
+
+
+INSERT INTO MeetUpSchedule VALUES (SEQ_MEETUPSCHEDULE.nextval, 3, 4,
+                                   '🌳 흑석동 반려견 모임 공지 🌳 31',
+                                   '안녕하세요, 귀여운 강아지 동호회 회원 여러분! 다가오는 주말, 강아지들과 함께 즐거운 시간을 보낼 모임을 준비했습니다',
+                                   '창경궁로 254 동원빌딩 1층', 5,
+                                   TO_TIMESTAMP('2024-09-25 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),
+                                   TO_TIMESTAMP('2024-09-25 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp
+                                  );
+
+
+INSERT INTO MeetUpSchedule VALUES (SEQ_MEETUPSCHEDULE.nextval, 4, 7,
+                                   '🌳 흑석동 반려견 모임 공지 🌳 32',
+                                   '안녕하세요, 귀여운 강아지 동호회 회원 여러분! 다가오는 주말, 강아지들과 함께 즐거운 시간을 보낼 모임을 준비했습니다',
+                                   '창경궁로 254 동원빌딩 1층', 5,
+                                   TO_TIMESTAMP('2024-09-24 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),
+                                   TO_TIMESTAMP('2024-09-24 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp
+                                  );
+
+
+INSERT INTO MeetUpSchedule VALUES (SEQ_MEETUPSCHEDULE.nextval, 4, 7,
+                                   '🌳 흑석동 반려견 모임 공지 🌳 33',
+                                   '안녕하세요, 귀여운 강아지 동호회 회원 여러분! 다가오는 주말, 강아지들과 함께 즐거운 시간을 보낼 모임을 준비했습니다',
+                                   '창경궁로 254 동원빌딩 1층', 4,
+                                   TO_TIMESTAMP('2024-09-30 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),
+                                   TO_TIMESTAMP('2024-09-30 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp
+                                  );
+
+
+INSERT INTO MeetUpSchedule VALUES (SEQ_MEETUPSCHEDULE.nextval, 3, 4,
+                                   '🌳 흑석동 반려견 모임 공지 🌳 34',
+                                   '안녕하세요, 귀여운 강아지 동호회 회원 여러분! 다가오는 주말, 강아지들과 함께 즐거운 시간을 보낼 모임을 준비했습니다',
+                                   '창경궁로 254 동원빌딩 1층', 7,
+                                   TO_TIMESTAMP('2024-09-24 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),
+                                   TO_TIMESTAMP('2024-09-24 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp
+                                  );
+
+
+INSERT INTO MeetUpSchedule VALUES (SEQ_MEETUPSCHEDULE.nextval, 4, 3,
+                                   '🌳 흑석동 반려견 모임 공지 🌳 35',
+                                   '안녕하세요, 귀여운 강아지 동호회 회원 여러분! 다가오는 주말, 강아지들과 함께 즐거운 시간을 보낼 모임을 준비했습니다',
+                                   '창경궁로 254 동원빌딩 1층', 3,
+                                   TO_TIMESTAMP('2024-09-24 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),
+                                   TO_TIMESTAMP('2024-09-24 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp
+                                  );
+
+
+INSERT INTO MeetUpSchedule VALUES (SEQ_MEETUPSCHEDULE.nextval, 4, 7,
+                                   '🌳 흑석동 반려견 모임 공지 🌳 36',
+                                   '안녕하세요, 귀여운 강아지 동호회 회원 여러분! 다가오는 주말, 강아지들과 함께 즐거운 시간을 보낼 모임을 준비했습니다',
+                                   '창경궁로 254 동원빌딩 1층', 8,
+                                   TO_TIMESTAMP('2024-09-27 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),
+                                   TO_TIMESTAMP('2024-09-27 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp
+                                  );
+
+
+INSERT INTO MeetUpSchedule VALUES (SEQ_MEETUPSCHEDULE.nextval, 4, 7,
+                                   '🌳 흑석동 반려견 모임 공지 🌳 37',
+                                   '안녕하세요, 귀여운 강아지 동호회 회원 여러분! 다가오는 주말, 강아지들과 함께 즐거운 시간을 보낼 모임을 준비했습니다',
+                                   '창경궁로 254 동원빌딩 1층', 6,
+                                   TO_TIMESTAMP('2024-09-09 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),
+                                   TO_TIMESTAMP('2024-09-09 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp
+                                  );
+
+
+INSERT INTO MeetUpSchedule VALUES (SEQ_MEETUPSCHEDULE.nextval, 3, 1,
+                                   '🌳 흑석동 반려견 모임 공지 🌳 38',
+                                   '안녕하세요, 귀여운 강아지 동호회 회원 여러분! 다가오는 주말, 강아지들과 함께 즐거운 시간을 보낼 모임을 준비했습니다',
+                                   '창경궁로 254 동원빌딩 1층', 4,
+                                   TO_TIMESTAMP('2024-09-22 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),
+                                   TO_TIMESTAMP('2024-09-22 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp
+                                  );
+
+
+INSERT INTO MeetUpSchedule VALUES (SEQ_MEETUPSCHEDULE.nextval, 3, 4,
+                                   '🌳 흑석동 반려견 모임 공지 🌳 39',
+                                   '안녕하세요, 귀여운 강아지 동호회 회원 여러분! 다가오는 주말, 강아지들과 함께 즐거운 시간을 보낼 모임을 준비했습니다',
+                                   '창경궁로 254 동원빌딩 1층', 3,
+                                   TO_TIMESTAMP('2024-09-03 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),
+                                   TO_TIMESTAMP('2024-09-03 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp
+                                  );
+
+
+INSERT INTO MeetUpSchedule VALUES (SEQ_MEETUPSCHEDULE.nextval, 3, 4,
+                                   '🌳 흑석동 반려견 모임 공지 🌳 40',
+                                   '안녕하세요, 귀여운 강아지 동호회 회원 여러분! 다가오는 주말, 강아지들과 함께 즐거운 시간을 보낼 모임을 준비했습니다',
+                                   '창경궁로 254 동원빌딩 1층', 2,
+                                   TO_TIMESTAMP('2024-09-03 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),
+                                   TO_TIMESTAMP('2024-09-03 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp
+                                  );
+
+
+INSERT INTO MeetUpSchedule VALUES (SEQ_MEETUPSCHEDULE.nextval, 3, 4,
+                                   '🌳 흑석동 반려견 모임 공지 🌳 41',
+                                   '안녕하세요, 귀여운 강아지 동호회 회원 여러분! 다가오는 주말, 강아지들과 함께 즐거운 시간을 보낼 모임을 준비했습니다',
+                                   '창경궁로 254 동원빌딩 1층', 1,
+                                   TO_TIMESTAMP('2024-09-04 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),
+                                   TO_TIMESTAMP('2024-09-04 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp
+                                  );
+
+
 ------------------------------------------------------------------
 
 create table schedulebelongmember (

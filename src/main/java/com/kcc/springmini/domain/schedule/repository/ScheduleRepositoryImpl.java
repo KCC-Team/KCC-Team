@@ -1,6 +1,6 @@
 package com.kcc.springmini.domain.schedule.repository;
 
-import com.kcc.springmini.domain.schedule.model.Schedule;
+import com.kcc.springmini.domain.schedule.model.ScheduleVO;
 import com.kcc.springmini.domain.schedule.repository.mapper.ScheduleMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -14,8 +14,8 @@ public class ScheduleRepositoryImpl implements ScheduleRepository {
     private final ScheduleMapper scheduleMapper;
 
     @Override
-    public void save(Schedule schedule) {
-        scheduleMapper.save(schedule);
+    public void save(ScheduleVO scheduleVO) {
+        scheduleMapper.save(scheduleVO);
     }
 
     @Override
@@ -24,12 +24,17 @@ public class ScheduleRepositoryImpl implements ScheduleRepository {
     }
 
     @Override
-    public Schedule findById(Long id) {
+    public ScheduleVO findById(Long id) {
         return scheduleMapper.findById(id);
     }
 
     @Override
-    public List<Schedule> findAll(Map<String, Long> map) {
+    public List<ScheduleVO> findAll(Map<String, Long> map) {
         return scheduleMapper.findAll(map);
+    }
+
+    @Override
+    public Long count(Long meetUpId) {
+        return scheduleMapper.count(meetUpId);
     }
 }
