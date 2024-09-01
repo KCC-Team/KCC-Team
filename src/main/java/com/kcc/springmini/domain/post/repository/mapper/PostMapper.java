@@ -10,4 +10,5 @@ import java.util.Map;
 public interface PostMapper {
     public List<PostVO> findAll(Long meetUpId);
     public List<PostVO> findAllWithPaging(Map<String, Object> params);
+    public PostVO findById(Long postId);
 }

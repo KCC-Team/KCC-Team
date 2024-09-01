@@ -20,17 +20,23 @@ public class PostServiceImpl implements PostService{
         return postMapper.findAll(meetUpId);
     }
 
+
     @Override
-    public List<PostVO> findAllWithPaging(int meetUpId, int currentPage, int pageSize) {
-        int offset = (currentPage - 1) * pageSize;
+    public List<PostVO> findAllWithPaging(Long meetUpId, int pageNum, int pageSize) {
+        int startRow = (pageNum - 1) * pageSize + 1;
+        int endRow = pageNum * pageSize;
 
         Map<String, Object> params = new HashMap<>();
         params.put("meetUpId", meetUpId);
-        params.put("pageSize", pageSize);
-        params.put("offset", offset);
+        params.put("startRow", startRow);
+        params.put("endRow", endRow);
 
         return postMapper.findAllWithPaging(params);
     }
 
+    @Override
+    public PostVO findById(Long postId) {
+        return postMapper.findById(postId);
+    }
 
 }
