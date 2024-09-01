@@ -26,9 +26,21 @@ public class ScheduleController {
         scheduleService.save(meetupId, scheduleVO);
     }
 
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable(value = "id") Long id) {
+    @PostMapping("/{id}/participate")
+    public String participate(
+            @PathVariable(value = "meetupId") Long meetupId,
+            @PathVariable(value = "id") Long id,
+            @RequestParam(value = "member") Long memberId, Model model) {
+        scheduleService.participateSchedule(meetupId, id, memberId);
+        model.addAttribute("alert", "참여가 완료되었습니다.");
+        return "redirect:/meetups/" + meetupId;
+    }
+
+    // ajax delete 미지원
+    @PostMapping("/{id}")
+    public String delete(@PathVariable(value = "meetupId") Long meetupId, @PathVariable(value = "id") Long id) {
         scheduleService.delete(id);
+        return "redirect:/meetups/" + meetupId;
     }
 
     @GetMapping("/{id}")

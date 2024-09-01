@@ -10,8 +10,11 @@ import java.util.Map;
 
 @Mapper
 public interface ScheduleMapper {
-    void save(ScheduleVO scheduleVO);
-    void delete(Long id);
+    int save(ScheduleVO scheduleVO);
+    int lockScheduleMember(Long scheduleId);
+    int updateSchedulePerson(Long scheduleId);
+    int saveMember(Map<String, Long> map);
+    int delete(Long id);
     ScheduleResponseDto findById(Long id);
     List<ScheduleListResponseDto> findAll(Map<String, Long> map);
     Long count(Long meetUpId);

@@ -16,13 +16,28 @@ public class ScheduleRepositoryImpl implements ScheduleRepository {
     private final ScheduleMapper scheduleMapper;
 
     @Override
-    public void save(ScheduleVO scheduleVO) {
-        scheduleMapper.save(scheduleVO);
+    public int save(ScheduleVO scheduleVO) {
+        return scheduleMapper.save(scheduleVO);
     }
 
     @Override
-    public void delete(Long id) {
-        scheduleMapper.delete(id);
+    public int lockScheduleMember(Long scheduleId) {
+        return scheduleMapper.lockScheduleMember(scheduleId);
+    }
+
+    @Override
+    public int updateSchedulePerson(Long scheduleId) {
+        return scheduleMapper.updateSchedulePerson(scheduleId);
+    }
+
+    @Override
+    public int saveMember(Map<String, Long> map) {
+        return scheduleMapper.saveMember(map);
+    }
+
+    @Override
+    public int delete(Long id) {
+        return scheduleMapper.delete(id);
     }
 
     @Override
