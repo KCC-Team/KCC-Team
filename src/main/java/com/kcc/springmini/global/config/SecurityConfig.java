@@ -38,7 +38,7 @@ public class SecurityConfig {
         );
         http.authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
-                                .requestMatchers("/meetup/postDetail").authenticated()
+                                .requestMatchers("/meetups/postDetail").authenticated()
                                 .requestMatchers("/members/mypage").authenticated()
                                 .anyRequest().permitAll()
                 ).formLogin(formLogin -> formLogin.loginPage("/members/loginForm") // 로그인 페이지 지정

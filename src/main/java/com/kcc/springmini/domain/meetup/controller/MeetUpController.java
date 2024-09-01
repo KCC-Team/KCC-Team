@@ -3,6 +3,7 @@ package com.kcc.springmini.domain.meetup.controller;
 import com.kcc.springmini.domain.meetup.service.MeetUpService;
 import com.kcc.springmini.domain.post.model.vo.PostVO;
 import com.kcc.springmini.domain.post.service.PostService;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,5 +30,9 @@ public class MeetUpController {
         return "meetup/meetupDetail";
     }
 
+    @GetMapping("/register")
+    public String register() {
+        return "meetup/meetupRegister";
+    }
 
 }
