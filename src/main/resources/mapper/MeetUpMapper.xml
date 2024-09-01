@@ -8,7 +8,7 @@
 
 
     <select id="getMemberTotal" resultType="int" parameterType="Long">
-        SELECT COUNT(*) FROM KCC.BELONGMEMBER WHERE MEET_UP_ID = #{meetUpId}
+        SELECT COUNT(*) FROM BELONGMEMBER WHERE MEET_UP_ID = #{meetUpId}
     </select>
 
 </mapper>

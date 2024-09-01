@@ -5,6 +5,6 @@ import com.kcc.springmini.domain.post.model.vo.PostVO;
 import java.util.List;
 
 public interface PostService {
-    public List<PostVO> findAll(Long meetUpId);
-    public List<PostVO> findAllWithPaging(int meetUpId, int currentPage, int pageSize);
+    List<PostVO> findAll(Long meetUpId);
+    List<PostVO> findAllWithPaging(int meetUpId, int currentPage, int pageSize);
 }
