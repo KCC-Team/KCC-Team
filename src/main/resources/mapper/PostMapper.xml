@@ -25,6 +25,27 @@
     </select>
 
 
+<!--    <select id="findAllWithPaging" parameterType="map" resultMap="postResult">-->
+<!--        SELECT-->
+<!--            B.BOARD_ID,-->
+<!--            B.TITLE,-->
+<!--            B.CONTENT,-->
+<!--            M.NICKNAME,-->
+<!--            B.CREATED_AT,-->
+<!--            B.MEMBER_ID as b_member_id-->
+<!--        FROM-->
+<!--            BOARD B-->
+<!--                JOIN-->
+<!--            MEMBER M ON B.MEMBER_ID = M.MEMBER_ID-->
+<!--        WHERE-->
+<!--            B.MEET_UP_ID = #{meetUpId}-->
+<!--        ORDER BY-->
+<!--            B.CREATED_AT DESC-->
+<!--            LIMIT-->
+<!--            #{pageSize}-->
+<!--        OFFSET-->
+<!--            #{offset}-->
+<!--    </select>-->
 
 
 </mapper>
