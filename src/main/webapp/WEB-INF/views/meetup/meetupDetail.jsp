@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
-
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -43,8 +43,8 @@
             <span class="total-board">총게시글</span>
             <span class="member-count">모임인원</span>
         </p>
-        <span class="meet-total-count">13</span>
-        <span class="meet-member-count">5</span>
+        <span class="meet-total-count">${totalPosts}</span>
+        <span class="meet-member-count">${totalMembers}</span>
       </div>
   </section>
 
@@ -59,35 +59,23 @@
                 </div>
             </form>
 
-            <div class="posts">
-                <span class="profile-group">
-                    <span class="profile-photo">
-                        <img src="#" alt="이미지">
+            <c:forEach var="post" items="${posts}">
+                <div class="posts">
+                    <span class="profile-group">
+                        <span class="profile-photo">
+                            <img src="#" alt="이미지">
+                        </span>
+                        <span class="profile-info">
+                            <span class="author">${post.member.nickname}</span>
+                            <span class="date">${post.createdAt}</span>
+                        </span>
                     </span>
-                    <span class="profile-info">
-                        <span class="author">이수호</span>
-                        <span class="date">2024.08.28</span>
+                    <span class="post">
+                        <p class="post-text">${post.title}</p><br>
+                        <p class="post-text">${post.content}</p>
                     </span>
-                </span>
-                <span class="post">
-                    <p class="post-text">초보 반려인을 위한 반려견 기본 훈련 팁! 내용: 안녕하세요, 강아지를 키우기 시작한 지 얼마 안 된 초보 반려인입니다...</p>
-                </span>
-            </div>
-
-            <div class="posts">
-                <span class="profile-group">
-                    <span class="profile-photo">
-                        <img src="#" alt="이미지">
-                    </span>
-                    <span class="profile-info">
-                        <span class="author">이수호</span>
-                        <span class="date">2024.08.28</span>
-                    </span>
-                </span>
-                <span class="post">
-                    <p class="post-text">초보 반려인을 위한 반려견 기본 훈련 팁! 내용: 안녕하세요, 강아지를 키우기 시작한 지 얼마 안 된 초보 반려인입니다...</p>
-                </span>
-            </div>
+                </div>
+            </c:forEach>
 
             <div class="pagination">
                 <span>이전</span>
