@@ -11,7 +11,7 @@
 
     <script src="https://code.jquery.com/jquery-latest.min.js"></script>
     <script src="../../../resources/common/common.js" type="text/javascript"></script>
-
+    <link rel="icon" href="../../../resources/images/spring-logo.ico" />
     <link
             href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
             rel="stylesheet"
@@ -97,18 +97,29 @@
     <aside class="schedule-sec">
             <span class="schedule-header">
                 <span class="meet-date">일정</span>
-                <a href="#">일정 생성</a>
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#createMeetUpModal">
+                  일정 생성
+                </button>
             </span>
 
-        <div id="scheduleList"></div>
-        <div class="pagination">
-            <span>이전</span>
-            <span class="active">1</span>
-            <span>2</span>
-            <span>3</span>
-            <span>4</span>
-            <span>5</span>
-            <span>다음</span>
+        <div id="scheduleList">
+            <c:forEach var="schedule" items="${schedules.responses}">
+                <div class="schedule">
+                    <h4><strong>🌳 ${schedule.title} 🌳</strong></h4>
+                    <p>${schedule.content}</p>
+                    <br>
+                    <p>일정: ${schedule.appointment_time}</p>
+                    <p>제한 인원: ${schedule.person}인</p>
+                    <input type="hidden" value="${schedule.schedule_id}">
+                </div>
+            </c:forEach>
+        </div>
+        <div class="schedule-sec pagination">
+                <span onclick="loadSchedules(${schedules.currentPage} - 1)">이전</span>
+            <c:forEach begin="${schedules.startPage}" end="${schedules.endPage}" var="i">
+                <span class="${i == schedules.currentPage ? 'active' : ''}" onclick="loadSchedules(${i})">${i}</span>
+            </c:forEach>
+                <span onclick="loadSchedules(${schedules.currentPage} + 1)">다음</span>
         </div>
     </aside>
 </main>
@@ -162,7 +173,7 @@
 
 <!-- 모임일정 Modal -->
 <div class="modal fade" id="meetUpModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -197,20 +208,11 @@
 <script type="text/javascript" src="../../../resources/js/meetupDetail.js"></script>
 <script>
     $(document).ready(function() {
-        $(document).on('click', '.posts', function() {
-            console.log("asd");
-            const postId = $("#y-postId").text();
+        $('.post-section').on('click', '.posts', function() {
+            // 클릭된 .posts 요소 내부의 #y-postId 값을 가져옵니다.
+            let postId = $(this).find('#y-postId').text();
             console.log(postId);
-
-            $.ajax({
-                url: `/posts/${postId}`,
-                type: 'GET',
-                success: function(data) {
-                },
-                error: function(error) {
-                    console.error('Error:', error);
-                }
-            });
+            location.href = "/posts/" + postId;
         });
     });
 </script>

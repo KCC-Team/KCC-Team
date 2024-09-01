@@ -2,9 +2,11 @@ package com.kcc.springmini.domain.schedule.model.dto;
 
 import lombok.*;
 
+import java.io.Serializable;
+
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class ScheduleListResponseDto {
+public class ScheduleListResponseDto implements Serializable {
     private String title;               // 제목
     private String content;             // 내용
     private int person;                 // 제한 인원
