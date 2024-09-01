@@ -5,4 +5,6 @@ import com.kcc.springmini.domain.member.model.vo.MemberVO;
 public interface MemberService {
     MemberVO findById(String username);
     void save(MemberVO member);
+    int update(MemberVO member);
+    int delete(String username);
 }

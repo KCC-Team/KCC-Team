@@ -20,4 +20,14 @@ public class MemberRepositoryImpl implements MemberRepository {
     public void save(MemberVO member) {
         memberMapper.save(member);
     }
+
+    @Override
+    public int update(MemberVO member) {
+        return memberMapper.update(member);
+    }
+
+    @Override
+    public int delete(String username) {
+        return memberMapper.delete(username);
+    }
 }
