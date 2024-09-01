@@ -20,8 +20,9 @@ function loadSchedules(page) {
 
     $.ajax({
         url: `/schedules?meetupId=${meetupId}&page=${page}`,
-        type: 'GET',
+        type: 'get',
         success: function(response) {
+            console.log(response);
             updateScheduleList(response.responses);
             updateSchedulePagination(response.currentPage, response.startPage, response.endPage);
         },
@@ -115,7 +116,7 @@ function applySchedule() {
     const meetupId = window.location.pathname.split('/')[2];
     const scheduleId = $('.schedule_id').val();
     $.ajax({
-        url: `/schedules/${scheduleId}/participate`,
+        url: `/schedules/${scheduleId}/participate?meetupId=${meetupId}`,
         type: 'post',
         success: function(response) {
             alert(response);

@@ -12,6 +12,7 @@ import java.util.Date;
 @NoArgsConstructor
 public class MemberVO implements Serializable {
     private Long member_id;
+    private Long memberId;
 
     @Size(min = 2, max = 20)
     private String username;
