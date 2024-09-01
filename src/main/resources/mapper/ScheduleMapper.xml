@@ -6,44 +6,37 @@
 <mapper namespace="com.kcc.springmini.domain.schedule.repository.mapper.ScheduleMapper">
     <insert id="save" parameterType="ScheduleVO">
         insert into MeetUpSchedule(schedule_id, meet_up_id, member_id, title, content, location, person, deadline, appointment_time, created_at)
-        values(SEQ_MEETUPSCHEDULE.nextval, #{meet_up_id}, #{member_id}, #{title}, #{content}, #{location}, #{person},
+        values(SEQ_MEETUPSCHEDULE.nextval, #{meetUpId}, #{memberId}, #{scheduleTitle}, #{scheduleDescription},
+               #{location}, #{participantLimit, jdbcType=INTEGER},
                TO_TIMESTAMP(#{deadline}, 'YYYY-MM-DD HH24:MI:SS'),
-               TO_TIMESTAMP(#{appointment_time}, 'YYYY-MM-DD HH24:MI:SS'), systimestamp)
+               TO_TIMESTAMP(#{scheduleTime}, 'YYYY-MM-DD HH24:MI:SS'), systimestamp)
     </insert>
 
     <!-- 모임 일정 맴버 생성 (참가하기) -->
     <!-- 선착순 참가를 위한 비관 LOCK -->
-    <select id="checkAvailableSpace" parameterType="long" resultType="int">
+    <select id="lockScheduleMember" parameterType="long" resultType="int">
         SELECT CASE
                    WHEN person > (SELECT COUNT(*) FROM SCHEDULEBELONGMEMBER WHERE schedule_id = #{scheduleId})
                        THEN 1
                    ELSE 0
-                   END AS isAvailable
+                   END
         FROM MeetUpSchedule
         WHERE schedule_id = #{scheduleId}
-            FOR UPDATE;
+            FOR UPDATE
     </select>
-
-    <!-- 모임 일정 참가 인원 증가 -->
-    <update id="updateSchedulePerson" parameterType="long">
-        update MeetUpSchedule
-        set person = person + 1
-        where schedule_id = #{scheduleId}
-    </update>
 
     <!-- 모임 일정 참가인원 삽입 -->
     <insert id="saveMember" parameterType="map">
-        insert into SCHEDULEBELONGMEMBER(meet_up_id, schedule_id, member_id)
-        values(#{meetupId}, #{scheduleId}, #{memberId})
+        insert into SCHEDULEBELONGMEMBER(meet_up_id, member_id, schedule_id)
+        values(#{meetUpId}, #{memberId}, #{scheduleId})
     </insert>
-
 
     <delete id="delete" parameterType="long">
         delete from MeetUpSchedule where schedule_id = #{id}
     </delete>
 
     <select id="findById" parameterType="long" resultType="ScheduleResponseDto">
-        select ms.title, ms.content, ms.appointment_time, ms.person, ms.deadline, m.nickname,
+        select ms.title, ms.content, ms.appointment_time, ms.person, ms.deadline, m.nickname as leader,
                (select count(*) from SCHEDULEBELONGMEMBER sbm where sbm.schedule_id = ms.schedule_id) as accept_count
         from MeetUpSchedule ms
         inner join Member m on ms.member_id = m.member_id

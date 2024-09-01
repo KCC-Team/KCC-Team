@@ -1,16 +1,19 @@
 package com.kcc.springmini.domain.schedule.service;
 
+import com.kcc.springmini.domain.member.model.vo.MemberVO;
 import com.kcc.springmini.domain.schedule.model.ScheduleVO;
 import com.kcc.springmini.domain.schedule.model.dto.PageResponseDto;
 import com.kcc.springmini.domain.schedule.model.dto.ScheduleListResponseDto;
 import com.kcc.springmini.domain.schedule.model.dto.ScheduleResponseDto;
 import com.kcc.springmini.domain.schedule.repository.ScheduleRepository;
+import com.kcc.springmini.global.auth.PrincipalDetail;
 import com.kcc.springmini.global.exception.BadRequestException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
@@ -28,13 +31,17 @@ public class ScheduleServiceImpl implements ScheduleService {
 
     @Transactional
     @Override
-    public void save(Long meetupId, ScheduleVO scheduleVO) {
-        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+    public void save(MemberVO member, Long meetupId, ScheduleVO scheduleVO) {
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-        scheduleVO.setMeet_up_id(meetupId);
-        scheduleVO.setDeadline(LocalDateTime.parse(scheduleVO.getDeadline(), inputFormatter).format(outputFormatter));
-        scheduleVO.setAppointment_time(LocalDateTime.parse(scheduleVO.getAppointment_time(), inputFormatter).format(outputFormatter));
+        scheduleVO.setMeetUpId(meetupId);
+        scheduleVO.setMemberId(member.getMember_id());
+
+        LocalDate deadline = LocalDate.parse(scheduleVO.getDeadline());
+        scheduleVO.setDeadline(deadline.atStartOfDay().format(outputFormatter));
+        LocalDateTime parsedDateTime = LocalDateTime.parse(scheduleVO.getScheduleTime(), inputFormatter);
+        scheduleVO.setScheduleTime(parsedDateTime.format(outputFormatter));
         scheduleRepository.save(scheduleVO);
     }
 
@@ -43,16 +50,13 @@ public class ScheduleServiceImpl implements ScheduleService {
     public void participateSchedule(Long meetupId, Long scheduleId, Long memberId) {
         Map<String, Long> map = new HashMap<>();
         map.put("meetUpId", meetupId);
-        map.put("scheduleId", scheduleId);
         map.put("memberId", memberId);
+        map.put("scheduleId", scheduleId);
 
         // 모임 일정이 마감되었는지 확인 (비관 락)
         if (scheduleRepository.lockScheduleMember(scheduleId) == 0) {
-            throw new BadRequestException("모임 일정이 이미 마감되었습니다.", HttpStatus.BAD_REQUEST);
+            throw new BadRequestException("모임 일정이 마감되었습니다.", HttpStatus.BAD_REQUEST);
         }
-
-        // 모임 일정 참여 인원 업데이트
-        scheduleRepository.updateSchedulePerson(scheduleId);
 
         // 모임 일정 참여자 생성
         if (scheduleRepository.saveMember(map) == 0) {
