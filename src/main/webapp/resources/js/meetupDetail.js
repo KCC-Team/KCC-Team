@@ -12,10 +12,6 @@ $(function() {
         .on("click", ".delete-btn", function() {
             deleteSchedule();
         });
-
-    // $(".posts").click(function () {
-    //   location.href="/meetups/postDetail";
-    // });
 });
 
 function loadSchedules(page) {
