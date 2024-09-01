@@ -1,10 +1,13 @@
 $(function() {
   $(".meetUpmodal").hide();
 
-  $("body").on("click", ".schedule", function() {
-    // $(".meetUpmodal").trigger("click");
+  $("body")
+      .on("click", ".schedule", function() {
     let meetupId = window.location.pathname.split('/')[2];
     loadMeetupDetails(meetupId, $(this).find('input[type="hidden"]').val());
+  })
+      .on("click", ".apply-btn", function() {
+      applySchedule();
   });
 
   $(".posts").click(function () {
@@ -54,12 +57,28 @@ function updateSchedulePagination(currentPage, startPage, endPage) {
   $('.schedule-sec .pagination').html(html);
 }
 
+function deleteSchedule() {
+    const meetupId = window.location.pathname.split('/')[2];
+    const scheduleId = $('.schedule_id').val();
+
+    $.ajax({
+        url: `/meetups/${meetupId}/schedules/${scheduleId}`,
+        type: 'post',
+        success: function(response) {
+        $('#meetUpModal').modal('hide');
+        },
+        error: function(xhr) {
+        console.error('Failed to delete schedule:', xhr);
+        }
+    });
+}
+
 function loadMeetupDetails(meetupId, scheduleId) {
   $.ajax({
     url: `/meetups/${meetupId}/schedules/${scheduleId}`,
     type: 'GET',
     success: function(response) {
-      let appointment_time = formatDate(response.appointment_time);
+        let appointment_time = formatDate(response.appointment_time);
         let deadline = formatDate(response.deadline);
 
         $('#meetUpModal .modal-body').html(`
@@ -72,7 +91,11 @@ function loadMeetupDetails(meetupId, scheduleId) {
         <p>모임장: ${response.leader}</p>
         <br>
         <p>마감일: <strong>${deadline}</strong> 까지</p>
+        <input type="hidden" class="schedule_id" value="${scheduleId}">
         `);
+      $('.accept_count').html(`
+        ${response.accept_count} / ${response.person}
+      `);
       $('#meetUpModal').modal('show');
     },
     error: function(xhr) {
@@ -88,4 +111,20 @@ function formatDate(dateString) {
     hour: 'numeric', minute: 'numeric', hour12: false
   });
   return formatter.format(date);
+}
+
+function applySchedule() {
+    const meetupId = window.location.pathname.split('/')[2];
+    const scheduleId = $('.schedule_id').val();
+
+    $.ajax({
+        url: `/meetups/${meetupId}/schedules/${scheduleId}/participate?member=3`,
+        type: 'post',
+        success: function(response) {
+            alert(response.alert);
+        },
+        error: function(xhr, status, error) {
+            console.error("Request failed: " + error);
+        }
+    });
 }
