@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.kcc.springmini.domain.meetup.repository.mapper.MeetUpMapper">
+    <cache />
+
+
+    <select id="getMemberTotal" resultType="int" parameterType="Long">
+        SELECT COUNT(*) FROM KCC.BELONGMEMBER WHERE MEET_UP_ID = #{meetUpId}
+    </select>
+
+</mapper>
