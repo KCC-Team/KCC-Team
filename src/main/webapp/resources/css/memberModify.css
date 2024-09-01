@@ -1,0 +1,101 @@
+.signup-container {
+  display: flex;
+  flex-direction: column;
+  max-width: 600px;
+  margin: 178px auto 20px auto;
+  padding: 40px;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-title {
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 20px;
+  font-size: 20px;
+}
+
+.form-group {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  width: 120px;
+  margin-right: 20px;
+  text-align: right;
+}
+
+.form-group input[type="text"],
+.form-group input[type="password"],
+.form-group select,
+.form-group textarea {
+  flex-grow: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-group input[type="text"]:focus,
+.form-group input[type="password"]:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: #4CAF50;
+  box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+}
+
+.duplicate-check {
+  margin-left: 10px;
+  background-color: #e0ebdb;
+  color: black;
+  border: 1px solid #ccc;
+  padding: 5px 10px;
+  border-radius: 3px;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.submit-button {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  background-color: #e0ebdb;
+  color: black;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 50px;
+  transition: background-color 0.3s, box-shadow 0.3s;
+  font-weight: bold;
+}
+
+.submit-button:hover {
+  background-color: #e0ebdb;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+textarea {
+  height: 100px;
+  width: calc(100% - 140px);
+}
+
+input[type="file"] {
+  margin-top: 10px;
+}
+
+input[type="radio"], input[type="checkbox"] {
+  margin-right: 10px;
+}
+

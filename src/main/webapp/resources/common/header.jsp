@@ -34,7 +34,7 @@
           <a href="/members/mypage">마이페이지</a>
         </sec:authorize>
 
-        <a href="/meetup/meetupRegister" class="btn main-btn">모임 생성</a>
+        <a href="/meetups/meetupRegister" class="btn main-btn">모임 생성</a>
       </nav>
 
     </section>

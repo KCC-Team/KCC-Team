@@ -17,16 +17,24 @@
         values (seq_member.nextval, #{username}, #{password}, #{nickname}, #{email}, #{gender}, #{birthdate}, #{tel}, #{address}, sysdate, sysdate, #{isdelete})
     </insert>
 
-<!--    <update id="update">-->
-<!--        update member set-->
-<!--        password = #{password},-->
-<!--        nickname =-->
-<!--        email =-->
-<!--        gender =-->
-<!--        birthdate =-->
-<!--        tel =-->
-<!--        address =-->
-<!--        updated_at =-->
-<!--    </update>-->
+    <update id="update">
+        update member set
+            password = #{password},
+            nickname = #{nickname},
+            email = #{email},
+            gender = #{gender},
+            birthdate = #{birthdate},
+            tel = #{tel},
+            address = #{address},
+            updated_at = SYSDATE
+        where username = #{username}
+    </update>
+
+    <delete id="delete">
+        update member set
+            isdelete = 'T',
+            updated_at = SYSDATE
+        where username = #{username}
+    </delete>
 
 </mapper>

@@ -7,4 +7,6 @@ import org.apache.ibatis.annotations.Mapper;
 public interface MemberMapper {
     MemberVO findById(String username);
     void save(MemberVO member);
+    int update(MemberVO member);
+    int delete(String username);
 }

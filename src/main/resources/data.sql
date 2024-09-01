@@ -19,7 +19,7 @@ DROP SEQUENCE SEQ_MEMBER;
 create table Member(
                        member_id number,
                        username varchar(20),
-                       password varchar(20),
+                       password varchar(100),
                        nickname varchar(20),
                        email varchar(30),
                        gender varchar(2),
