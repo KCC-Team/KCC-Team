@@ -663,14 +663,6 @@ create table schedulebelongmember (
                                       schedule_id number
 );
 
-alter table schedulebelongmember add constraint PK_SCHEDULEBELONGMEMBER PRIMARY KEY(meet_up_id,member_id,schedule_id);
-alter table schedulebelongmember add constraint FK_SCHEDULEBELONGMEMBER FOREIGN KEY(meet_up_id,member_id)
-    REFERENCES BELONGMEMBER (meet_up_id, member_id);
-
-alter table schedulebelongmember add constraint FK_SCHEDULEBELONGMEMBER_SC FOREIGN KEY(schedule_id)
-    REFERENCES MeetUpSchedule (schedule_id);
-
-
 INSERT INTO REPLY VALUES (SEQ_REPLY.NEXTVAL, 6, 2, 7, '댓글1', SYSDATE, SYSDATE, 0, 0, NULL);
 INSERT INTO REPLY VALUES (SEQ_REPLY.NEXTVAL, 6, 2, 8, '대댓글1', SYSDATE, SYSDATE, 1, 0, 1);
 INSERT INTO REPLY VALUES (SEQ_REPLY.NEXTVAL, 6, 2, 7, '대댓글1-1', SYSDATE, SYSDATE, 2, 0, 2);
@@ -715,5 +707,16 @@ INSERT INTO BOARD VALUES (SEQ_BOARD.NEXTVAL, 2, 9, '게시글 제목', '게시�
 INSERT INTO BOARD VALUES (SEQ_BOARD.NEXTVAL, 2, 7, '게시글 제목', '게시글 내용', SYSDATE, SYSDATE);
 INSERT INTO BOARD VALUES (SEQ_BOARD.NEXTVAL, 2, 8, '게시글 제목', '게시글 내용', SYSDATE, SYSDATE);
 INSERT INTO BOARD VALUES (SEQ_BOARD.NEXTVAL, 2, 9, '게시글 제목', '게시글 내용', SYSDATE, SYSDATE);
+
+alter table schedulebelongmember add constraint PK_SCHEDULEBELONGMEMBER PRIMARY KEY(meet_up_id,member_id,schedule_id);
+alter table schedulebelongmember add constraint FK_SCHEDULEBELONGMEMBER FOREIGN KEY(meet_up_id,member_id)
+    REFERENCES BELONGMEMBER (meet_up_id, member_id) ON DELETE CASCADE;
+
+alter table schedulebelongmember add constraint FK_SCHEDULEBELONGMEMBER_SC FOREIGN KEY(schedule_id)
+    REFERENCES MeetUpSchedule (schedule_id) ON DELETE CASCADE;
+
+INSERT INTO SCHEDULEBELONGMEMBER s values(3, 3, 2);
+INSERT INTO SCHEDULEBELONGMEMBER s values(3, 4, 2);
+INSERT INTO SCHEDULEBELONGMEMBER s values(3, 5, 2);
 
 COMMIT;
