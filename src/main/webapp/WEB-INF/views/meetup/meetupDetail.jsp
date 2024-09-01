@@ -28,7 +28,7 @@
     <link rel="stylesheet" type="text/css" href="../../../resources/css/meetupDetail.css">
     <style>
         .hidden {
-            display: none; /* 요소를 숨깁니다 */
+            display: none;
         }
     </style>
 </head>
