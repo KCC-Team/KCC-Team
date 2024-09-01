@@ -3,8 +3,8 @@ package com.kcc.springmini.domain.meetup.controller;
 import com.kcc.springmini.domain.meetup.service.MeetUpService;
 import com.kcc.springmini.domain.post.model.vo.PostVO;
 import com.kcc.springmini.domain.post.service.PostService;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import org.eclipse.tags.shaded.org.apache.xpath.operations.Mod;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,11 +15,12 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
+@RequestMapping("/meetups")
 public class MeetUpController {
     private final PostService postService;
     private final MeetUpService meetUpService;
 
-    @GetMapping("/meetup/{meetUpId}")
+    @GetMapping("/{meetUpId}")
     public String meetUp(@PathVariable("meetUpId") Long meetUpId, Model model) {
         List<PostVO> posts = postService.findAll(meetUpId);
         model.addAttribute("posts", posts);
@@ -29,5 +30,8 @@ public class MeetUpController {
         return "meetup/meetupDetail";
     }
 
-
+    @GetMapping("/register")
+    public String register() {
+        return "meetup/meetupRegister";
+    }
 }
