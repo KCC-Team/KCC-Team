@@ -35,5 +35,4 @@ public class MainController {
 		model.addAttribute("pageMaker", new PageDto(cri, total));
 		return "/main";
 	}
-
 }
