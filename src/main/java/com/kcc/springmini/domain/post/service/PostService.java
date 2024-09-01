@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface PostService {
     public List<PostVO> findAll(Long meetUpId);
+    public List<PostVO> findAllWithPaging(int meetUpId, int currentPage, int pageSize);
 }

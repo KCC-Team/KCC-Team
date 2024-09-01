@@ -28,4 +28,6 @@ public class MeetUpController {
 
         return "meetup/meetupDetail";
     }
+
+
 }

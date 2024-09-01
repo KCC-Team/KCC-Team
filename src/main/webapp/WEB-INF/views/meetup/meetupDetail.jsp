@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
@@ -12,16 +13,16 @@
     <script src="../../../resources/common/common.js" type="text/javascript"></script>
 
     <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-    rel="stylesheet"
-    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-    crossorigin="anonymous"
-  />
-  <script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-    crossorigin="anonymous"
-  ></script>
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+            crossorigin="anonymous"
+    />
+    <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+            crossorigin="anonymous"
+    ></script>
 
     <link rel="stylesheet" type="text/css" href="../../../resources/common/common.css"/>
     <link rel="stylesheet" type="text/css" href="../../../resources/css/meetupDetail.css">
@@ -29,37 +30,37 @@
 
 <body>
 
-    <header>
-        <%@ include file="../../../resources/common/header.jsp" %>
-    </header>
+<header>
+    <%@ include file="../../../resources/common/header.jsp" %>
+</header>
 
-    <section class="group-info">
+<section class="group-info">
       <span class="group-details">
           <span class="meet-leader-img"><img src="#" alt="사진"></span>
           <h1>모임 이름 <span class="meet-name">대형견</span></h1>
       </span>
-      <div class="meet-member">
+    <div class="meet-member">
         <p>
             <span class="total-board">총게시글</span>
             <span class="member-count">모임인원</span>
         </p>
         <span class="meet-total-count">${totalPosts}</span>
         <span class="meet-member-count">${totalMembers}</span>
-      </div>
-  </section>
+    </div>
+</section>
 
-    <main>
-        <section class="post-section">
-            <form class="post-input">
-                <textarea placeholder="게시글을 입력하세요" maxlength="500"></textarea>
-                <div class="post-actions">
-                    <span class="char-count">0 / 500</span>
-                    <button type="submit" class="post-button">게시</button>
-                </div>
-            </form>
+<main>
+    <section class="post-section">
+        <form class="post-input">
+            <textarea placeholder="게시글을 입력하세요" maxlength="500"></textarea>
+            <div class="post-actions">
+                <span class="char-count">0 / 500</span>
+                <button type="submit" class="post-button">게시</button>
+            </div>
+        </form>
 
-            <c:forEach var="post" items="${posts}">
-                <div class="posts">
+        <c:forEach var="post" items="${posts}">
+            <div class="posts">
                     <span class="profile-group">
                         <span class="profile-photo">
                             <img src="#" alt="이미지">
@@ -69,84 +70,86 @@
                             <span class="date">${post.createdAt}</span>
                         </span>
                     </span>
-                    <span class="post">
+                <span class="post">
                         <p class="post-text">${post.title}</p><br>
                         <p class="post-text">${post.content}</p>
                     </span>
-                </div>
-            </c:forEach>
-
-            <div class="pagination">
-                <span>이전</span>
-                <span class="active">1</span>
-                <span>2</span>
-                <span>3</span>
-                <span>4</span>
-                <span>5</span>
-                <span>다음</span>
             </div>
+        </c:forEach>
 
-        </section>
+        <div class="pagination">
+            <span>이전</span>
+            <span class="active">1</span>
+            <span>2</span>
+            <span>3</span>
+            <span>4</span>
+            <span>5</span>
+            <span>다음</span>
+        </div>
+        <form id='actionForm' action="/board/list" method='get'>
+            <input type='hidden' name='pageNum' value='${pageMaker.cri.pageNum}'>
+            <input type='hidden' name='amount' value='${pageMaker.cri.amount}'>
+        </form>
+    </section>
 
-        <aside class="schedule-sec">
+    <aside class="schedule-sec">
             <span class="schedule-header">
                 <span class="meet-date">일정</span>
                 <a href="#">일정 생성</a>
             </span>
 
-            <div id="scheduleList"></div>
-            <div class="pagination">
-                <span>이전</span>
-                <span class="active">1</span>
-                <span>2</span>
-                <span>3</span>
-                <span>4</span>
-                <span>5</span>
-                <span>다음</span>
-            </div>
-        </aside>
-    </main>
+        <div id="scheduleList"></div>
+        <div class="pagination">
+            <span>이전</span>
+            <span class="active">1</span>
+            <span>2</span>
+            <span>3</span>
+            <span>4</span>
+            <span>5</span>
+            <span>다음</span>
+        </div>
+    </aside>
+</main>
 
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary meetUpmodal" data-bs-toggle="modal"
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary meetUpmodal" data-bs-toggle="modal"
         data-bs-target="#meetUpModal">
-        Launch demo modal
-    </button>
+    Launch demo modal
+</button>
 
-    <!-- 모임일정 Modal -->
-    <div class="modal fade" id="meetUpModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <h4>🌳 ${schedule.title} 🌳</h4>
-                    <br>
-                    <p>${schedule.content}</p>
-                    <p>일정: ${schedule.appointment_time}</p>
-                    <p>제한인원: ${schedule.person}인</p>
-                    <p>마감일: ${schedule.deadline}</p>
-                    <p>모임장: ${schedule.leader}</p>
-                    <!-- 예시 이미지 -->
-                    <span class="meetup-profile">
+<!-- 모임일정 Modal -->
+<div class="modal fade" id="meetUpModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h4>🌳 ${schedule.title} 🌳</h4>
+                <p>${schedule.content}</p>
+                <p>일정: ${schedule.appointment_time}</p>
+                <p>제한인원: ${schedule.person}인</p>
+                <p>마감 기한: ${schedule.deadline}</p>
+                <p>모임장: ${schedule.leader}</p>
+                <!-- 예시 이미지 -->
+                <span class="meetup-profile">
                     <img src="#" alt="이미지"> <!-- 실제 이미지 경로 필요 -->
-                    </span>
-                        <span class="meetup-profile">
-                        <img src="#" alt="이미지"> <!-- 실제 이미지 경로 필요 -->
-                    </span>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary btn-meetup">참가 <span>${schedule.person} / 4</span></button>
-                </div>
+                </span>
+                <span class="meetup-profile">
+                    <img src="#" alt="이미지"> <!-- 실제 이미지 경로 필요 -->
+                </span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-meetup">참가 <span>${schedule.person} / 4</span></button>
             </div>
         </div>
     </div>
+</div>
 
-    <footer>
-        <%@ include file="../../../resources/common/footer.jsp" %>
-    </footer>
+<footer>
+    <%@ include file="../../../resources/common/footer.jsp" %>
+</footer>
 
-    <script type="text/javascript" src="../../../resources/js/meetupDetail.js"></script>
+<script type="text/javascript" src="../../../resources/js/meetupDetail.js"></script>
 </body>
 </html>
