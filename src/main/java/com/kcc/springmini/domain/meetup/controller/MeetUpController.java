@@ -45,7 +45,7 @@ public class MeetUpController {
 
         return "meetup/meetupDetail";
     }
-
+  
     @GetMapping("/register")
     public String register() {
         return "meetup/meetupRegister";

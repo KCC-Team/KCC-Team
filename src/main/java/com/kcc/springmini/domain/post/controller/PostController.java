@@ -51,6 +51,4 @@ public class PostController {
         model.addAttribute("post",findPost);
         return "meetup/postDetail";
     }
-
-
 }

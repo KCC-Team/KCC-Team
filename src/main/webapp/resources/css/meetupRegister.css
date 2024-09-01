@@ -88,3 +88,8 @@ textarea {
   height: 250px;
 }
 
+label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+

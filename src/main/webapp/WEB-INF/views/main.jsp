@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fmt" uri="jakarta.tags.core" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -35,109 +37,78 @@
         <section class="row search-bar">
           <div class="row">
             <div class="col-md-6 offset-md-3">
+
+              <form id="searchForm" action="/search" method="get">
               <div class="input-group mb-1 search-bar">
-                <span class="input-group-text">
-                  <img
-                    src="../../resources/images/zoom-icon.png"
-                    alt="Search Icon"
-                    style="width: 30px; height: 30px"
-                  />
-                </span>
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="찾고 싶은 모임을 검색하세요"
-                />
+                  <button type="submit" class="input-group-text">
+                    <img src="../../resources/images/zoom-icon.png" alt="Search Icon" style="width: 30px; height: 30px"/>
+                  </button>
+                  <input type="text" class="form-control" name="title" placeholder="찾고 싶은 모임명을 검색하세요"/>
               </div>
+              </form>
+
             </div>
           </div>
         </section>
+
         <div class="mb-4" id="meetup">모임</div>
+
         <section class="container">
+
           <div class="row">
-            <div class="col-lg-4 col-md-6 card cus_card-card">
-              <div class="card-body">
-                <h5 class="card-title cus_card-title">대형견</h5>
-                <br />
-                <h6 class="card-subtitle mb-2 text-muted cus_card-subtitle">
-                  흑석동 귀여운 강아지 동호회
-                </h6>
-                <p class="card-text cus_card-text mb-5">
-                  안녕하세요. 흑석동 돼강동 입니다. 저희 함께 놀아요~
-                </p>
-                <br />
-                <a href="#" class="btn cus_card-btn">참여하기</a>
-              </div>
-            </div>
 
-            <div class="col-lg-4 col-md-6 card cus_card-card">
-              <div class="card-body">
-                <h5 class="card-title cus_card-title">대형견</h5>
-                <br />
-                <h6 class="card-subtitle mb-2 text-muted cus_card-subtitle">
-                  흑석동 귀여운 강아지 동호회
-                </h6>
-                <p class="card-text cus_card-text mb-5">
-                  안녕하세요. 흑석동 돼강동 입니다. 저희 함께 놀아요~
-                </p>
-                <br />
-                <a href="#" class="btn cus_card-btn">참여하기</a>
-              </div>
-            </div>
+            <c:forEach items="${list}" var="meetup">
+              <div class="col-lg-4 col-md-6 card cus_card-card">
+                <div class="card-body">
+                  <h5 class="card-title cus_card-title"><c:out value="${meetup.category}" /></h5>
+                  <br />
+                  <h6 class="card-subtitle mb-2 text-muted cus_card-subtitle">
+                    <c:out value="${meetup.title}" />
+                  </h6>
+                  <p class="card-text cus_card-text mb-5">
+                    <c:out value="${meetup.intro}" />
 
-            <div class="col-lg-4 col-md-6 card cus_card-card">
-              <div class="card-body">
-                <h5 class="card-title cus_card-title">대형견</h5>
-                <br />
-                <h6 class="card-subtitle mb-2 text-muted cus_card-subtitle">
-                  흑석동 귀여운 강아지 동호회
-                </h6>
-                <p class="card-text cus_card-text mb-5">
-                  안녕하세요. 흑석동 돼강동 입니다. 저희 함께 놀아요~
-                </p>
-                <br />
-                <a href="#" class="btn cus_card-btn">참여하기</a>
+                  </p>
+                  <br />
+                  <a href="/meetups/<c:out value="${meetup.meet_up_id}" />" class="btn cus_card-btn">참여하기</a>
+                </div>
               </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 card cus_card-card">
-              <div class="card-body">
-                <h5 class="card-title cus_card-title">대형견</h5>
-                <br />
-                <h6 class="card-subtitle mb-2 text-muted cus_card-subtitle">
-                  흑석동 귀여운 강아지 동호회
-                </h6>
-                <p class="card-text cus_card-text mb-5">
-                  안녕하세요. 흑석동 돼강동 입니다. 저희 함께 놀아요~
-                </p>
-                <br />
-                <a href="#" class="btn cus_card-btn">참여하기</a>
-              </div>
-            </div>
-          </div>
+            </c:forEach>
 
           <br />
 
-          <nav
-            class="d-flex justify-content-center"
-            aria-label="Page navigation example"
-          >
-            <ul class="pagination">
-              <li class="page-item disabled">
-                <a class="page-link" href="#" tabindex="-1" aria-disabled="true"
-                  >이전</a
-                >
-              </li>
-              <li class="page-item active">
-                <a class="page-link" href="#">1</a>
-              </li>
-              <li class="page-item"><a class="page-link" href="#">2</a></li>
-              <li class="page-item"><a class="page-link" href="#">3</a></li>
-              <li class="page-item"><a class="page-link" href="#">4</a></li>
-              <li class="page-item"><a class="page-link" href="#">5</a></li>
-              <li class="page-item"><a class="page-link" href="#">다음</a></li>
-            </ul>
-          </nav>
+            <div class="pull-right d-flex justify-content-center"
+                 aria-label="Page navigation example">
+              <ul class="pagination">
+
+                <c:if test="${pageMaker.prev}">
+                  <li class="paginate_button page-item prev">
+                    <a href="${pageMaker.startPage -1}" class="page-link">이전</a>
+                  </li>
+                </c:if>
+
+                <c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+                  <li class="paginate_button page-item ${pageMaker.cri.pageNum == num ? "active":""} ">
+                    <a href="${num}" class="page-link">${num}</a>
+                  </li>
+                </c:forEach>
+
+                <c:if test="${pageMaker.next}">
+                  <li class="paginate_button page-item next">
+                    <a href="${pageMaker.endPage + 1 }" class="page-link">다음</a>
+                  </li>
+                </c:if>
+
+              </ul>
+            </div>
+
+            <form id='actionForm' action="/" method='get'>
+              <input type='hidden' name='pageNum' value='${pageMaker.cri.pageNum}'>
+              <input type='hidden' name='amount' value='${pageMaker.cri.amount}'>
+              <input type='hidden' name='type' value='<c:out value="${ pageMaker.cri.type }"/>'>
+              <input type='hidden' name='keyword' value='<c:out value="${ pageMaker.cri.keyword }"/>'>
+            </form>
+
         </section>
       </div>
     </section>
@@ -149,5 +120,6 @@
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
       crossorigin="anonymous"
     ></script>
+    <script src="../../resources/js/main.js"></script>
   </body>
 </html>

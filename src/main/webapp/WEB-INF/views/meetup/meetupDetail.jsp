@@ -28,7 +28,7 @@
     <link rel="stylesheet" type="text/css" href="../../../resources/css/meetupDetail.css">
     <style>
         .hidden {
-            display: none; /* 요소를 숨깁니다 */
+            display: none;
         }
     </style>
 </head>
@@ -119,6 +119,47 @@
     Launch demo modal
 </button>
 
+<!-- 모임 일정 생성 Modal -->
+<div class="modal fade" id="createMeetUpModal" tabindex="-1" aria-labelledby="createModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header justify-content-center">
+                <h5 class="modal-title" id="createModalLabel">일정 만들기</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="scheduleVO" action="/schedules?meetupId=${meetupId}" method="post">
+                    <div class="mb-3">
+                        <label for="scheduleTitle" class="form-label">제목</label>
+                        <input type="text" class="form-control" id="scheduleTitle" name="scheduleTitle" placeholder="일정 제목을 입력하세요" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="scheduleDescription" class="form-label">내용</label>
+                        <textarea class="form-control" id="scheduleDescription" name="scheduleDescription" rows="3" placeholder="일정 내용을 입력하세요"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="location" class="form-label">위치</label>
+                        <textarea class="form-control" id="location" name="location" rows="3" placeholder="위치를 입력하세요"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="scheduleTime" class="form-label">일정</label>
+                        <input type="text" class="form-control" id="scheduleTime" name="scheduleTime" placeholder="예: 2024-09-15 14:00" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="participantLimit" class="form-label">제한인원</label>
+                        <input type="number" class="form-control" id="participantLimit" name="participantLimit" placeholder="예: 30" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="deadline" class="form-label">마감일</label>
+                        <input type="text" class="form-control" id="deadline" name="deadline" placeholder="예: 2024-09-15 14:00" />
+                    </div>
+                    <button type="submit" class="btn" style="background-color: #80d69b">만들기</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- 모임일정 Modal -->
 <div class="modal fade" id="meetUpModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -142,7 +183,8 @@
                 </span>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary btn-meetup">참가 <span>${schedule.person} / 4</span></button>
+                <button type="button" class="btn btn-danger delete-btn">삭제</button>
+                <button type="button" class="btn btn-primary btn-meetup apply-btn">참가 <span class="accept_count"></span></button>
             </div>
         </div>
     </div>

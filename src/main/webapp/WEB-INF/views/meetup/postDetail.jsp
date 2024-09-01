@@ -39,9 +39,9 @@
         margin-left: 40px;
         margin-top: 10px;
       }
-      /* 동적 들여쓰기를 위한 기본 클래스 */
+      
       .comment-indent {
-        padding-left: calc(30px * var(--dept-level)); /* dept 수준에 따라 들여쓰기 조절 */
+        padding-left: calc(30px * var(--dept-level));
       }
 
       .reply-container {
@@ -70,7 +70,7 @@
     .j-reply-button{
     }
       .hidden {
-        display: none; /* 요소를 숨깁니다 */
+        display: none;
       }
     </style>
   </head>
@@ -181,16 +181,12 @@
       $('.comment-box').on('click','.j-reply-button > input[type=button]',function(e){
         e.stopPropagation();
 
-        // 해당 버튼이 속한 부모 요소를 찾습니다.
         let parentElement = $(this).closest('.comment-box.comment-indent');
 
-        // 이미 댓글 입력란이 존재하는지 확인합니다.
         if (parentElement.find('.jw-add-comment').length > 0) {
-          // 존재하면 제거합니다.
           parentElement.find('.jw-add-comment').remove();
           parentElement.find('.jw-add-button').remove();
         } else {
-          // 존재하지 않으면 추가합니다.
           let html = `<textarea id="new-new-comment" class="form-control jw-add-comment" rows="3" placeholder="댓글을 입력하세요..."></textarea>
                     <button id="add-new-comment" class="btn btn-primary mt-2 jw-add-button">댓글 추가</button>`;
           parentElement.append(html);
@@ -199,18 +195,16 @@
 
       $('.comment-box').on('click', '.jw-add-button', function(e) {
         e.stopPropagation();
-        //alert('ttttttttttttt');
         let commentText = $(this).prev('#new-new-comment').val();
         console.log(commentText);
         console.log("parent");
         let parentId = $(this).closest('.comment-box').find('.hidden').text();
         if (commentText) {
           addComment(commentText, parentId);
-          $(this).prev('#new-new-comment').remove(); // 댓글 추가 후 입력란 제거
-          $(this).prev('#add-new-comment').remove(); // 댓글 추가 후 버튼 제거
+          $(this).prev('#new-new-comment').remove();
+          $(this).prev('#add-new-comment').remove();
         }
       });
-
     </script>
   </body>
 </html>

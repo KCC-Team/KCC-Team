@@ -20,7 +20,6 @@ public class PostServiceImpl implements PostService{
         return postMapper.findAll(meetUpId);
     }
 
-
     @Override
     public List<PostVO> findAllWithPaging(Long meetUpId, int pageNum, int pageSize) {
         int startRow = (pageNum - 1) * pageSize + 1;
@@ -30,7 +29,6 @@ public class PostServiceImpl implements PostService{
         params.put("meetUpId", meetUpId);
         params.put("startRow", startRow);
         params.put("endRow", endRow);
-
         return postMapper.findAllWithPaging(params);
     }
 

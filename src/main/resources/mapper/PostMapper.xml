@@ -54,5 +54,4 @@
         WHERE b.member_id = m.member_id
           AND B.BOARD_ID = #{postId}
     </select>
-
 </mapper>
