@@ -10,9 +10,9 @@ $(function() {
       applySchedule();
   });
 
-  $(".posts").click(function () {
-    location.href="/meetups/postDetail";
-  });
+  // $(".posts").click(function () {
+  //   location.href="/meetups/postDetail";
+  // });
 
   loadSchedules(1);
 });
