@@ -26,6 +26,11 @@
 
     <link rel="stylesheet" type="text/css" href="../../../resources/common/common.css"/>
     <link rel="stylesheet" type="text/css" href="../../../resources/css/meetupDetail.css">
+    <style>
+        .hidden {
+            display: none; /* 요소를 숨깁니다 */
+        }
+    </style>
 </head>
 
 <body>
@@ -66,6 +71,7 @@
                             <img src="#" alt="이미지">
                         </span>
                         <span class="profile-info">
+                            <span id="y-postId" class=".hidden">${post.postId}</span>
                             <span class="author">${post.member.nickname}</span>
                             <span class="date">${post.createdAt}</span>
                         </span>
@@ -86,10 +92,6 @@
             <span>5</span>
             <span>다음</span>
         </div>
-        <form id='actionForm' action="/board/list" method='get'>
-            <input type='hidden' name='pageNum' value='${pageMaker.cri.pageNum}'>
-            <input type='hidden' name='amount' value='${pageMaker.cri.amount}'>
-        </form>
     </section>
 
     <aside class="schedule-sec">
@@ -151,5 +153,24 @@
 </footer>
 
 <script type="text/javascript" src="../../../resources/js/meetupDetail.js"></script>
+<script>
+    $(document).ready(function() {
+        $(document).on('click', '.posts', function() {
+            console.log("asd");
+            const postId = $("#y-postId").text();
+            console.log(postId);
+
+            $.ajax({
+                url: `/posts/${postId}`,
+                type: 'GET',
+                success: function(data) {
+                },
+                error: function(error) {
+                    console.error('Error:', error);
+                }
+            });
+        });
+    });
+</script>
 </body>
 </html>
