@@ -39,10 +39,10 @@ CREATE SEQUENCE SEQ_MEMBER
 -- 모임 테이블 생성
 create table MeetUp(
                        meet_up_id number,
-                       meet_up_title varchar(100),
-                       meet_up_person number,
-                       meet_up_category varchar(20),
-                       meet_up_intro varchar(100)
+                       title varchar(100),
+                       person number,
+                       category varchar(20),
+                       intro varchar(100)
 );
 alter table MeetUp add constraint PK_MeetUp PRIMARY KEY (meet_up_id);
 
@@ -126,16 +126,16 @@ INSERT INTO MEMBER values (SEQ_MEMBER.nextval, 'TEST9', 'TEST9', '황철원',
 ---------------------------------------------------------------------------------------------------
 --MeetUp 테이블 더미 데이터 생성
 
-INSERT INTO MEETUP VALUES (SEQ_MEETUP.nextval, '모임이름0', 30, '카테고리명', '모임소개글');
-INSERT INTO MEETUP VALUES (SEQ_MEETUP.nextval, '모임이름1', 30, '카테고리명', '모임소개글');
-INSERT INTO MEETUP VALUES (SEQ_MEETUP.nextval, '모임이름2', 30, '카테고리명', '모임소개글');
-INSERT INTO MEETUP VALUES (SEQ_MEETUP.nextval, '모임이름3', 30, '카테고리명', '모임소개글');
-INSERT INTO MEETUP VALUES (SEQ_MEETUP.nextval, '모임이름4', 30, '카테고리명', '모임소개글');
-INSERT INTO MEETUP VALUES (SEQ_MEETUP.nextval, '모임이름5', 30, '카테고리명', '모임소개글');
-INSERT INTO MEETUP VALUES (SEQ_MEETUP.nextval, '모임이름6', 30, '카테고리명', '모임소개글');
-INSERT INTO MEETUP VALUES (SEQ_MEETUP.nextval, '모임이름7', 30, '카테고리명', '모임소개글');
-INSERT INTO MEETUP VALUES (SEQ_MEETUP.nextval, '모임이름8', 30, '카테고리명', '모임소개글');
-INSERT INTO MEETUP VALUES (SEQ_MEETUP.nextval, '모임이름9', 30, '카테고리명', '모임소개글');
+INSERT INTO MEETUP VALUES (SEQ_MEETUP.nextval, '서울 강남구 코코의 강아지 친구들', 10, '소형견', '안녕하세요. 강남구에 있는 코코의 강아지 친구들입니다.');
+INSERT INTO MEETUP VALUES (SEQ_MEETUP.nextval, '부산 해운대구 멍멍이들의 파티', 3, '대형견', '안녕하세요. 해운대구의 멍멍이들의 파티입니다.');
+INSERT INTO MEETUP VALUES (SEQ_MEETUP.nextval, '인천 남동구 비글 모임', 5, '중형견', '놀기 좋아하는 비글들 모여라!');
+INSERT INTO MEETUP VALUES (SEQ_MEETUP.nextval, '대구 달서구 푸들들의 세상', 4, '소형견', '푸들들과 함께 뛰어놀아요~');
+INSERT INTO MEETUP VALUES (SEQ_MEETUP.nextval, '광주 서구 골든리트리버 모임', 10, '대형견', '안녕하세요. 서구의 골든리트리버 모임입니다.');
+INSERT INTO MEETUP VALUES (SEQ_MEETUP.nextval, '울산 남구 스피츠 클럽', 30, '중형견', '안녕하세요. 스피츠들의 클럽입니다.');
+INSERT INTO MEETUP VALUES (SEQ_MEETUP.nextval, '서울 종로구 말티즈 동호회', 20, '소형견', '안녕하세요. 종로구의 말티즈 동호회입니다.');
+INSERT INTO MEETUP VALUES (SEQ_MEETUP.nextval, '경기 수원시 허스키 모임', 5, '대형견', '안녕하세요. 허스키들이 모이는 곳입니다.');
+INSERT INTO MEETUP VALUES (SEQ_MEETUP.nextval, '부산 북구 시바견 동호회', 3, '중형견', '안녕하세요. 시바견들의 모임입니다.');
+INSERT INTO MEETUP VALUES (SEQ_MEETUP.nextval, '서울 용산구 요크셔테리어 클럽', 30, '소형견', '작지만 강한 요크셔 모여라!');
 INSERT INTO MEETUP VALUES (SEQ_MEETUP.nextval, '모임이름10', 30, '카테고리명', '모임소개글');
 INSERT INTO MEETUP VALUES (SEQ_MEETUP.nextval, '모임이름11', 30, '카테고리명', '모임소개글');
 INSERT INTO MEETUP VALUES (SEQ_MEETUP.nextval, '모임이름12', 30, '카테고리명', '모임소개글');
@@ -162,6 +162,25 @@ INSERT INTO MEETUP VALUES (SEQ_MEETUP.nextval, '모임이름32', 30, '카테고�
 INSERT INTO MEETUP VALUES (SEQ_MEETUP.nextval, '모임이름33', 30, '카테고리명', '모임소개글');
 INSERT INTO MEETUP VALUES (SEQ_MEETUP.nextval, '모임이름34', 30, '카테고리명', '모임소개글');
 INSERT INTO MEETUP VALUES (SEQ_MEETUP.nextval, '모임이름35', 30, '카테고리명', '모임소개글');
+INSERT INTO MEETUP VALUES (SEQ_MEETUP.nextval, '모임이름36', 30, '카테고리명', '모임소개글');
+INSERT INTO MEETUP VALUES (SEQ_MEETUP.nextval, '모임이름37', 30, '카테고리명', '모임소개글');
+INSERT INTO MEETUP VALUES (SEQ_MEETUP.nextval, '모임이름38', 30, '카테고리명', '모임소개글');
+INSERT INTO MEETUP VALUES (SEQ_MEETUP.nextval, '모임이름39', 30, '카테고리명', '모임소개글');
+INSERT INTO MEETUP VALUES (SEQ_MEETUP.nextval, '모임이름40', 30, '카테고리명', '모임소개글');
+INSERT INTO MEETUP VALUES (SEQ_MEETUP.nextval, '모임이름41', 30, '카테고리명', '모임소개글');
+INSERT INTO MEETUP VALUES (SEQ_MEETUP.nextval, '모임이름42', 30, '카테고리명', '모임소개글');
+INSERT INTO MEETUP VALUES (SEQ_MEETUP.nextval, '모임이름43', 30, '카테고리명', '모임소개글');
+INSERT INTO MEETUP VALUES (SEQ_MEETUP.nextval, '모임이름44', 30, '카테고리명', '모임소개글');
+INSERT INTO MEETUP VALUES (SEQ_MEETUP.nextval, '모임이름45', 30, '카테고리명', '모임소개글');
+INSERT INTO MEETUP VALUES (SEQ_MEETUP.nextval, '모임이름46', 30, '카테고리명', '모임소개글');
+INSERT INTO MEETUP VALUES (SEQ_MEETUP.nextval, '모임이름47', 30, '카테고리명', '모임소개글');
+INSERT INTO MEETUP VALUES (SEQ_MEETUP.nextval, '모임이름48', 30, '카테고리명', '모임소개글');
+INSERT INTO MEETUP VALUES (SEQ_MEETUP.nextval, '모임이름49', 30, '카테고리명', '모임소개글');
+INSERT INTO MEETUP VALUES (SEQ_MEETUP.nextval, '모임이름50', 5, '대형견', '모임소개글');
+INSERT INTO MEETUP VALUES (SEQ_MEETUP.nextval, '모임이름51', 2, '소형견', '모임소개글');
+INSERT INTO MEETUP VALUES (SEQ_MEETUP.nextval, '모임이름52', 3, '중형견', '모임소개글');
+INSERT INTO MEETUP VALUES (SEQ_MEETUP.nextval, '모임이름53', 10, '대형견', '모임소개글');
+INSERT INTO MEETUP VALUES (SEQ_MEETUP.nextval, '모임이름54', 3, '대형견', '모임소개글');
 
 ----------------------------------------------------------------------------------------
 --BELONGMEMBER 테이블 더미 데이터 생성
@@ -644,12 +663,61 @@ create table schedulebelongmember (
                                       schedule_id number
 );
 
+INSERT INTO REPLY VALUES (SEQ_REPLY.NEXTVAL, 6, 2, 7, '댓글1', SYSDATE, SYSDATE, 0, 0, NULL);
+INSERT INTO REPLY VALUES (SEQ_REPLY.NEXTVAL, 6, 2, 8, '대댓글1', SYSDATE, SYSDATE, 1, 0, 1);
+INSERT INTO REPLY VALUES (SEQ_REPLY.NEXTVAL, 6, 2, 7, '대댓글1-1', SYSDATE, SYSDATE, 2, 0, 2);
+INSERT INTO REPLY VALUES (SEQ_REPLY.NEXTVAL, 6, 2, 7, '대댓글1-2', SYSDATE, SYSDATE, 2, 0, 2);
+INSERT INTO REPLY VALUES (SEQ_REPLY.NEXTVAL, 6, 2, 7, '대댓글1-1', SYSDATE, SYSDATE, 0, 4, NULL);
+
+INSERT INTO REPLY VALUES (SEQ_REPLY.NEXTVAL, 6, 2, 7, '대댓글1-1', SYSDATE, SYSDATE, 1, 4, 5);
+INSERT INTO REPLY VALUES (SEQ_REPLY.NEXTVAL, 6, 2, 7, '대댓글1-4', SYSDATE, SYSDATE, 1, 4, 5);
+
+INSERT INTO REPLY VALUES (SEQ_REPLY.NEXTVAL, 8, 2, 6, '댓글1', SYSDATE, SYSDATE, 0, 0, NULL);
+INSERT INTO REPLY VALUES (SEQ_REPLY.NEXTVAL, 8, 2, 7, '대댓글1', SYSDATE, SYSDATE, 1, 0, 8);
+INSERT INTO REPLY VALUES (SEQ_REPLY.NEXTVAL, 8, 2, 8, '대댓글1-1', SYSDATE, SYSDATE, 2, 0, 9);
+INSERT INTO REPLY VALUES (SEQ_REPLY.NEXTVAL, 8, 2, 7, '대댓글2', SYSDATE, SYSDATE, 1, 0, 8);
+INSERT INTO REPLY VALUES (SEQ_REPLY.NEXTVAL, 8, 2, 9, '댓글2', SYSDATE, SYSDATE, 0, 4, NULL);
+
+INSERT INTO REPLY VALUES (SEQ_REPLY.NEXTVAL, 8, 2, 7, '대댓글2-1', SYSDATE, SYSDATE, 1, 4, 12);
+INSERT INTO REPLY VALUES (SEQ_REPLY.NEXTVAL, 8, 2, 7, '대댓글2-2', SYSDATE, SYSDATE, 1, 4, 12);
+
+
+INSERT INTO BOARD VALUES (SEQ_BOARD.NEXTVAL, 2, 6, '게시글 제목', '게시글 내용', SYSDATE, SYSDATE);
+INSERT INTO BOARD VALUES (SEQ_BOARD.NEXTVAL, 2, 7, '게시글 제목', '게시글 내용', SYSDATE, SYSDATE);
+INSERT INTO BOARD VALUES (SEQ_BOARD.NEXTVAL, 2, 8, '게시글 제목', '게시글 내용', SYSDATE, SYSDATE);
+INSERT INTO BOARD VALUES (SEQ_BOARD.NEXTVAL, 2, 9, '게시글 제목', '게시글 내용', SYSDATE, SYSDATE);
+INSERT INTO BOARD VALUES (SEQ_BOARD.NEXTVAL, 2, 7, '게시글 제목', '게시글 내용', SYSDATE, SYSDATE);
+INSERT INTO BOARD VALUES (SEQ_BOARD.NEXTVAL, 2, 8, '게시글 제목', '게시글 내용', SYSDATE, SYSDATE);
+INSERT INTO BOARD VALUES (SEQ_BOARD.NEXTVAL, 2, 9, '게시글 제목', '게시글 내용', SYSDATE, SYSDATE);
+INSERT INTO BOARD VALUES (SEQ_BOARD.NEXTVAL, 2, 7, '게시글 제목', '게시글 내용', SYSDATE, SYSDATE);
+INSERT INTO BOARD VALUES (SEQ_BOARD.NEXTVAL, 2, 8, '게시글 제목', '게시글 내용', SYSDATE, SYSDATE);
+INSERT INTO BOARD VALUES (SEQ_BOARD.NEXTVAL, 2, 9, '게시글 제목', '게시글 내용', SYSDATE, SYSDATE);
+INSERT INTO BOARD VALUES (SEQ_BOARD.NEXTVAL, 2, 7, '게시글 제목', '게시글 내용', SYSDATE, SYSDATE);
+INSERT INTO BOARD VALUES (SEQ_BOARD.NEXTVAL, 2, 8, '게시글 제목', '게시글 내용', SYSDATE, SYSDATE);
+INSERT INTO BOARD VALUES (SEQ_BOARD.NEXTVAL, 2, 9, '게시글 제목', '게시글 내용', SYSDATE, SYSDATE);
+INSERT INTO BOARD VALUES (SEQ_BOARD.NEXTVAL, 2, 7, '게시글 제목', '게시글 내용', SYSDATE, SYSDATE);
+INSERT INTO BOARD VALUES (SEQ_BOARD.NEXTVAL, 2, 8, '게시글 제목', '게시글 내용', SYSDATE, SYSDATE);
+INSERT INTO BOARD VALUES (SEQ_BOARD.NEXTVAL, 2, 9, '게시글 제목', '게시글 내용', SYSDATE, SYSDATE);
+INSERT INTO BOARD VALUES (SEQ_BOARD.NEXTVAL, 2, 7, '게시글 제목', '게시글 내용', SYSDATE, SYSDATE);
+INSERT INTO BOARD VALUES (SEQ_BOARD.NEXTVAL, 2, 8, '게시글 제목', '게시글 내용', SYSDATE, SYSDATE);
+INSERT INTO BOARD VALUES (SEQ_BOARD.NEXTVAL, 2, 9, '게시글 제목', '게시글 내용', SYSDATE, SYSDATE);
+INSERT INTO BOARD VALUES (SEQ_BOARD.NEXTVAL, 2, 7, '게시글 제목', '게시글 내용', SYSDATE, SYSDATE);
+INSERT INTO BOARD VALUES (SEQ_BOARD.NEXTVAL, 2, 8, '게시글 제목', '게시글 내용', SYSDATE, SYSDATE);
+INSERT INTO BOARD VALUES (SEQ_BOARD.NEXTVAL, 2, 9, '게시글 제목', '게시글 내용', SYSDATE, SYSDATE);
+INSERT INTO BOARD VALUES (SEQ_BOARD.NEXTVAL, 2, 7, '게시글 제목', '게시글 내용', SYSDATE, SYSDATE);
+INSERT INTO BOARD VALUES (SEQ_BOARD.NEXTVAL, 2, 8, '게시글 제목', '게시글 내용', SYSDATE, SYSDATE);
+INSERT INTO BOARD VALUES (SEQ_BOARD.NEXTVAL, 2, 9, '게시글 제목', '게시글 내용', SYSDATE, SYSDATE);
+
 alter table schedulebelongmember add constraint PK_SCHEDULEBELONGMEMBER PRIMARY KEY(meet_up_id,member_id,schedule_id);
 alter table schedulebelongmember add constraint FK_SCHEDULEBELONGMEMBER FOREIGN KEY(meet_up_id,member_id)
-    REFERENCES BELONGMEMBER (meet_up_id, member_id);
+    REFERENCES BELONGMEMBER (meet_up_id, member_id) ON DELETE CASCADE;
 
 alter table schedulebelongmember add constraint FK_SCHEDULEBELONGMEMBER_SC FOREIGN KEY(schedule_id)
-    REFERENCES MeetUpSchedule (schedule_id);
+    REFERENCES MeetUpSchedule (schedule_id) ON DELETE CASCADE;
+
+INSERT INTO SCHEDULEBELONGMEMBER s values(3, 3, 2);
+INSERT INTO SCHEDULEBELONGMEMBER s values(3, 4, 2);
+INSERT INTO SCHEDULEBELONGMEMBER s values(3, 5, 2);
 
 
 INSERT INTO REPLY VALUES (SEQ_REPLY.NEXTVAL, 6, 2, 7, '댓글1', SYSDATE, SYSDATE, 0, 0, NULL);
