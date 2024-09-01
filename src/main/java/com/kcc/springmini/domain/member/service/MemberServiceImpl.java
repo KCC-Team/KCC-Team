@@ -20,4 +20,14 @@ public class MemberServiceImpl implements MemberService {
     public void save(MemberVO member) {
         memberRepository.save(member);
     }
+
+    @Override
+    public int update(MemberVO member) {
+        return memberRepository.update(member);
+    }
+
+    @Override
+    public int delete(String username) {
+        return memberRepository.delete(username);
+    }
 }
