@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -72,9 +75,16 @@
   </div>
 
   <div class="buttons">
-    <button>회원 수정</button>
-    <button>회원 탈퇴</button>
+      <a href="/members/memberModify">회원수정</a>
+      <form id="deleteForm" action="/members/delete" method="post">
+          <sec:authorize access="isAuthenticated()">
+              <input type="hidden" name="username" value="<sec:authentication property="principal.username"/>">
+          </sec:authorize>
+          <button type="submit" class="delete-member">회원 탈퇴</button>
+      </form>
   </div>
+
+    <div id="result-container" data-result="${result}"></div>
 
     <footer>
         <%@ include file="../../../resources/common/footer.jsp" %>

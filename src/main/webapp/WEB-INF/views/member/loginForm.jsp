@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -24,7 +27,7 @@
   <link rel="stylesheet" type="text/css" href="../../../resources/common/common.css" />
   <link rel="stylesheet" type="text/css" href="../../../resources/css/login.css" />
 
-  <title>Document</title>
+  <title>PET KCC</title>
 </head>
 <body>
 
@@ -37,7 +40,14 @@
         <img src="../../../resources/images/login_pet.png" alt="Login Image">
       </div>  
       <div class="login-container">
-        <form action="#" method="post">
+
+          <% if (request.getParameter("error") != null) { %>
+          <div class="alert alert-danger">
+              로그인에 실패했습니다. <br> 아이디와 비밀번호를 확인해 주세요.
+          </div>
+          <% } %>
+
+        <form action="/login" method="post">
             <div class="mb-3">
                 <label for="username" class="form-label">아이디</label>
                 <input type="text" class="form-control" id="username" name="username" placeholder="아이디">
@@ -46,9 +56,12 @@
                 <label for="password" class="form-label">비밀번호</label>
                 <input type="password" class="form-control" id="password" name="password" placeholder="비밀번호">
             </div>
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+
             <button type="submit" class="btn login-button w-100">로그인</button>
-            <a href="/joinForm" class="btn register-button w-100">회원가입</a>
+            <a href="/members/joinForm" class="btn register-button w-100">회원가입</a>
         </form>
+
       </div>
     </div>
   </div>

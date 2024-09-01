@@ -36,6 +36,7 @@
     <main>
         <div class="signup-container">
             <h2 class="form-title">모임 등록</h2>
+
             <form action="#" method="post" encType="multipart/form-data">
                 <div class="form-group">
                     <label for="title">모임명</label>
@@ -48,9 +49,13 @@
                 <div class="form-group">
                     <label for="way">가입 방법</label>
                     <select id="way" name="way" >
-                        <option value="1">승인 후 가입</option>
-                        <option value="2">바로 가입</option>
+                        <option value="1" selected>바로 가입</option>
+                        <option value="2">승인 후 가입</option>
                     </select>
+                </div>
+                <div class="form-group register-content">
+                    <label for="content">가입 질문</label>
+                    <textarea id="content" name="content" placeholder="가입 질문을 입력해주세요."></textarea>
                 </div>
                 <div class="form-group">
                     <label for="person">최대 인원</label>
@@ -74,11 +79,12 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="profile">대표 사진</label>
-                    <input type="file" id="profile" name="profile">
+                    <label for="file_original_name">대표 사진</label>
+                    <input type="file" id="file_original_name" name="file_original_name">
                 </div>
                 <button type="submit" class="submit-button">등록</button>
             </form>
+
         </div>
     </main>
 

@@ -26,8 +26,6 @@ public class MeetUpController {
         model.addAttribute("totalPosts", posts.size());
         model.addAttribute("totalMembers", meetUpService.getMemberTotal(meetUpId));
 
-
-
         return "meetup/meetupDetail";
     }
 }

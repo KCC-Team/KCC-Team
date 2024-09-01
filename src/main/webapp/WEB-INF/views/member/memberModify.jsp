@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -23,7 +25,7 @@
   ></script>
 
   <link rel="stylesheet" type="text/css" href="../../../resources/common/common.css" />
-  <link rel="stylesheet" type="text/css" href="../../../resources/css/joinForm.css" />
+  <link rel="stylesheet" type="text/css" href="../../../resources/css/memberModify.css" />
 
   <title>PET KCC</title>
 </head>
@@ -32,14 +34,12 @@
 <%@ include file="../../../resources/common/header.jsp" %>
 
 <div class="signup-container">
-  <h2 class="form-title">회원 정보 입력</h2>
+  <h2 class="form-title">회원 정보 수정</h2>
 
-  <form id="form1" action="/members/save" method="post">
-      <div class="form-group">
-          <label for="username">아이디</label>
-          <input type="text" id="username" name="username"  placeholder="아이디">
-          <a href="#" class="duplicate-check" onclick="duplicate_check();">중복확인</a>
-      </div>
+  <form id="updateForm" action="/members/update" method="post">
+      <sec:authorize access="isAuthenticated()">
+          <input type="hidden" name="username" value="<sec:authentication property="principal.username"/>">
+      </sec:authorize>
       <div class="form-group">
           <label for="password">비밀번호</label>
           <input type="password" id="password" name="password"  placeholder="비밀번호">
@@ -68,11 +68,9 @@
           <label for="address">주소</label>
           <input type="text" id="address" name="address" placeholder="주소">
       </div>
-
       <input type="hidden" name="isdelete" value="F">
-      <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 
-      <button type="submit" class="submit-button">가입하기</button>
+      <button type="submit" class="submit-button">수정하기</button>
   </form>
 
 </div>
@@ -83,6 +81,6 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-latest.min.js"></script>
-<script src="../../../resources/js/joinForm.js"></script>
+<script src="../../../resources/js/mypage.js"></script>
 </body>
 </html>

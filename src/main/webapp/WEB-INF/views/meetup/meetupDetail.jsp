@@ -50,7 +50,6 @@
 
     <main>
         <section class="post-section">
-            
             <form class="post-input">
                 <textarea placeholder="게시글을 입력하세요" maxlength="500"></textarea>
                 <div class="post-actions">
@@ -89,41 +88,13 @@
 
         </section>
 
-        <aside>
-
+        <aside class="schedule-sec">
             <span class="schedule-header">
                 <span class="meet-date">일정</span>
                 <a href="#">일정 생성</a>
             </span>
 
-            <section class="schedule">
-                <span class="schedule-list">
-                    <span>
-                        <h4> 🌳 다음 주 토요일! 흑석동 반려견 모임 공지 🌳</h4>
-                        <p class="meet-font">안녕하세요, "미친 강아지 동호회" 회원 여러분!
-                            다가오는 주말, 강아지들과 함께 즐거운 시간을 
-                            보낼 모임을 준비했습니다. 이번 모임은 
-                            한강변에서 산책과 놀이를 주제로 진행...</p>
-                        <p class="meet-day">일정: 2024.09.07 ~ 2024.09.07</p>
-                        <p>제한: 인원: 4인</p>
-                    </span>
-                </span>
-            </section>
-
-            <section class="schedule">
-                <span class="schedule-list">
-                    <span>
-                        <h4> 🌳 다음 주 토요일! 흑석동 반려견 모임 공지 🌳</h4>
-                        <p class="meet-font">안녕하세요, "미친 강아지 동호회" 회원 여러분!
-                            다가오는 주말, 강아지들과 함께 즐거운 시간을 
-                            보낼 모임을 준비했습니다. 이번 모임은 
-                            한강변에서 산책과 놀이를 주제로 진행...</p>
-                        <p class="meet-day">일정: 2024.09.07 ~ 2024.09.07</p>
-                        <p>제한: 인원: 4인</p>
-                    </span>
-                </span>
-            </section>
-
+            <div id="scheduleList"></div>
             <div class="pagination">
                 <span>이전</span>
                 <span class="active">1</span>
@@ -133,60 +104,41 @@
                 <span>5</span>
                 <span>다음</span>
             </div>
-
         </aside>
-
     </main>
 
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary meetUpmodal" data-bs-toggle="modal" 
+    <button type="button" class="btn btn-primary meetUpmodal" data-bs-toggle="modal"
         data-bs-target="#meetUpModal">
         Launch demo modal
     </button>
 
-    <!-- Modal -->
+    <!-- 모임일정 Modal -->
     <div class="modal fade" id="meetUpModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                🌳 다음 주 토요일! 흑석동 반려견 모임 공지 🌳
-                <br>
-                <br>
-                안녕하세요, 귀여운 강아지 동호회 회원 여러분!
-                <br>
-                <br>
-                다가오는 주말, 강아지들과 함께 즐거운 시간을 보낼 모임을 준비했습니다.
-                <br>
-                <br>
-                이번 모임은 한강변에서 산책과 놀이를 주제로 진행하려고 해요.
-                <br>
-                <br>
-                날씨도 좋을 것 같으니 반려견들과 신나게 놀 수 있는 시간을 가져보면 좋겠습니다. 😊
-                <br>
-                <br>
-                일정: 2024.09.09 12시 ~ 17시
-                <br>
-                제한인원: 4인
-                <br>
-                마감 기한: 2024.09.07 15:30
-                <br>
-                <br>
-                모임장: 이수호
-                <br><br>
-                <span class="meetup-profile">
-                    <img src="#" alt="이미지">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h4>🌳 ${schedule.title} 🌳</h4>
+                    <p>${schedule.content}</p>
+                    <p>일정: ${schedule.appointment_time}</p>
+                    <p>제한인원: ${schedule.person}인</p>
+                    <p>마감 기한: ${schedule.deadline}</p>
+                    <p>모임장: ${schedule.leader}</p>
+                    <!-- 예시 이미지 -->
+                    <span class="meetup-profile">
+                    <img src="#" alt="이미지"> <!-- 실제 이미지 경로 필요 -->
                 </span>
-                <span class="meetup-profile">
-                    <img src="#" alt="이미지">
+                    <span class="meetup-profile">
+                    <img src="#" alt="이미지"> <!-- 실제 이미지 경로 필요 -->
                 </span>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary btn-meetup">참가 <span>${schedule.person} / 4</span></button>
+                </div>
             </div>
-            <div class="modal-footer">
-            <button type="button" class="btn btn-primary btn-meetup">참가 <span>2 / 4</span></button>
-            </div>
-        </div>
         </div>
     </div>
 

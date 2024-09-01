@@ -1,24 +1,48 @@
 package com.kcc.springmini.domain.schedule.controller;
 
-import com.kcc.springmini.domain.schedule.model.Schedule;
+import com.kcc.springmini.domain.schedule.model.ScheduleVO;
+import com.kcc.springmini.domain.schedule.model.dto.PageResponseDto;
+import com.kcc.springmini.domain.schedule.model.dto.ScheduleResponseDto;
 import com.kcc.springmini.domain.schedule.service.ScheduleService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
-@RestController
+@Controller
 @RequiredArgsConstructor
-@RequestMapping("/{meetupId}/schedules")
+@RequestMapping("/meetups/{meetupId}/schedules")
 public class ScheduleController {
     private final ScheduleService scheduleService;
 
-    @GetMapping
-    public List<Schedule> findAll() {
-        return scheduleService.findAll();
+    @GetMapping("/new")
+    public String showCreateForm() {
+        return "schedule/create";
     }
 
+    @PostMapping
+    public void create(@PathVariable(value = "meetupId") Long meetupId, @RequestBody ScheduleVO scheduleVO) {
+        scheduleService.save(meetupId, scheduleVO);
+    }
 
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable(value = "id") Long id) {
+        scheduleService.delete(id);
+    }
+
+    @GetMapping("/{id}")
+    public String findById(@PathVariable(value = "id") Long id, Model model) {
+        ScheduleResponseDto response = scheduleService.findById(id);
+        model.addAttribute("schedule", response);
+        return "meetup/meetupDetail";
+    }
+
+    @GetMapping
+    @ResponseBody
+    public ResponseEntity<PageResponseDto> findAll(
+            @PathVariable(value = "meetupId") Long meetupId,
+            @RequestParam(value = "page", defaultValue = "1") int page) {
+        return ResponseEntity.ok().body(scheduleService.findAll(meetupId, page));
+    }
 }

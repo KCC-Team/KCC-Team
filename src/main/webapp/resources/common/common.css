@@ -238,6 +238,24 @@ body {
 }
 /* menu end */
 
+.logout_btn {
+  font-size: large;
+  margin-right: 70px;
+  text-decoration: none;
+  color: #000;
+  font-weight: bold;
+  background-color: white;
+}
+
+.logout_btn:hover {
+  text-decoration: underline;
+}
+
+.logout_form {
+  max-width: 50px;
+  display: inline;
+}
+
 .user-menu a {
   font-size: large;
 }

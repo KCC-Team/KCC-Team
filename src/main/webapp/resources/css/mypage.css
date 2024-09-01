@@ -71,3 +71,17 @@ button:hover {
 .container {
   margin-top: 200px;
 }
+
+.buttons a, .delete-member {
+  background-color: #d1e7d6;
+  border: none;
+  border-radius: 20px;
+  padding: 10px 20px;
+  margin: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  text-decoration: none;
+  color: black;
+}
