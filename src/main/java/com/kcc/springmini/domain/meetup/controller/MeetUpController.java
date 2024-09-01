@@ -34,5 +34,4 @@ public class MeetUpController {
     public String register() {
         return "meetup/meetupRegister";
     }
-
 }
