@@ -28,7 +28,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 
     @Transactional
     @Override
-    public void save(long meetupId, ScheduleVO scheduleVO) {
+    public void save(Long meetupId, ScheduleVO scheduleVO) {
         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
@@ -38,9 +38,33 @@ public class ScheduleServiceImpl implements ScheduleService {
         scheduleRepository.save(scheduleVO);
     }
 
+    @Transactional
+    @Override
+    public void participateSchedule(Long meetupId, Long scheduleId, Long memberId) {
+        Map<String, Long> map = new HashMap<>();
+        map.put("meetUpId", meetupId);
+        map.put("scheduleId", scheduleId);
+        map.put("memberId", memberId);
+
+        // 모임 일정이 마감되었는지 확인 (비관 락)
+        if (scheduleRepository.lockScheduleMember(scheduleId) == 0) {
+            throw new BadRequestException("모임 일정이 이미 마감되었습니다.", HttpStatus.BAD_REQUEST);
+        }
+
+        // 모임 일정 참여 인원 업데이트
+        scheduleRepository.updateSchedulePerson(scheduleId);
+
+        // 모임 일정 참여자 생성
+        if (scheduleRepository.saveMember(map) == 0) {
+            throw new BadRequestException("모임 일정에 참여할 수 없습니다.", HttpStatus.BAD_REQUEST);
+        }
+    }
+
     @Override
     public void delete(Long id) {
-        scheduleRepository.delete(id);
+        if (scheduleRepository.delete(id) == 0) {
+            throw new BadRequestException("모임 일정을 삭제할 수 없습니다.", HttpStatus.BAD_REQUEST);
+        }
     }
 
     @Override

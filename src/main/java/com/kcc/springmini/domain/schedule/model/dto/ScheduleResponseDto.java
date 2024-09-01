@@ -14,14 +14,16 @@ public class ScheduleResponseDto {
     private int person;                 // 제한 인원
     private String deadline;            // 마감 기한
     private String leader;              // 모임장
+    private int accept_count;           // 참여 인원
 
     @Builder
-    private ScheduleResponseDto(String title, String content, int person, String deadline, String appointment_time, String leader) {
+    private ScheduleResponseDto(String title, String content, int person, String deadline, String appointment_time, String leader, int accept_count) {
         this.title = title;
         this.content = content;
         this.person = person;
         this.deadline = deadline;
         this.appointment_time = appointment_time;
         this.leader = leader;
+        this.accept_count = accept_count;
     }
 }
