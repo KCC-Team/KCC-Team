@@ -6,9 +6,51 @@
 <mapper namespace="com.kcc.springmini.domain.meetup.repository.mapper.MeetUpMapper">
     <cache />
 
+    <select id="findAll" resultType="com.kcc.springmini.domain.meetup.model.vo.MeetUpVO">
+        <![CDATA[
+        select meet_up_id, title, person, category, intro
+        from (
+             select /*+INDEX_ASC(meetup PK_MeetUp) */ rownum rn,
+                    meet_up_id, title, person, category, intro
+             from meetup
+             where rownum <= #{pageNum} * #{amount}
+             )
+        where rn > (#{pageNum} -1) * #{amount}
+        ]]>
+    </select>
+
+    <select id="findByTitle">
+        select meet_up_id, title, person, category, intro
+        from
+        (
+            select /*+INDEX_ASC(meetup PK_MeetUp) */ rownum rn,
+                meet_up_id, title, person, category, intro
+            from meetup
+            where
+            <![CDATA[
+            rownum <= #{cri.pageNum} * #{cri.amount}
+            ]]>
+        <if test="title != null and title != ''">
+            and title like '%' || #{title} || '%'
+        </if>
+        )
+        where
+        <![CDATA[
+            rn > (#{cri.pageNum} -1) * #{cri.amount}
+        ]]>
+    </select>
+
+    <select id="getTotalCount" resultType="int">
+        select count(*) from meetup
+        <where>
+            <if test="title != null and title != ''">
+                and title like '%' || #{title} || '%'
+            </if>
+        </where>
+    </select>
 
     <select id="getMemberTotal" resultType="int" parameterType="Long">
-        SELECT COUNT(*) FROM KCC.BELONGMEMBER WHERE MEET_UP_ID = #{meetUpId}
+        SELECT COUNT(*) FROM BELONGMEMBER WHERE MEET_UP_ID = #{meetUpId}
     </select>
 
 </mapper>
