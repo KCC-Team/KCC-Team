@@ -5,7 +5,11 @@ import com.kcc.springmini.domain.reply.model.dto.ReplyCreateRequestDto;
 import com.kcc.springmini.domain.reply.model.dto.ReplyRequestDto;
 import com.kcc.springmini.domain.reply.service.ReplyService;
 import com.kcc.springmini.domain.reply.service.ReplyServiceImpl;
+import com.kcc.springmini.global.auth.PrincipalDetail;
+
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -35,8 +39,9 @@ public class ReplyController {
 
 
     @PostMapping("/reply")
-    public void insertReply(@RequestBody ReplyCreateRequestDto reply) {
-        System.out.println("asd");
+    public void insertReply(@RequestBody ReplyCreateRequestDto reply, @AuthenticationPrincipal PrincipalDetail principalDetails) {
+        principalDetails.getMember().getMember_id();
+    	System.out.println("asd");
         System.out.println("reply = " + reply);
         replyService.insertReply(reply);
 

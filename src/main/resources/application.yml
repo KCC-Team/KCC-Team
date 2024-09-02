@@ -19,7 +19,13 @@ spring:
     init:
       mode: always
       continue-on-error: false
+  
+  servlet:
+    multipart:
+      enabled: true  
 
 mybatis:
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: com.kcc.springmini.domain
+
+  

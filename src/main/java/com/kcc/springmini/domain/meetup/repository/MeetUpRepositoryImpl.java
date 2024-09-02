@@ -1,6 +1,7 @@
 package com.kcc.springmini.domain.meetup.repository;
 
 import com.kcc.springmini.domain.meetup.model.dto.Criteria;
+import com.kcc.springmini.domain.meetup.model.dto.MeetUpRequestDto;
 import com.kcc.springmini.domain.meetup.model.vo.MeetUpVO;
 import com.kcc.springmini.domain.meetup.repository.mapper.MeetUpMapper;
 import lombok.RequiredArgsConstructor;
@@ -33,4 +34,10 @@ public class MeetUpRepositoryImpl implements MeetUpRepository {
     public int getMemberTotal(Long memberId) {
         return meetUpMapper.getMemberTotal(memberId);
     }
+
+	@Override
+	public void insertMeetup(MeetUpRequestDto dto) {
+		meetUpMapper.insertMeetup(dto);
+		
+	}
 }

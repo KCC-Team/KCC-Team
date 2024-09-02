@@ -52,11 +52,12 @@
                 select ms.title, ms.content, ms.person,
                        ms.deadline, ms.appointment_time, schedule_id, ROWNUM rnum
                 from (
-                    select *
+                    select /*+INDEX_DESC(meetupschedule PK_MeetUpSchedule) */
+                        *
                     from MeetUpSchedule ms
                     where ms.meet_up_id = #{meetUpId}
                     AND ms.deadline >= systimestamp
-                    order by created_at asc
+                    order by ms.schedule_id desc
                 ) ms
                 where ROWNUM <= #{limit} + #{offset}
             ) inline_ms

@@ -43,6 +43,9 @@
       <span class="group-details">
           <span class="meet-leader-img"><img src="#" alt="사진"></span>
           <h1>모임 이름 <span class="meet-name">대형견</span></h1>
+          <c:if test="${isPass == 0}">
+              <button type="button" class="btn btn-success">참가하기</button>
+          </c:if>
       </span>
     <div class="meet-member">
         <p>
@@ -84,13 +87,36 @@
         </c:forEach>
 
         <div class="pagination">
-            <span>이전</span>
-            <span class="active">1</span>
-            <span>2</span>
-            <span>3</span>
-            <span>4</span>
-            <span>5</span>
-            <span>다음</span>
+            <div class="pull-right d-flex justify-content-center"
+                 aria-label="Page navigation example">
+              <ul class="pagination">
+
+                <c:if test="${pageMaker.prev}">
+                  <li class="paginate_button page-item prev">
+                    <a href="${pageMaker.startPage -1}" class="page-link">이전</a>
+                  </li>
+                </c:if>
+
+                <c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+                  <li class="paginate_button page-item ${pageMaker.cri.pageNum == num ? "active":""} ">
+                    <a href="${num}" class="page-link">${num}</a>
+                  </li>
+                </c:forEach>
+
+                <c:if test="${pageMaker.next}">
+                  <li class="paginate_button page-item next">
+                    <a href="${pageMaker.endPage + 1 }" class="page-link">다음</a>
+                  </li>
+                </c:if>
+
+              </ul>
+            </div>
+            <form id='actionForm' action="/meetups/${meetupId}" method='get'>
+              <input type='hidden' name='pageNum' value='${pageMaker.cri.pageNum}'>
+              <input type='hidden' name='amount' value='${pageMaker.cri.amount}'>
+              <input type='hidden' name='type' value='<c:out value="${ pageMaker.cri.type }"/>'>
+              <input type='hidden' name='keyword' value='<c:out value="${ pageMaker.cri.keyword }"/>'>
+            </form>
         </div>
     </section>
 
@@ -216,5 +242,6 @@
         });
     });
 </script>
+<script src="../../../resources/js/main.js"></script>
 </body>
 </html>
