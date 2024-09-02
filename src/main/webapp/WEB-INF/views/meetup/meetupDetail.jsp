@@ -43,6 +43,9 @@
       <span class="group-details">
           <span class="meet-leader-img"><img src="#" alt="사진"></span>
           <h1>모임 이름 <span class="meet-name">대형견</span></h1>
+          <c:if test="${isPass == 0}">
+              <button type="button" class="btn btn-success">참가하기</button>
+          </c:if>
       </span>
     <div class="meet-member">
         <p>
