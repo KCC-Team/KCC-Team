@@ -20,27 +20,27 @@ public class PostController {
     private final PostService postService;
     private final ReplyService replyService;
 
-    @GetMapping("/{meetUpId}")
-    public void findAllPosts(@PathVariable("meetUpId") Long meetUpId) {
-        System.out.println("call");
-        List<PostVO> all = postService.findAll(meetUpId);
-        for (PostVO postVO : all) {
-            System.out.println(postVO);
-        }
-    }
+//    @GetMapping("/{meetUpId}")
+//    public void findAllPosts(@PathVariable("meetUpId") Long meetUpId) {
+//        System.out.println("call");
+//        List<PostVO> all = postService.findAll(meetUpId);
+//        for (PostVO postVO : all) {
+//            System.out.println(postVO);
+//        }
+//    }
 
 
-    @GetMapping("/meetup/{meetUpId}/posts")
-    public List<PostVO> getPosts(
-            @PathVariable Long meetUpId,
-            @RequestParam(value = "page", defaultValue = "1") int page,
-            @RequestParam(value = "size", defaultValue = "5") int size
-    ) {
-        System.out.println("paging call");
-        List<PostVO> allWithPaging = postService.findAllWithPaging(meetUpId, page, size);
-        System.out.println(allWithPaging);
-        return null;
-    }
+//    @GetMapping("/meetup/{meetUpId}/posts")
+//    public List<PostVO> getPosts(
+//            @PathVariable Long meetUpId,
+//            @RequestParam(value = "page", defaultValue = "1") int page,
+//            @RequestParam(value = "size", defaultValue = "5") int size
+//    ) {
+//        System.out.println("paging call");
+//        List<PostVO> allWithPaging = postService.findAllWithPaging(meetUpId, page, size);
+//        System.out.println(allWithPaging);
+//        return null;
+//    }
 
     @GetMapping("/posts/{postId}")
     public String postDetail(@PathVariable Long postId, Model model){

@@ -1,5 +1,6 @@
 package com.kcc.springmini.domain.post.service;
 
+import com.kcc.springmini.domain.meetup.model.dto.Criteria;
 import com.kcc.springmini.domain.post.model.vo.PostVO;
 import com.kcc.springmini.domain.post.repository.mapper.PostMapper;
 import lombok.RequiredArgsConstructor;
@@ -21,14 +22,10 @@ public class PostServiceImpl implements PostService{
     }
 
     @Override
-    public List<PostVO> findAllWithPaging(Long meetUpId, int pageNum, int pageSize) {
-        int startRow = (pageNum - 1) * pageSize + 1;
-        int endRow = pageNum * pageSize;
-
-        Map<String, Object> params = new HashMap<>();
-        params.put("meetUpId", meetUpId);
-        params.put("startRow", startRow);
-        params.put("endRow", endRow);
+    public List<PostVO> findAllWithPaging(Criteria cri, Long meetUpId) {
+    	Map<String, Object> params = new HashMap<>();
+    	params.put("cri", cri);
+    	params.put("meetUpId", meetUpId);
         return postMapper.findAllWithPaging(params);
     }
 
