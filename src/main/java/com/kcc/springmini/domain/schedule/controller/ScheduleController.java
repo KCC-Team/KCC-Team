@@ -36,7 +36,8 @@ public class ScheduleController {
             @RequestParam(value = "meetupId") Long meetupId,
             @PathVariable(value = "id") Long id,
             @AuthenticationPrincipal PrincipalDetail principalDetail) {
-        scheduleService.participateSchedule(meetupId, id, principalDetail.getMember().getMember_id());
+        scheduleService.participateSchedule(meetupId, id, principalDetail.getMember().getMemberId()
+        );
         return ResponseEntity.ok().body("일정 참여가 완료되었습니다.");
     }
 
