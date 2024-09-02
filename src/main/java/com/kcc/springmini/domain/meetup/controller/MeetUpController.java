@@ -2,6 +2,7 @@ package com.kcc.springmini.domain.meetup.controller;
 
 import com.kcc.springmini.domain.meetup.model.dto.Criteria;
 import com.kcc.springmini.domain.meetup.model.dto.MeetUpRequestDto;
+import com.kcc.springmini.domain.meetup.model.dto.PageDto;
 import com.kcc.springmini.domain.meetup.service.MeetUpService;
 import com.kcc.springmini.domain.post.model.vo.PostVO;
 import com.kcc.springmini.domain.post.service.PostService;
@@ -41,8 +42,10 @@ public class MeetUpController {
         model.addAttribute("totalMembers", meetUpService.getMemberTotal(meetUpId));
         model.addAttribute("meetupId", meetUpId);
         model.addAttribute("schedules", scheduleService.findAll(meetUpId, 1));
+        model.addAttribute("pageMaker", new PageDto(cri, posts.size())); //페이징 수 ex.(|1|2|3|4|5)
         if (principalDetail != null) {
-            model.addAttribute("isPass", meetUpService.isPass(meetUpId, principalDetail.getMember().getMemberId()));
+            boolean pass = meetUpService.isPass(meetUpId, principalDetail.getMember().getMemberId());
+            model.addAttribute("isPass", pass ? 1 : 0);
         } else {
             model.addAttribute("isPass", 0);
         }
