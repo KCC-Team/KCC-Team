@@ -1,5 +1,6 @@
 package com.kcc.springmini.domain.meetup.controller;
 
+import com.kcc.springmini.domain.meetup.model.dto.MeetUpRequestDto;
 import com.kcc.springmini.domain.meetup.service.MeetUpService;
 import com.kcc.springmini.domain.post.model.vo.PostVO;
 import com.kcc.springmini.domain.post.service.PostService;
@@ -9,9 +10,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -50,5 +56,17 @@ public class MeetUpController {
     @GetMapping("/register")
     public String register() {
         return "meetup/meetupRegister";
+    }
+    
+    @PostMapping("/register")
+    public String postMeetup(@ModelAttribute MeetUpRequestDto dto ,
+    		@RequestPart(value = "file", required=false) MultipartFile file) {
+    	System.out.println("postMeetup call");
+    	System.out.println(file.getOriginalFilename());
+    	System.out.println(dto);
+    	
+    	meetUpService.insertMeetup(dto);
+    	
+    	return "redirect:/";
     }
 }
