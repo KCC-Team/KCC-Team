@@ -4,11 +4,11 @@ import com.kcc.springmini.domain.meetup.model.dto.Criteria;
 import com.kcc.springmini.domain.meetup.model.dto.MeetUpRequestDto;
 import com.kcc.springmini.domain.meetup.model.vo.MeetUpVO;
 import com.kcc.springmini.domain.meetup.repository.MeetUpRepository;
-import com.kcc.springmini.domain.meetup.repository.mapper.MeetUpMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -34,6 +34,12 @@ public class MeetUpServiceImpl implements MeetUpService{
     @Override
     public int getMemberTotal(Long meetUpId) {
         return meetUpRepository.getMemberTotal(meetUpId);
+    }
+
+    @Override
+    public boolean isPass(Long meetUpId, Long memberId) {
+        Map<String, Long> map = Map.of("meetupId", meetUpId, "memberId", memberId);
+        return meetUpRepository.isPass(map) == 1;
     }
 
 	@Override

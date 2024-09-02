@@ -10,7 +10,6 @@ import java.util.List;
 
 @Data
 public class PrincipalDetail implements UserDetails {
-
     private MemberVO member;
 
     public PrincipalDetail(MemberVO member) {

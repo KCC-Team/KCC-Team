@@ -13,4 +13,5 @@ public interface MeetUpService {
     List<MeetUpVO> findByTitle(String title, Criteria cri);
     int getTotalCount(String title, Criteria cri);
     int getMemberTotal(Long memberId);
+    boolean isPass(Long meetUpId, Long memberId);
 }
