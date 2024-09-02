@@ -37,7 +37,7 @@
         <div class="signup-container">
             <h2 class="form-title">모임 등록</h2>
 
-            <form action="#" method="post" encType="multipart/form-data">
+            <form action="/meetups/register" method="post" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="title">모임명</label>
                     <input type="text" id="title" name="title" placeholder="모임명을 입력해주세요.">
@@ -80,7 +80,7 @@
                 </div>
                 <div class="form-group">
                     <label for="file_original_name">대표 사진</label>
-                    <input type="file" id="file_original_name" name="file_original_name">
+                    <input type="file" id="file_original_name" name="file">
                 </div>
                 <button type="submit" class="submit-button">등록</button>
             </form>

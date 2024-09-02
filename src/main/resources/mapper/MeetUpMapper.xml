@@ -53,4 +53,8 @@
         SELECT COUNT(*) FROM BELONGMEMBER WHERE MEET_UP_ID = #{meetUpId}
     </select>
 
+    <insert id="insertMeetup">
+    	INSERT INTO MEETUP VALUES (SEQ_MEETUP.NEXTVAL, #{title}, #{person}, #{category}, #{intro})
+    </insert>
+
 </mapper>
