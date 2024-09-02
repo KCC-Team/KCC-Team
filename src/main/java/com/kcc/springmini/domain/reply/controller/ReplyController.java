@@ -40,9 +40,8 @@ public class ReplyController {
 
     @PostMapping("/reply")
     public void insertReply(@RequestBody ReplyCreateRequestDto reply, @AuthenticationPrincipal PrincipalDetail principalDetails) {
-        principalDetails.getMember().getMemberId();
-    	System.out.println("asd");
-        System.out.println("reply = " + reply);
+        reply.setMemberId(principalDetails.getMember().getMemberId());
+        
         replyService.insertReply(reply);
 
     }

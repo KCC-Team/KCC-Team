@@ -168,7 +168,6 @@
           data: JSON.stringify({
             postId : postId,
             content: commentText,
-            memberId: 9,
             parentId: parentId
           }),
           contentType: 'application/json',
