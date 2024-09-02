@@ -93,35 +93,35 @@ alter table belongmember add constraint FK_BELONGMEMBER_MEMBER FOREIGN KEY(membe
 --INCREMENT BY 1;
 --------------------------------------------------------------------------------
 -- MEMBER 테이블 데이터 생성
-INSERT INTO MEMBER values (SEQ_MEMBER.nextval, 'TEST0', 'TEST0', '이수호',
-                           'test@naver.com', 'M', TO_DATE('1999/10/29', 'YYYY/MM/DD'), '010-1111-1111', '부산', sysdate, sysdate, 'T');
+INSERT INTO MEMBER values (SEQ_MEMBER.nextval, 'test0', 'test0', '이수호',
+                           'test@naver.com', 'M', TO_DATE('1999/10/29', 'YYYY/MM/DD'), '010-1111-1111', '부산', sysdate, sysdate, 'F');
 
 INSERT INTO MEMBER values (SEQ_MEMBER.nextval, 'TEST1', 'TEST1', '이한희',
-                           'test@naver.com', 'M', TO_DATE('1999/10/29', 'YYYY/MM/DD'), '010-1111-1111', '부산', sysdate, sysdate, 'T');
+                           'test@naver.com', 'M', TO_DATE('1999/10/29', 'YYYY/MM/DD'), '010-1111-1111', '부산', sysdate, sysdate, 'F');
 
 INSERT INTO MEMBER values (SEQ_MEMBER.nextval, 'TEST2', 'TEST2', '김연호',
-                           'test@naver.com', 'M', TO_DATE('1999/10/29', 'YYYY/MM/DD'), '010-1111-1111', '부산', sysdate, sysdate, 'T');
+                           'test@naver.com', 'M', TO_DATE('1999/10/29', 'YYYY/MM/DD'), '010-1111-1111', '부산', sysdate, sysdate, 'F');
 
 INSERT INTO MEMBER values (SEQ_MEMBER.nextval, 'TEST3', 'TEST3', '안수형',
-                           'test@naver.com', 'M', TO_DATE('1999/10/29', 'YYYY/MM/DD'), '010-1111-1111', '부산', sysdate, sysdate, 'T');
+                           'test@naver.com', 'M', TO_DATE('1999/10/29', 'YYYY/MM/DD'), '010-1111-1111', '부산', sysdate, sysdate, 'F');
 
 INSERT INTO MEMBER values (SEQ_MEMBER.nextval, 'TEST4', 'TEST4', '장원',
-                           'test@naver.com', 'M', TO_DATE('1999/10/29', 'YYYY/MM/DD'), '010-1111-1111', '부산', sysdate, sysdate, 'T');
+                           'test@naver.com', 'M', TO_DATE('1999/10/29', 'YYYY/MM/DD'), '010-1111-1111', '부산', sysdate, sysdate, 'F');
 
 INSERT INTO MEMBER values (SEQ_MEMBER.nextval, 'TEST5', 'TEST5', '윤채원',
-                           'test@naver.com', 'M', TO_DATE('1999/10/29', 'YYYY/MM/DD'), '010-1111-1111', '부산', sysdate, sysdate, 'T');
+                           'test@naver.com', 'M', TO_DATE('1999/10/29', 'YYYY/MM/DD'), '010-1111-1111', '부산', sysdate, sysdate, 'F');
 
 INSERT INTO MEMBER values (SEQ_MEMBER.nextval, 'TEST6', 'TEST6', '김상학',
-                           'test@naver.com', 'M', TO_DATE('1999/10/29', 'YYYY/MM/DD'), '010-1111-1111', '부산', sysdate, sysdate, 'T');
+                           'test@naver.com', 'M', TO_DATE('1999/10/29', 'YYYY/MM/DD'), '010-1111-1111', '부산', sysdate, sysdate, 'F');
 
 INSERT INTO MEMBER values (SEQ_MEMBER.nextval, 'TEST7', 'TEST7', '원승언',
-                           'test@naver.com', 'M', TO_DATE('1999/10/29', 'YYYY/MM/DD'), '010-1111-1111', '부산', sysdate, sysdate, 'T');
+                           'test@naver.com', 'M', TO_DATE('1999/10/29', 'YYYY/MM/DD'), '010-1111-1111', '부산', sysdate, sysdate, 'F');
 
 INSERT INTO MEMBER values (SEQ_MEMBER.nextval, 'TEST8', 'TEST8', '유재원',
-                           'test@naver.com', 'M', TO_DATE('1999/10/29', 'YYYY/MM/DD'), '010-1111-1111', '부산', sysdate, sysdate, 'T');
+                           'test@naver.com', 'M', TO_DATE('1999/10/29', 'YYYY/MM/DD'), '010-1111-1111', '부산', sysdate, sysdate, 'F');
 
 INSERT INTO MEMBER values (SEQ_MEMBER.nextval, 'TEST9', 'TEST9', '황철원',
-                           'test@naver.com', 'M', TO_DATE('1999/10/29', 'YYYY/MM/DD'), '010-1111-1111', '부산', sysdate, sysdate, 'T');
+                           'test@naver.com', 'M', TO_DATE('1999/10/29', 'YYYY/MM/DD'), '010-1111-1111', '부산', sysdate, sysdate, 'F');
 
 ---------------------------------------------------------------------------------------------------
 --MeetUp 테이블 더미 데이터 생성

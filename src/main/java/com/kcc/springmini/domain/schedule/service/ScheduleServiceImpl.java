@@ -36,7 +36,7 @@ public class ScheduleServiceImpl implements ScheduleService {
         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
         scheduleVO.setMeetUpId(meetupId);
-        scheduleVO.setMemberId(member.getMember_id());
+        scheduleVO.setMemberId(member.getMemberId());
 
         LocalDate deadline = LocalDate.parse(scheduleVO.getDeadline());
         scheduleVO.setDeadline(deadline.atStartOfDay().format(outputFormatter));

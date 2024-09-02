@@ -62,7 +62,7 @@ public class MemberController {
         member.setPassword(encryptedPassword);
 
         memberService.save(member);
-        return "/main";
+        return "redirect:/";
     }
 
     @PostMapping("/update")
