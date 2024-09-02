@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 @RequiredArgsConstructor
@@ -35,9 +36,14 @@ public class MeetUpRepositoryImpl implements MeetUpRepository {
         return meetUpMapper.getMemberTotal(memberId);
     }
 
+    @Override
+    public int isPass(Map<String, Long> map) {
+        return meetUpMapper.isPass(map);
+    }
+
 	@Override
 	public void insertMeetup(MeetUpRequestDto dto) {
 		meetUpMapper.insertMeetup(dto);
-		
+
 	}
 }

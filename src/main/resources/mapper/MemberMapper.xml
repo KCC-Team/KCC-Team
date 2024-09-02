@@ -6,7 +6,9 @@
 <mapper namespace="com.kcc.springmini.domain.member.repository.mapper.MemberMapper">
 
     <select id="findById" resultType="com.kcc.springmini.domain.member.model.vo.MemberVO">
-        select * from member
+        select member_id as memberId, username, password, nickname,
+               email, gender, birthdate, tel, address, created_at, updated_at, isdelete
+        from member
         where username = #{username}
         and isdelete = 'F'
     </select>

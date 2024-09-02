@@ -5,6 +5,7 @@ import com.kcc.springmini.domain.meetup.model.dto.MeetUpRequestDto;
 import com.kcc.springmini.domain.meetup.model.vo.MeetUpVO;
 
 import java.util.List;
+import java.util.Map;
 
 public interface MeetUpRepository {
     List<MeetUpVO> findAll(Criteria cri);
@@ -12,4 +13,5 @@ public interface MeetUpRepository {
     int getTotalCount(String title, Criteria cri);
     int getMemberTotal(Long memberId);
     void insertMeetup(MeetUpRequestDto dto);
+    int isPass(Map<String, Long> map);
 }
