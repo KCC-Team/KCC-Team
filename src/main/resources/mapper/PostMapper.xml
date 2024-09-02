@@ -36,7 +36,7 @@
         <id property="nickname" column="nickname"/>
     </resultMap>
 
-    <select id="findAllWithPaging" resultMap="postResult">
+    <!-- <select id="findAllWithPaging" resultMap="postResult">
         SELECT *
         FROM (
                  SELECT B.BOARD_ID, B.TITLE, B.CONTENT, M.NICKNAME, B.CREATED_AT, B.MEMBER_ID AS b_member_id,
@@ -46,7 +46,26 @@
                  WHERE B.MEET_UP_ID = #{meetUpId}
              )
         WHERE RN BETWEEN #{startRow} AND #{endRow}
+    </select> -->
+    
+    <select id="findAllWithPaging" parameterType="Map" resultType="com.kcc.springmini.domain.post.model.vo.PostVO">
+        <![CDATA[
+        select BOARD_ID as postId, TITLE as title, CONTENT as content, NICKNAME as nickname, CREATED_AT AS createdAt
+        from (
+             select /*+LEADING(M B) INDEX_DESC(B PK_BOARD) */ rownum rn,
+                    B.BOARD_ID, B.TITLE, B.CONTENT, M.NICKNAME, B.CREATED_AT, B.MEMBER_ID as b_member_id
+             from member M, board B
+             where m.member_id = b.member_id and b.meet_up_id = #{meetUpId, jdbcType=BIGINT}
+             and rownum <= #{cri.pageNum, jdbcType=BIGINT} * #{cri.amount, jdbcType=BIGINT}
+             )
+        where rn > (#{cri.pageNum, jdbcType=BIGINT} -1) * #{cri.amount, jdbcType=BIGINT}
+        ]]>
     </select>
+    
+    <select id="getTotalCount" resultType="int">
+        select count(*) from board where meet_up_id = #{meetupId}
+    </select>
+    
 
     <select id="findById" resultMap="postResult">
         SELECT B.BOARD_ID, B.TITLE, B.CONTENT, M.NICKNAME, B.CREATED_AT, B.MEMBER_ID as b_member_id

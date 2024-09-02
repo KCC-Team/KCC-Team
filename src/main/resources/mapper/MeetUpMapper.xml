@@ -56,7 +56,6 @@
     <insert id="insertMeetup">
     	INSERT INTO MEETUP VALUES (SEQ_MEETUP.NEXTVAL, #{title}, #{person}, #{category}, #{intro})
     </insert>
-  
     <select id="isApplied" parameterMap="map" resultType="int">
         SELECT CASE
             WHEN COUNT(*) > 0 THEN 1

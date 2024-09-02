@@ -1,6 +1,8 @@
 package com.kcc.springmini.domain.meetup.controller;
 
+import com.kcc.springmini.domain.meetup.model.dto.Criteria;
 import com.kcc.springmini.domain.meetup.model.dto.MeetUpRequestDto;
+import com.kcc.springmini.domain.meetup.model.dto.PageDto;
 import com.kcc.springmini.domain.meetup.service.MeetUpService;
 import com.kcc.springmini.domain.post.model.vo.PostVO;
 import com.kcc.springmini.domain.post.service.PostService;
@@ -31,21 +33,19 @@ public class MeetUpController {
 
     @GetMapping("/{meetUpId}")
     public String meetUp(@PathVariable("meetUpId") Long meetUpId,
-                         @RequestParam(defaultValue = "1") int pageNum,
-                         @RequestParam(defaultValue = "5") int pageSize,
+    					Criteria cri,
                          HttpServletResponse response, Model model) {
         response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
         response.setHeader("Pragma", "no-cache");
         response.setHeader("Expires", "0");
 
-        List<PostVO> posts = postService.findAll(meetUpId);
-        List<PostVO> allWithPaging = postService.findAllWithPaging(meetUpId, pageNum, pageSize);
-
-        System.out.println("1allWithPaging = " + allWithPaging.size());
-
-        model.addAttribute("posts", allWithPaging);
-        model.addAttribute("totalPosts", posts.size());
-        model.addAttribute("totalMembers", meetUpService.getMemberTotal(meetUpId));
+        List<PostVO> posts = postService.findAll(meetUpId); //전체 글 (총 게시글 갯수에만 사용)
+        List<PostVO> totalPaging = postService.findAllWithPaging(cri, meetUpId); //페이징된 글 
+        
+        model.addAttribute("posts", totalPaging); //현 페이지에서 보여줄 글 목록
+		model.addAttribute("pageMaker", new PageDto(cri, posts.size())); //페이징 수 ex.(|1|2|3|4|5)
+        model.addAttribute("totalPosts", posts.size()); //총 게시글
+        model.addAttribute("totalMembers", meetUpService.getMemberTotal(meetUpId)); //모임 인원
         model.addAttribute("meetupId", meetUpId);
         model.addAttribute("schedules", scheduleService.findAll(meetUpId, 1));
         model.addAttribute("isPass", 0);
@@ -61,12 +61,7 @@ public class MeetUpController {
     @PostMapping("/register")
     public String postMeetup(@ModelAttribute MeetUpRequestDto dto ,
     		@RequestPart(value = "file", required=false) MultipartFile file) {
-    	System.out.println("postMeetup call");
-    	System.out.println(file.getOriginalFilename());
-    	System.out.println(dto);
-    	
     	meetUpService.insertMeetup(dto);
-    	
     	return "redirect:/";
     }
 }
