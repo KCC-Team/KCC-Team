@@ -48,6 +48,7 @@ public class MeetUpController {
         model.addAttribute("totalMembers", meetUpService.getMemberTotal(meetUpId));
         model.addAttribute("meetupId", meetUpId);
         model.addAttribute("schedules", scheduleService.findAll(meetUpId, 1));
+        model.addAttribute("isPass", 0);
 
         return "meetup/meetupDetail";
     }

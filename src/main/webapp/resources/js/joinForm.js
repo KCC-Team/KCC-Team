@@ -9,9 +9,12 @@ $(document).ready(function () {
             alert("아이디 중복 확인 바랍니다.");
             return false;
         }
-
         if (password == '') {
             alert("비밀번호를 입력해주세요.");
+            return false;
+        }
+        if (dup_check === false) {
+            alert("아이디가 중복되어 가입이 불가능합니다.");
             return false;
         }
     });
@@ -35,6 +38,7 @@ function duplicate_check() {
                 dup_check = true;
             } else {
                 alert("이미 사용중인 아이디입니다.");
+                return false;
             }
         },
         error: function(xhr, status, error) {
