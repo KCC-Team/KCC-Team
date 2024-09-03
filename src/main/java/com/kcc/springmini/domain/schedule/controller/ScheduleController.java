@@ -25,10 +25,14 @@ public class ScheduleController {
     private final ScheduleService scheduleService;
 
     @PostMapping
-    public void create(@AuthenticationPrincipal PrincipalDetail principalDetail,
+    public String create(@AuthenticationPrincipal PrincipalDetail principalDetail,
             @RequestParam(value = "meetupId") Long meetupId, @ModelAttribute ScheduleVO scheduleVO) {
+        if (principalDetail == null) {
+            return "redirect:/login";
+        }
+
         scheduleService.save(principalDetail.getMember(), meetupId, scheduleVO);
-        System.out.println("일정이 생성되었습니다.");
+        return "redirect:/meetups/" + meetupId;
     }
 
     @PostMapping("/{id}/participate")
