@@ -31,8 +31,8 @@
         values(#{meetUpId}, #{memberId}, #{scheduleId})
     </insert>
 
-    <delete id="delete" parameterType="long">
-        delete from MeetUpSchedule where schedule_id = #{id}
+    <delete id="delete" parameterType="map">
+        delete from MeetUpSchedule where schedule_id = #{id} and member_id = #{memberId}
     </delete>
 
     <select id="findById" parameterType="long" resultType="ScheduleResponseDto">

@@ -36,8 +36,8 @@ public class ScheduleRepositoryImpl implements ScheduleRepository {
     }
 
     @Override
-    public int delete(Long id) {
-        return scheduleMapper.delete(id);
+    public int delete(Long id, Long memberId) {
+        return scheduleMapper.delete(id, memberId);
     }
 
     @Override

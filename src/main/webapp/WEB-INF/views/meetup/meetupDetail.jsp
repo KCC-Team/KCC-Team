@@ -237,7 +237,9 @@
                 </span>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger delete-btn">삭제</button>
+                <c:if test="${isPass == 1}">
+                    <button type="button" class="btn btn-danger delete-btn">삭제</button>
+                </c:if>
                 <button type="button" class="btn btn-primary btn-meetup apply-btn">참가 <span class="accept_count"></span></button>
             </div>
         </div>

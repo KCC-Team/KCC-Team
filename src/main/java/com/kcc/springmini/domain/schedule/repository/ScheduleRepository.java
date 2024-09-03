@@ -12,7 +12,7 @@ public interface ScheduleRepository {
     int lockScheduleMember(Long scheduleId);
     int updateSchedulePerson(Long scheduleId);
     int saveMember(Map<String, Long> map);
-    int delete(Long id);
+    int delete(Long id, Long memberId);
     ScheduleResponseDto findById(Long id);
     List<ScheduleListResponseDto> findAll(Map<String, Long> map);
     Long count(Long meetUpId);

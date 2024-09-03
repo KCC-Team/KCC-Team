@@ -66,8 +66,8 @@ public class ScheduleServiceImpl implements ScheduleService {
     }
 
     @Override
-    public void delete(Long id) {
-        if (scheduleRepository.delete(id) == 0) {
+    public void delete(Long id, Long memberId) {
+        if (scheduleRepository.delete(id, memberId) == 0) {
             throw new BadRequestException("모임 일정을 삭제할 수 없습니다.", HttpStatus.BAD_REQUEST);
         }
     }
