@@ -81,6 +81,7 @@ create table BelongMember (
                               member_id number,
                               meet_up_id number,
                               join_at date
+                              grade varchar(50)
 );
 
 
@@ -810,5 +811,21 @@ INSERT INTO BOARD VALUES (SEQ_BOARD.NEXTVAL, 2, 9, '게시글 제목', '게시�
 INSERT INTO BOARD VALUES (SEQ_BOARD.NEXTVAL, 2, 7, '게시글 제목', '게시글 내용', SYSDATE, SYSDATE);
 INSERT INTO BOARD VALUES (SEQ_BOARD.NEXTVAL, 2, 8, '게시글 제목', '게시글 내용', SYSDATE, SYSDATE);
 INSERT INTO BOARD VALUES (SEQ_BOARD.NEXTVAL, 2, 9, '게시글 제목', '게시글 내용', SYSDATE, SYSDATE);
+
+
+CREATE TABLE ANSWER (
+    MEET_UP_ID NUMBER,
+    MEMBER_ID NUMBER,
+    QUESTION_ID NUMBER,
+    ANSWER VARCHAR(500)
+);
+
+alter table ANSWER add constraint FK_ANSWER_JOINQUESTION FOREIGN KEY(MEET_UP_ID,QUESTION_ID) 
+REFERENCES JOINQUESTION (MEET_UP_ID, QUESTION_ID);
+
+ALTER TABLE ANSWER ADD CONSTRAINT FK_ANSWER_MEMBER FOREIGN KEY(MEMBER_ID) 
+REFERENCES MEMBER (MEMBER_ID)
+
+ALTER TABLE ANSWER ADD CONSTRAINT PK_ANSWER PRIMARY KEY(MEET_UP_ID, MEMBER_ID, QUESTION_ID);
 
 COMMIT;
