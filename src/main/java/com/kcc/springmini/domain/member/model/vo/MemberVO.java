@@ -8,8 +8,9 @@ import java.sql.Timestamp;
 import java.util.Date;
 
 @Data
+@Builder
 @AllArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class MemberVO implements Serializable {
     private Long memberId;
 
