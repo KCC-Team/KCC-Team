@@ -33,5 +33,61 @@ public class init implements ApplicationRunner {
                 .build();
 
         memberService.save(member);
+
+        MemberVO member2 = MemberVO.builder()
+                .username("admin2")
+                .password("admin2")
+                .nickname("admin")
+                .email("admin@example.com")
+                .gender("M")
+                .birthdate(Date.from(new Date().toInstant()))
+                .tel("010-1234-5678")
+                .address("서울시 강남구")
+                .isdelete("F")
+                .build();
+
+        memberService.save(member2);
+
+        MemberVO member3 = MemberVO.builder()
+                .username("admin3")
+                .password("admin3")
+                .nickname("admin")
+                .email("admin@example.com")
+                .gender("M")
+                .birthdate(Date.from(new Date().toInstant()))
+                .tel("010-1234-5678")
+                .address("서울시 강남구")
+                .isdelete("F")
+                .build();
+
+        memberService.save(member3);
+
+        MemberVO member4 = MemberVO.builder()
+                .username("admin4")
+                .password("admin4")
+                .nickname("admin")
+                .email("admin@example.com")
+                .gender("M")
+                .birthdate(Date.from(new Date().toInstant()))
+                .tel("010-1234-5678")
+                .address("서울시 강남구")
+                .isdelete("F")
+                .build();
+
+        memberService.save(member4);
+
+        MemberVO member5 = MemberVO.builder()
+                .username("admin5")
+                .password("admin5")
+                .nickname("admin")
+                .email("admin@example.com")
+                .gender("M")
+                .birthdate(Date.from(new Date().toInstant()))
+                .tel("010-1234-5678")
+                .address("서울시 강남구")
+                .isdelete("F")
+                .build();
+
+        memberService.save(member5);
     }
 }
