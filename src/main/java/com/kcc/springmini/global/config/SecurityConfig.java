@@ -11,6 +11,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.security.web.firewall.HttpFirewall;
 import org.springframework.security.web.firewall.StrictHttpFirewall;
@@ -45,7 +46,15 @@ public class SecurityConfig {
                                 .anyRequest().permitAll()
                 ).formLogin(formLogin -> formLogin.loginPage("/members/loginForm") // 로그인 페이지 지정
                         .loginProcessingUrl("/login") // 컨트롤러 지정 없이 시큐리티에서 로그인 진행
-                        .defaultSuccessUrl("/") // 로그인 후 main으로 이동
+                        .successHandler((request, response, authentication) -> {
+                            String prevPage = (String) request.getSession().getAttribute("prevPage");
+                            if (prevPage.contains("meetups")) {
+                                response.sendRedirect(prevPage);
+                            } else {
+                                SavedRequestAwareAuthenticationSuccessHandler defaultHandler = new SavedRequestAwareAuthenticationSuccessHandler();
+                                defaultHandler.onAuthenticationSuccess(request, response, authentication);
+                            }
+                        })
                         .failureHandler(authenticationFailureHandler())) // 로그인 실패 시 처리할 핸들러 설정
                 .logout(logout -> logout
                         .logoutUrl("/logout") // 로그아웃 요청 경로

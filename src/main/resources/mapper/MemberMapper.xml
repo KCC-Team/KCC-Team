@@ -50,7 +50,9 @@
     </select>
 
     <select id="getScheduleList" resultType="com.kcc.springmini.domain.schedule.model.ScheduleVO">
-        select MS.*
+        select
+            MS.title as scheduleTitle,
+            MS.appointment_time as scheduleTime
         from member M
         join belongmember B
             on M.member_id = B.member_id

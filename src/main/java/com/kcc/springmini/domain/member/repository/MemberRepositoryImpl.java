@@ -36,12 +36,12 @@ public class MemberRepositoryImpl implements MemberRepository {
     }
 
     @Override
-    public List<MeetUpVO> getMeetupList() {
-        return memberMapper.getMeetupList();
+    public List<MeetUpVO> getMeetupList(String username) {
+        return memberMapper.getMeetupList(username);
     }
 
     @Override
-    public List<ScheduleVO> getScheduleList() {
-        return memberMapper.getScheduleList();
+    public List<ScheduleVO> getScheduleList(String username) {
+        return memberMapper.getScheduleList(username);
     }
 }

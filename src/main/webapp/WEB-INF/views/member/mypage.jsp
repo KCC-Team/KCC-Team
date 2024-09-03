@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fmt" uri="jakarta.tags.core" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
-
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -38,39 +38,50 @@
 
     <div class="container">
 
+
       <div class="section">
           <div class="section-header">
               <span>내 모임</span>
           </div>
+
+        <c:forEach items="${meetupList}" var="meetup" begin="0" end="4">
           <div class="item">
-              <span class="label">모임 이름 1</span>
+              <span class="label">
+                  <a href="/meetups/<c:out value="${meetup.meet_up_id}" />"><c:out value="${meetup.title}" /></a>
+              </span>
           </div>
-          <div class="item">
-              <span class="label">모임 이름 2</span>
-          </div>
-          <div class="item">
-              <span class="label">모임 이름 3</span>
-          </div>
+        </c:forEach>
+
       </div>
   
       <div class="section">
           <div class="section-header">
               <span>내 일정 조회</span>
           </div>
-          <table class="schedule">
-              <tr>
-                  <td>일정 1</td>
-                  <td>2024.09.07 13:00 ~ 17:00</td>
-              </tr>
-              <tr>
-                  <td>일정 2</td>
-                  <td>2024.09.07 13:00 ~ 17:00</td>
-              </tr>
-              <tr>
-                  <td>일정 3</td>
-                  <td>2024.09.07 13:00 ~ 17:00</td>
-              </tr>
-          </table>
+            <c:forEach items="${scheduleList}" var="schedule" begin="0" end="4">
+              <table class="schedule">
+                  <tr>
+                      <td><c:out value="${schedule.scheduleTitle}" /></td>
+                      <td><c:out value="${schedule.scheduleTime}" /></td>
+                  </tr>
+              </table>
+            </c:forEach>
+      </div>
+
+      <div class="section">
+          <div class="section-header">
+              <span>승인 목록</span>
+          </div>
+          <div class="item">
+              <span class="label">
+                  <a href="#">승인목록1</a>
+              </span>
+          </div>
+          <div class="item">
+              <span class="label">
+                  <a href="#">승인목록2</a>
+              </span>
+          </div>
       </div>
   
   </div>
