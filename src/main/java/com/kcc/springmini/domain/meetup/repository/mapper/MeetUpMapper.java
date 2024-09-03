@@ -17,5 +17,6 @@ public interface MeetUpMapper {
     int getMemberTotal(Long meetUpId);
     int isPass(Map<String, Long> map);
     void insertMeetup(MeetUpRequestDto dto);
-    void join(Map<String, Long> map);
+    void join(Map<String, Object> map);
+    void insertQuestion(Map<String, Object> map);
 }

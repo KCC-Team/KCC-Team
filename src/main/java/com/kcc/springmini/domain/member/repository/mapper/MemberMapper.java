@@ -15,6 +15,6 @@ public interface MemberMapper {
     int update(MemberVO member);
     int delete(String username);
     int isApplied(Map<String, Long> map);
-    List<MeetUpVO> getMeetupList();
-    List<ScheduleVO> getScheduleList();
+    List<MeetUpVO> getMeetupList(String username);
+    List<ScheduleVO> getScheduleList(String username);
 }

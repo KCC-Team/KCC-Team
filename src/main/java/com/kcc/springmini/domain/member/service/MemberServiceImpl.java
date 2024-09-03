@@ -41,13 +41,13 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public List<MeetUpVO> getMeetupList() {
-        return memberRepository.getMeetupList();
+    public List<MeetUpVO> getMeetupList(String username) {
+        return memberRepository.getMeetupList(username);
     }
 
     @Override
-    public List<ScheduleVO> getScheduleList() {
-        return memberRepository.getScheduleList();
+    public List<ScheduleVO> getScheduleList(String username) {
+        return memberRepository.getScheduleList(username);
     }
 
 }

@@ -3,7 +3,7 @@ body {
 }
 
 .container {
-  width: 350px;
+  width: 460px;
   margin: 0 auto;
 }
 
@@ -30,6 +30,11 @@ body {
 
 .label {
   margin-left: 10px;
+}
+
+.label a{
+  color: black;
+  text-decoration: none;
 }
 
 .schedule {

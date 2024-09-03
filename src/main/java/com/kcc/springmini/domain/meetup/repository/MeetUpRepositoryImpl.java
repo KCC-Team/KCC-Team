@@ -42,7 +42,7 @@ public class MeetUpRepositoryImpl implements MeetUpRepository {
     }
 
     @Override
-    public void join(Map<String, Long> map) {
+    public void join(Map<String, Object> map) {
         meetUpMapper.join(map);
     }
 
@@ -50,5 +50,11 @@ public class MeetUpRepositoryImpl implements MeetUpRepository {
 	public void insertMeetup(MeetUpRequestDto dto) {
 		meetUpMapper.insertMeetup(dto);
 
+	}
+
+	@Override
+	public void insertQuestion(Map<String, Object> map) {
+		meetUpMapper.insertQuestion(map);
+		
 	}
 }
