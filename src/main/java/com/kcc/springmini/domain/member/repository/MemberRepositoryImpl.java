@@ -1,9 +1,13 @@
 package com.kcc.springmini.domain.member.repository;
 
+import com.kcc.springmini.domain.meetup.model.vo.MeetUpVO;
 import com.kcc.springmini.domain.member.model.vo.MemberVO;
 import com.kcc.springmini.domain.member.repository.mapper.MemberMapper;
+import com.kcc.springmini.domain.schedule.model.ScheduleVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
@@ -29,5 +33,15 @@ public class MemberRepositoryImpl implements MemberRepository {
     @Override
     public int delete(String username) {
         return memberMapper.delete(username);
+    }
+
+    @Override
+    public List<MeetUpVO> getMeetupList() {
+        return memberMapper.getMeetupList();
+    }
+
+    @Override
+    public List<ScheduleVO> getScheduleList() {
+        return memberMapper.getScheduleList();
     }
 }

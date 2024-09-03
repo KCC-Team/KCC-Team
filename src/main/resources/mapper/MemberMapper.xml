@@ -39,4 +39,24 @@
         where username = #{username}
     </delete>
 
+    <select id="getMeetupList" resultType="com.kcc.springmini.domain.meetup.model.vo.MeetUpVO">
+        select MU.*
+        from member M
+        join belongmember B
+            on m.member_id = b.member_id
+        join meetup MU
+            on b.meet_up_id = mu.meet_up_id
+        WHERE m.username = #{username}
+    </select>
+
+    <select id="getScheduleList" resultType="com.kcc.springmini.domain.schedule.model.ScheduleVO">
+        select MS.*
+        from member M
+        join belongmember B
+            on M.member_id = B.member_id
+        join meetupschedule MS
+            on B.meet_up_id = MS.meet_up_id
+        WHERE m.username = #{username}
+    </select>
+
 </mapper>
