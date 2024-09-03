@@ -1,5 +1,7 @@
 package com.kcc.springmini.domain.reply.controller;
 
+import com.kcc.springmini.domain.post.model.vo.PostVO;
+import com.kcc.springmini.domain.post.service.PostService;
 import com.kcc.springmini.domain.reply.model.Reply;
 import com.kcc.springmini.domain.reply.model.dto.ReplyCreateRequestDto;
 import com.kcc.springmini.domain.reply.model.dto.ReplyRequestDto;
@@ -21,6 +23,7 @@ import java.util.List;
 public class ReplyController {
 
     private final ReplyService replyService;
+    private final PostService postService;
 
     @GetMapping("/reply/{replyId}")
     public void getReply(@PathVariable Long replyId) {
@@ -40,7 +43,9 @@ public class ReplyController {
 
     @PostMapping("/reply")
     public void insertReply(@RequestBody ReplyCreateRequestDto reply, @AuthenticationPrincipal PrincipalDetail principalDetails) {
-        reply.setMemberId(principalDetails.getMember().getMemberId());
+    	PostVO post = postService.findById(reply.getPostId());
+    	reply.setMeetupId(post.getMeetupId());
+    	reply.setMemberId(principalDetails.getMember().getMemberId());
         replyService.insertReply(reply);
 
     }

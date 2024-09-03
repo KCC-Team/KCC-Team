@@ -88,10 +88,7 @@ public class ScheduleServiceImpl implements ScheduleService {
         int endPage = Math.min(startPage + PAGE_LIMIT_SIZE - 1, realEndPage);
         if (page < 1 || page > realEndPage && realEndPage != 0) {
             throw new NotFoundToErrorException("존재하지 않는 페이지입니다.", HttpStatus.BAD_REQUEST);
-        } else if (page > realEndPage) {
-            throw new NotFoundToErrorException("존재하지 않는 페이지입니다.", HttpStatus.BAD_REQUEST);
         }
-
         return new PageResponseDto(page, startPage, endPage, schedules);
     }
 

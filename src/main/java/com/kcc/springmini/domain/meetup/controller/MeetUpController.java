@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
@@ -30,19 +31,22 @@ public class MeetUpController {
             @PathVariable("meetUpId") Long meetUpId,
     					 Criteria cri, Model model) {
 
-        List<PostVO> posts = postService.findAll(meetUpId);
-        List<PostVO> allWithPaging = postService.findAllWithPaging(cri, meetUpId);
+        List<PostVO> posts = postService.findAll(meetUpId); //전체 글 (총 게시글 갯수에만 사용)
+        List<PostVO> totalPaging = postService.findAllWithPaging(cri, meetUpId); //페이징된 글 
 
-        model.addAttribute("posts", allWithPaging);
-        model.addAttribute("totalPosts", posts.size());
-        model.addAttribute("totalMembers", meetUpService.getMemberTotal(meetUpId));
+        model.addAttribute("posts", totalPaging); //현 페이지에서 보여줄 글 목록
+		model.addAttribute("pageMaker", new PageDto(cri, posts.size())); //페이징 수 ex.(|1|2|3|4|5)
+        model.addAttribute("totalPosts", posts.size()); //총 게시글
+        model.addAttribute("totalMembers", meetUpService.getMemberTotal(meetUpId)); //모임 인원
         model.addAttribute("meetupId", meetUpId);
         model.addAttribute("schedules", scheduleService.findAll(meetUpId, 1));
+
         model.addAttribute("pageMaker", new PageDto(cri, posts.size())); //페이징 수 ex.(|1|2|3|4|5)
         if (principalDetail != null) {
             boolean pass = meetUpService.isPass(meetUpId, principalDetail.getMember().getMemberId());
             model.addAttribute("isPass", pass ? 1 : 0);
-        } else {
+        }
+         else {
             model.addAttribute("isPass", 0);
         }
 
