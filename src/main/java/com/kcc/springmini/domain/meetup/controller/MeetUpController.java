@@ -64,11 +64,12 @@ public class MeetUpController {
     // 모임 참가
     @PostMapping("/{meetUpId}/join")
     public String joinMeetup(@AuthenticationPrincipal PrincipalDetail principalDetail,
-                             @PathVariable("meetUpId") Long meetUpId) {
+                             @PathVariable("meetUpId") Long meetUpId, Model model) {
         if (principalDetail == null) {
             return "redirect:/members/loginForm";
         }
 
+        model.addAttribute("message", "모임에 가입을 축하드립니다!!!");
         meetUpService.join(meetUpId, principalDetail.getMember().getMemberId());
         return "redirect:/meetups/" + meetUpId;
     }
