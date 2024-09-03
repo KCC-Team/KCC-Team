@@ -3,7 +3,14 @@ server:
 
 spring:
   profiles:
+    active: dev
     include: secret
+
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
   mvc:
     view:
       prefix: /WEB-INF/views/
