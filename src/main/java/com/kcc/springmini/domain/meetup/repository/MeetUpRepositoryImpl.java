@@ -41,7 +41,12 @@ public class MeetUpRepositoryImpl implements MeetUpRepository {
         return meetUpMapper.isPass(map);
     }
 
-	@Override
+    @Override
+    public void join(Map<String, Long> map) {
+        meetUpMapper.join(map);
+    }
+
+    @Override
 	public void insertMeetup(MeetUpRequestDto dto) {
 		meetUpMapper.insertMeetup(dto);
 

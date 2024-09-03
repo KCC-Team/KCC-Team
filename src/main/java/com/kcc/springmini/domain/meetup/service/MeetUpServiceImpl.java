@@ -4,7 +4,9 @@ import com.kcc.springmini.domain.meetup.model.dto.Criteria;
 import com.kcc.springmini.domain.meetup.model.dto.MeetUpRequestDto;
 import com.kcc.springmini.domain.meetup.model.vo.MeetUpVO;
 import com.kcc.springmini.domain.meetup.repository.MeetUpRepository;
+import com.kcc.springmini.global.exception.AlreadyExistException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -39,10 +41,21 @@ public class MeetUpServiceImpl implements MeetUpService{
     @Override
     public boolean isPass(Long meetUpId, Long memberId) {
         Map<String, Long> map = Map.of("meetupId", meetUpId, "memberId", memberId);
-        return meetUpRepository.isPass(map) == 1;
+        int pass = meetUpRepository.isPass(map);
+        return pass == 1;
     }
 
-	@Override
+    @Override
+    public void join(Long meetUpId, Long memberId) {
+        if (isPass(meetUpId, memberId)) {
+            throw new AlreadyExistException("이미 가입한 모임입니다.", HttpStatus.BAD_REQUEST);
+        }
+
+        Map<String, Long> map = Map.of("meetupId", meetUpId, "memberId", memberId);
+        meetUpRepository.join(map);
+    }
+
+    @Override
 	public void insertMeetup(MeetUpRequestDto dto) {
 		meetUpRepository.insertMeetup(dto);
 	}

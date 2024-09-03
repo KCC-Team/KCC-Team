@@ -14,4 +14,5 @@ public interface MeetUpRepository {
     int getMemberTotal(Long memberId);
     void insertMeetup(MeetUpRequestDto dto);
     int isPass(Map<String, Long> map);
+    void join(Map<String, Long> map);
 }
