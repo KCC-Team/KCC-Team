@@ -9,6 +9,7 @@ import java.io.Serializable;
 @Data
 public class PostVO implements Serializable {
     private Long postId;
+    private Long meetupId;
     private String title;
     private String content;
     private String createdAt;

@@ -66,7 +66,7 @@ public class MeetUpController {
     public String joinMeetup(@AuthenticationPrincipal PrincipalDetail principalDetail,
                              @PathVariable("meetUpId") Long meetUpId) {
         if (principalDetail == null) {
-            return "redirect:/login";
+            return "redirect:/members/loginForm";
         }
 
         meetUpService.join(meetUpId, principalDetail.getMember().getMemberId());
