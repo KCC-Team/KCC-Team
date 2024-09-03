@@ -4,9 +4,12 @@ import com.kcc.springmini.domain.meetup.model.dto.Criteria;
 import com.kcc.springmini.domain.meetup.model.dto.MeetUpRequestDto;
 import com.kcc.springmini.domain.meetup.model.vo.MeetUpVO;
 import com.kcc.springmini.domain.meetup.repository.MeetUpRepository;
+import com.kcc.springmini.global.auth.PrincipalDetail;
 import com.kcc.springmini.global.exception.AlreadyExistException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -46,17 +49,32 @@ public class MeetUpServiceImpl implements MeetUpService{
     }
 
     @Override
-    public void join(Long meetUpId, Long memberId) {
+    public void join(Long meetUpId, Long memberId, String grade) {
         if (isPass(meetUpId, memberId)) {
             throw new AlreadyExistException("이미 가입한 모임입니다.", HttpStatus.BAD_REQUEST);
         }
-
-        Map<String, Long> map = Map.of("meetupId", meetUpId, "memberId", memberId);
+        
+        Map<String, Object> map = Map.of("meetupId", meetUpId, "memberId", memberId, "grade", grade);
         meetUpRepository.join(map);
     }
 
     @Override
 	public void insertMeetup(MeetUpRequestDto dto) {
 		meetUpRepository.insertMeetup(dto);
+		
+		Long meetupId = dto.getCreateMeetupId();
+		
+		PrincipalDetail principalDetail = 
+				(PrincipalDetail) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Long memberId = principalDetail.getMember().getMemberId();
+		
+		join(meetupId, memberId, "모임장");
+		insertQuestion(meetupId, dto.getContent());
 	}
+    
+    @Override
+    public void insertQuestion(Long meetupId, String content) {
+    	Map<String, Object> map = Map.of("meetupId", meetupId, "content", content);
+    	meetUpRepository.insertQuestion(map);
+    }
 }

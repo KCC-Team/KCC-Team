@@ -53,8 +53,11 @@
         SELECT COUNT(*) FROM BELONGMEMBER WHERE MEET_UP_ID = #{meetUpId}
     </select>
 
-    <insert id="insertMeetup">
-    	INSERT INTO MEETUP VALUES (SEQ_MEETUP.NEXTVAL, #{title}, #{person}, #{category}, #{intro})
+    <insert id="insertMeetup" parameterType="com.kcc.springmini.domain.meetup.model.dto.MeetUpRequestDto">
+	   <selectKey keyProperty="createMeetupId" resultType="long" order="BEFORE">
+            SELECT SEQ_MEETUP.NEXTVAL FROM DUAL
+       </selectKey>
+    	INSERT INTO MEETUP VALUES (#{createMeetupId}, #{title}, #{person}, #{category}, #{intro})
     </insert>
 
     <select id="isPass" parameterType="map" resultType="int">
@@ -68,6 +71,10 @@
     </select>
 
     <insert id="join">
-        INSERT INTO BELONGMEMBER(MEET_UP_ID, MEMBER_ID, JOIN_AT) VALUES (#{meetupId}, #{memberId}, sysdate)
+        INSERT INTO BELONGMEMBER(MEET_UP_ID, MEMBER_ID, GRADE, JOIN_AT) VALUES (#{meetupId}, #{memberId}, #{grade}, sysdate)
+    </insert>
+    
+    <insert id="insertQuestion">
+    	INSERT INTO JOINQUESTION VALUES (#{meetupId}, SEQ_JOINQUESTION.NEXTVAL, #{content}, 'T')
     </insert>
 </mapper>

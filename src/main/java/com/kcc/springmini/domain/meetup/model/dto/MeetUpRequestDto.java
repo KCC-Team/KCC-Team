@@ -12,4 +12,5 @@ public class MeetUpRequestDto {
 	private Integer person;
 	private String  category;
 	private MultipartFile file;
+	private Long createMeetupId;
 }
