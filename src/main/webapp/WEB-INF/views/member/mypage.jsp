@@ -37,6 +37,7 @@
     </header>
 
     <div class="container">
+
       <div class="section">
           <div class="section-header">
               <span>내 모임</span>
