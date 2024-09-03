@@ -4,8 +4,10 @@ import com.kcc.springmini.domain.schedule.model.ScheduleVO;
 import com.kcc.springmini.domain.schedule.model.dto.PageResponseDto;
 import com.kcc.springmini.domain.schedule.model.dto.ScheduleResponseDto;
 import com.kcc.springmini.domain.schedule.service.ScheduleService;
+import com.kcc.springmini.global.aop.LoginValid;
 import com.kcc.springmini.global.auth.PrincipalDetail;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,13 +26,10 @@ import static org.springframework.http.HttpStatus.*;
 public class ScheduleController {
     private final ScheduleService scheduleService;
 
+    @LoginValid
     @PostMapping
     public String create(@AuthenticationPrincipal PrincipalDetail principalDetail,
-            @RequestParam(value = "meetupId") Long meetupId, @ModelAttribute ScheduleVO scheduleVO) {
-        if (principalDetail == null) {
-            return "redirect:/members/loginForm";
-        }
-
+            @RequestParam(value = "meetupId") Long meetupId, @ModelAttribute @Valid ScheduleVO scheduleVO) {
         scheduleService.save(principalDetail.getMember(), meetupId, scheduleVO);
         return "redirect:/meetups/" + meetupId;
     }

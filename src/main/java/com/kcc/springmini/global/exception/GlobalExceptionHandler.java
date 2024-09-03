@@ -1,11 +1,13 @@
 package com.kcc.springmini.global.exception;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -13,6 +15,9 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import java.io.IOException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
@@ -49,6 +54,13 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     public String handleNotFoundToErrorException(NotFoundToErrorException e) {
         log.error("handleNotFoundException", e);
         return "404";
+    }
+
+    @ExceptionHandler(UnAuthorizedException.class)
+    public void handleUnauthenticatedAccessException(HttpServletResponse response) throws IOException {
+        String errorMessage = "로그인이 필요합니다.";
+        String encodedErrorMessage = URLEncoder.encode(errorMessage, StandardCharsets.UTF_8);
+        response.sendRedirect("/members/loginForm?loginDenied=" + encodedErrorMessage);
     }
 
     @Override
