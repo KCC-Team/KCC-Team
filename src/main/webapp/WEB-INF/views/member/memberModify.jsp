@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fmt" uri="jakarta.tags.core" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 
 <!DOCTYPE html>
@@ -46,27 +47,27 @@
       </div>
       <div class="form-group">
           <label for="nickname">이름</label>
-          <input type="text" id="nickname" name="nickname" placeholder="이름">
+          <input type="text" id="nickname" name="nickname" placeholder="이름" value="<c:out value='${list.nickname}' />">
       </div>
       <div class="form-group">
           <label for="gender">성별</label>
-          <input type="text" id="gender" name="gender" placeholder="M">
+          <input type="text" id="gender" name="gender" placeholder="M" value="<c:out value='${list.gender}' />">
       </div>
       <div class="form-group">
           <label for="birthdate">생년월일</label>
-          <input type="text" id="birthdate" name="birthdate" placeholder="yyyy/mm/dd">
+          <input type="text" id="birthdate" name="birthdate" placeholder="yyyy/mm/dd" value="">
       </div>
       <div class="form-group">
           <label for="email">이메일</label>
-          <input type="text" id="email" name="email" placeholder="이메일">
+          <input type="text" id="email" name="email" placeholder="이메일" value="<c:out value='${list.email}' />">
       </div>
       <div class="form-group">
           <label for="tel">휴대폰</label>
-          <input type="text" id="tel" name="tel" placeholder="휴대폰">
+          <input type="text" id="tel" name="tel" placeholder="휴대폰" value="<c:out value='${list.tel}' />">
       </div>
       <div class="form-group">
           <label for="address">주소</label>
-          <input type="text" id="address" name="address" placeholder="주소">
+          <input type="text" id="address" name="address" placeholder="주소" value="<c:out value='${list.address}' />">
       </div>
       <input type="hidden" name="isdelete" value="F">
 
