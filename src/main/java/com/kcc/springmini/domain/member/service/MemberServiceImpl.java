@@ -1,15 +1,21 @@
 package com.kcc.springmini.domain.member.service;
 
+import com.kcc.springmini.domain.meetup.model.vo.MeetUpVO;
 import com.kcc.springmini.domain.member.model.vo.MemberVO;
 import com.kcc.springmini.domain.member.repository.MemberRepository;
+import com.kcc.springmini.domain.schedule.model.ScheduleVO;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class MemberServiceImpl implements MemberService {
 
     private final MemberRepository memberRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
     public MemberVO findById(String username) {
@@ -18,6 +24,9 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public void save(MemberVO member) {
+        String rawPassword = member.getPassword();
+        String encryptedPassword = bCryptPasswordEncoder.encode(rawPassword);
+        member.setPassword(encryptedPassword);
         memberRepository.save(member);
     }
 
@@ -30,4 +39,15 @@ public class MemberServiceImpl implements MemberService {
     public int delete(String username) {
         return memberRepository.delete(username);
     }
+
+    @Override
+    public List<MeetUpVO> getMeetupList() {
+        return memberRepository.getMeetupList();
+    }
+
+    @Override
+    public List<ScheduleVO> getScheduleList() {
+        return memberRepository.getScheduleList();
+    }
+
 }

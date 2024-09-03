@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -19,7 +20,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class MemberController {
 
     private final MemberService memberService;
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @GetMapping("/loginForm")
     public String loginForm() {
@@ -32,7 +32,9 @@ public class MemberController {
     }
 
     @GetMapping("/mypage")
-    public String mypage() {
+    public String mypage(Model model) {
+        model.addAttribute("meetupList", memberService.getMeetupList());
+        model.addAttribute("scheduleList", memberService.getScheduleList());
         return "member/mypage";
     }
 
@@ -57,10 +59,6 @@ public class MemberController {
             return "redirect:/loginForm";
         }
 
-        String rawPassword = member.getPassword();
-        String encryptedPassword = bCryptPasswordEncoder.encode(rawPassword);
-        member.setPassword(encryptedPassword);
-
         memberService.save(member);
         return "redirect:/";
     }
@@ -73,10 +71,6 @@ public class MemberController {
             rttr.addFlashAttribute("result", "updateFail");
             return "redirect:/members/mypage";
         }
-
-        String rawPassword = member.getPassword();
-        String encryptedPassword = bCryptPasswordEncoder.encode(rawPassword);
-        member.setPassword(encryptedPassword);
 
         rttr.addFlashAttribute("result", "updateSuccess");
 
