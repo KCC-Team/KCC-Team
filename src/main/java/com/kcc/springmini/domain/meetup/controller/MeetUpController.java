@@ -74,7 +74,7 @@ public class MeetUpController {
         }
 
         model.addAttribute("message", "모임에 가입을 축하드립니다!!!");
-        meetUpService.join(meetUpId, principalDetail.getMember().getMemberId());
+        meetUpService.join(meetUpId, principalDetail.getMember().getMemberId(), "일반회원");
         return "redirect:/meetups/" + meetUpId;
     }
 }
