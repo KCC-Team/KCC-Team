@@ -11,6 +11,6 @@ public interface MemberService {
     void save(MemberVO member);
     int update(MemberVO member);
     int delete(String username);
-    List<MeetUpVO> getMeetupList();
-    List<ScheduleVO> getScheduleList();
+    List<MeetUpVO> getMeetupList(String username);
+    List<ScheduleVO> getScheduleList(String username);
 }

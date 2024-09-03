@@ -6,12 +6,15 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.security.Principal;
 
 @Controller
 @RequiredArgsConstructor
@@ -22,7 +25,9 @@ public class MemberController {
     private final MemberService memberService;
 
     @GetMapping("/loginForm")
-    public String loginForm() {
+    public String loginForm(HttpServletRequest request, Model model) {
+        String referrer = request.getHeader("Referer");
+        request.getSession().setAttribute("prevPage", referrer);
         return "member/loginForm";
     }
 
@@ -32,9 +37,11 @@ public class MemberController {
     }
 
     @GetMapping("/mypage")
-    public String mypage(Model model) {
-        model.addAttribute("meetupList", memberService.getMeetupList());
-        model.addAttribute("scheduleList", memberService.getScheduleList());
+    public String mypage(Principal principal, Model model) {
+       // String username = principal.getName();
+        String username = "test0"; //테스트용
+        model.addAttribute("meetupList", memberService.getMeetupList(username));
+        model.addAttribute("scheduleList", memberService.getScheduleList(username));
         return "member/mypage";
     }
 
@@ -58,7 +65,6 @@ public class MemberController {
         if (member == null) {
             return "redirect:/loginForm";
         }
-
         memberService.save(member);
         return "redirect:/";
     }
@@ -66,14 +72,11 @@ public class MemberController {
     @PostMapping("/update")
     public String update(@Valid MemberVO member, RedirectAttributes rttr) {
         int updateCount = memberService.update(member);
-
         if (updateCount < 1) {
             rttr.addFlashAttribute("result", "updateFail");
             return "redirect:/members/mypage";
         }
-
         rttr.addFlashAttribute("result", "updateSuccess");
-
         return "redirect:/members/mypage";
     }
 
