@@ -46,7 +46,7 @@
           <c:if test="${isPass == 0}">
               <form action="<c:url value='/meetups/${meetupId}/join'/>" method="post">
                 <input type="hidden" name="meetupId" value="${meetupId}"/>
-                <button type="submit" class="btn btn-success" onclick="">참가하기</button>
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#applyModal">참가하기</button>
             </form>
           </c:if>
       </span>
@@ -191,7 +191,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="deadline" class="form-label">마감일</label>
-                        <input type="text" class="form-control" id="deadline" name="deadline" placeholder="예: 2024-09-15 14:00" />
+                        <input type="text" class="form-control" id="deadline" name="deadline" placeholder="예: 2024-09-15" />
                     </div>
                     <button type="submit" class="btn" style="background-color: #80d69b">만들기</button>
                 </form>
@@ -225,6 +225,33 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger delete-btn">삭제</button>
                 <button type="button" class="btn btn-primary btn-meetup apply-btn">참가 <span class="accept_count"></span></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="applyModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">참가 질문</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        1. <label class="col-form-label">질문 제목</label>
+                    </div>
+                    <div class="mb-3">
+                        <label for="answer-text" class="col-form-label">답변</label>
+                        <textarea class="form-control" id="answer-text"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <form action="<c:url value='/meetups/${meetupId}/join'/>" method="post">
+                    <button type="submit" class="btn btn-success">제출</button>
+                </form>
             </div>
         </div>
     </div>

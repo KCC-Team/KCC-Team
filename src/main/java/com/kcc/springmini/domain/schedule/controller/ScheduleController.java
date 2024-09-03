@@ -28,7 +28,7 @@ public class ScheduleController {
     public String create(@AuthenticationPrincipal PrincipalDetail principalDetail,
             @RequestParam(value = "meetupId") Long meetupId, @ModelAttribute ScheduleVO scheduleVO) {
         if (principalDetail == null) {
-            return "redirect:/login";
+            return "redirect:/members/loginForm";
         }
 
         scheduleService.save(principalDetail.getMember(), meetupId, scheduleVO);
@@ -40,6 +40,10 @@ public class ScheduleController {
             @RequestParam(value = "meetupId") Long meetupId,
             @PathVariable(value = "id") Long id,
             @AuthenticationPrincipal PrincipalDetail principalDetail) {
+        if (principalDetail == null) {
+            return ResponseEntity.status(UNAUTHORIZED).body("redirect:/members/loginForm");
+        }
+
         scheduleService.participateSchedule(meetupId, id, principalDetail.getMember().getMemberId()
         );
         return ResponseEntity.ok().body("일정 참여가 완료되었습니다.");
