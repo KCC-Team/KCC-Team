@@ -6,8 +6,9 @@ import com.kcc.springmini.domain.schedule.model.dto.PageResponseDto;
 import com.kcc.springmini.domain.schedule.model.dto.ScheduleListResponseDto;
 import com.kcc.springmini.domain.schedule.model.dto.ScheduleResponseDto;
 import com.kcc.springmini.domain.schedule.repository.ScheduleRepository;
-import com.kcc.springmini.global.auth.PrincipalDetail;
 import com.kcc.springmini.global.exception.BadRequestException;
+import com.kcc.springmini.global.exception.NotFoundException;
+import com.kcc.springmini.global.exception.NotFoundToErrorException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -85,10 +86,9 @@ public class ScheduleServiceImpl implements ScheduleService {
         int realEndPage = (int) Math.ceil((double) totalCount / LIMIT);
         int startPage = Math.max((((page - 1) / PAGE_LIMIT_SIZE) * PAGE_LIMIT_SIZE + 1), 1);
         int endPage = Math.min(startPage + PAGE_LIMIT_SIZE - 1, realEndPage);
-        if (page < 1 || page > realEndPage) {
-            throw new BadRequestException("존재하지 않는 페이지입니다.", HttpStatus.BAD_REQUEST);
+        if (page < 1 || page > realEndPage && realEndPage != 0) {
+            throw new NotFoundToErrorException("존재하지 않는 페이지입니다.", HttpStatus.BAD_REQUEST);
         }
-
         return new PageResponseDto(page, startPage, endPage, schedules);
     }
 

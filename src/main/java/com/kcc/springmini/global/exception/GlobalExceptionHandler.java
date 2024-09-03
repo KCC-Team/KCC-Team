@@ -31,8 +31,12 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(exceptionResponse);
     }
 
-    @ExceptionHandler(NotFoundException.class)
-    public ResponseEntity<ExceptionResponse> handleNotFoundException(HttpServletRequest request, NotFoundException e) {
+    @ExceptionHandler({
+            NotFoundException.class,
+            BadRequestException.class,
+            AlreadyExistException.class
+    })
+    public ResponseEntity<ExceptionResponse> handleException(HttpServletRequest request, NotFoundException e) {
         log.error("handleNotFoundException", e);
         ExceptionResponse exceptionResponse = new ExceptionResponse(
                 request.getRequestURL().toString(),
@@ -41,14 +45,10 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return ResponseEntity.status(e.getCode()).body(exceptionResponse);
     }
 
-    @ExceptionHandler(BadRequestException.class)
-    public ResponseEntity<ExceptionResponse> handleBadRequestException(HttpServletRequest request, BadRequestException e) {
-        log.error("handleBadRequestException", e);
-        ExceptionResponse exceptionResponse = new ExceptionResponse(
-                request.getRequestURL().toString(),
-                Map.of("error", e.getMessage()),
-                e.getCode(), LocalDateTime.now().toString());
-        return ResponseEntity.status(e.getCode()).body(exceptionResponse);
+    @ExceptionHandler(NotFoundToErrorException.class)
+    public String handleNotFoundToErrorException(NotFoundToErrorException e) {
+        log.error("handleNotFoundException", e);
+        return "404";
     }
 
     @Override

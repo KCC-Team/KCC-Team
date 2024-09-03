@@ -49,7 +49,7 @@
         INSERT INTO REPLY (
             REPLY_ID, BOARD_ID, MEET_UP_ID, MEMBER_ID, CONTENT, CREATED_AT, UPDATED_AT, DEPT, ORDER_NUMBER, TOP_REPLY_ID
         ) VALUES (
-            SEQ_REPLY.NEXTVAL, #{postId},2, #{memberId}, #{content}, SYSDATE, SYSDATE, #{dept}, #{orderNumber}, #{parentId, jdbcType=DOUBLE}
+            SEQ_REPLY.NEXTVAL, #{postId}, #{meetupId}, #{memberId}, #{content}, SYSDATE, SYSDATE, #{dept}, #{orderNumber}, #{parentId, jdbcType=DOUBLE}
         )
     </insert>
 

@@ -10,4 +10,5 @@ public class ReplyCreateRequestDto {
     private String content;
     private int dept;
     private int orderNumber;
+    private Long meetupId;
 }

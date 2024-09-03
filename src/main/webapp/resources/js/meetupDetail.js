@@ -127,3 +127,18 @@ function applySchedule() {
         }
     });
 }
+
+// function applyMeetUp() {
+//     const meetupId = window.location.pathname.split('/')[2];
+//     $.ajax({
+//         url: `/meetups/${meetupId}/participate`,
+//         type: 'post',
+//         success: function(response) {
+//             alert(response);
+//             location.href = `/meetups/${meetupId}`;
+//         },
+//         error: function(xhr, status, error) {
+//             console.error("Request failed: " + error);
+//         }
+//     });
+// }

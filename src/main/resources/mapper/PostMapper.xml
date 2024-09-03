@@ -5,20 +5,9 @@
 
 <mapper namespace="com.kcc.springmini.domain.post.repository.mapper.PostMapper">
     <cache />
-    <!--    <resultMap id="postResult" type="com.kcc.springmini.domain.post.model.vo.PostVO">-->
-    <!--        <id property="postId" column="board_id"/>-->
-    <!--        <result property="title" column="title"/>-->
-    <!--        <result property="content" column="content"/>-->
-    <!--        <result property="createdAt" column="created_at"/>-->
-    <!--        <association property="member" column="b_member_id" resultMap="memberResult"/>-->
-    <!--    </resultMap>-->
-
-    <!--    <resultMap id="memberResult" type="com.kcc.springmini.domain.member.model.vo.MemberVO">-->
-    <!--        <id property="nickname" column="nickname"/>-->
-    <!--    </resultMap>-->
 
     <select id="findAll" resultMap="postResult">
-        SELECT B.BOARD_ID, B.TITLE, B.CONTENT, M.NICKNAME, B.CREATED_AT, B.MEMBER_ID as b_member_id
+        SELECT B.BOARD_ID, B.MEET_UP_ID, B.TITLE, B.CONTENT, M.NICKNAME, B.CREATED_AT, B.MEMBER_ID as b_member_id
         FROM BOARD B, MEMBER M
         WHERE b.member_id = m.member_id
           AND B.MEET_UP_ID = #{meetUpId}
@@ -26,6 +15,7 @@
 
     <resultMap id="postResult" type="com.kcc.springmini.domain.post.model.vo.PostVO">
         <id property="postId" column="board_id"/>
+        <result property="meetupId" column="meet_up_id"/>
         <result property="title" column="title"/>
         <result property="content" column="content"/>
         <result property="createdAt" column="created_at"/>
@@ -36,17 +26,6 @@
         <id property="nickname" column="nickname"/>
     </resultMap>
 
-    <!-- <select id="findAllWithPaging" resultMap="postResult">
-        SELECT *
-        FROM (
-                 SELECT B.BOARD_ID, B.TITLE, B.CONTENT, M.NICKNAME, B.CREATED_AT, B.MEMBER_ID AS b_member_id,
-                        ROW_NUMBER() OVER (ORDER BY B.CREATED_AT DESC) AS RN
-                 FROM BOARD B
-                          JOIN MEMBER M ON B.MEMBER_ID = M.MEMBER_ID
-                 WHERE B.MEET_UP_ID = #{meetUpId}
-             )
-        WHERE RN BETWEEN #{startRow} AND #{endRow}
-    </select> -->
     
     <select id="findAllWithPaging" parameterType="Map" resultType="com.kcc.springmini.domain.post.model.vo.PostVO">
         <![CDATA[
@@ -68,7 +47,7 @@
     
 
     <select id="findById" resultMap="postResult">
-        SELECT B.BOARD_ID, B.TITLE, B.CONTENT, M.NICKNAME, B.CREATED_AT, B.MEMBER_ID as b_member_id
+        SELECT B.BOARD_ID, B.MEET_UP_ID, B.TITLE, B.CONTENT, B.CREATED_AT, B.MEMBER_ID as b_member_id
         FROM BOARD B, MEMBER M
         WHERE b.member_id = m.member_id
           AND B.BOARD_ID = #{postId}

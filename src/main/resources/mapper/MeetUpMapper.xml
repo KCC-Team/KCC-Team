@@ -66,4 +66,8 @@
         WHERE MEET_UP_ID = #{meetupId}
         AND MEMBER_ID = #{memberId}
     </select>
+
+    <insert id="join">
+        INSERT INTO BELONGMEMBER(MEET_UP_ID, MEMBER_ID, JOIN_AT) VALUES (#{meetupId}, #{memberId}, sysdate)
+    </insert>
 </mapper>
