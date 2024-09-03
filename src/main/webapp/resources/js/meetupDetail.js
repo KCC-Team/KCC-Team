@@ -11,7 +11,15 @@ $(function() {
         })
         .on("click", ".delete-btn", function() {
             deleteSchedule();
-        });
+        });;
+
+    for (let hour = 0; hour < 24; hour++) {
+        let time = (hour < 10 ? '0' + hour : hour) + ':00';
+        $('<option>', {
+            value: time,
+            text: time
+        }).appendTo($('#scheduleTime'));
+    }
 });
 
 function loadSchedules(page) {
@@ -128,17 +136,9 @@ function applySchedule() {
     });
 }
 
-// function applyMeetUp() {
-//     const meetupId = window.location.pathname.split('/')[2];
-//     $.ajax({
-//         url: `/meetups/${meetupId}/participate`,
-//         type: 'post',
-//         success: function(response) {
-//             alert(response);
-//             location.href = `/meetups/${meetupId}`;
-//         },
-//         error: function(xhr, status, error) {
-//             console.error("Request failed: " + error);
-//         }
-//     });
-// }
+function submitSchedule() {
+    let date = document.getElementById('scheduleDate').value;
+    let time = document.getElementById('scheduleTime').value;
+    document.getElementById('hiddenScheduleDateTime').value = date + ' ' + time;
+    document.getElementById('scheduleVO').submit();
+}

@@ -7,7 +7,6 @@ import com.kcc.springmini.domain.schedule.model.dto.ScheduleListResponseDto;
 import com.kcc.springmini.domain.schedule.model.dto.ScheduleResponseDto;
 import com.kcc.springmini.domain.schedule.repository.ScheduleRepository;
 import com.kcc.springmini.global.exception.BadRequestException;
-import com.kcc.springmini.global.exception.NotFoundException;
 import com.kcc.springmini.global.exception.NotFoundToErrorException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -35,12 +34,13 @@ public class ScheduleServiceImpl implements ScheduleService {
     public void save(MemberVO member, Long meetupId, ScheduleVO scheduleVO) {
         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
         scheduleVO.setMeetUpId(meetupId);
         scheduleVO.setMemberId(member.getMemberId());
 
         LocalDate deadline = LocalDate.parse(scheduleVO.getDeadline());
-        scheduleVO.setDeadline(deadline.atStartOfDay().format(outputFormatter));
+        scheduleVO.setDeadline(deadline.atStartOfDay().format(dateFormatter));
         LocalDateTime parsedDateTime = LocalDateTime.parse(scheduleVO.getScheduleTime(), inputFormatter);
         scheduleVO.setScheduleTime(parsedDateTime.format(outputFormatter));
         scheduleRepository.save(scheduleVO);
@@ -90,6 +90,12 @@ public class ScheduleServiceImpl implements ScheduleService {
             throw new NotFoundToErrorException("존재하지 않는 페이지입니다.", HttpStatus.BAD_REQUEST);
         }
         return new PageResponseDto(page, startPage, endPage, schedules);
+    }
+
+    @Transactional
+    @Override
+    public void checkDeadline() {
+        scheduleRepository.checkDeadline();
     }
 
     private Map<String, Long> prepareParameters(Long meetUpId, int page, int limit) {

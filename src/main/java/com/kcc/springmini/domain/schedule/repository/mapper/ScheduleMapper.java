@@ -18,4 +18,5 @@ public interface ScheduleMapper {
     ScheduleResponseDto findById(Long id);
     List<ScheduleListResponseDto> findAll(Map<String, Long> map);
     Long count(Long meetUpId);
+    void checkDeadline();
 }

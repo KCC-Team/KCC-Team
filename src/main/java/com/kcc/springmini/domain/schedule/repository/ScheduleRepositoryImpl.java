@@ -54,4 +54,9 @@ public class ScheduleRepositoryImpl implements ScheduleRepository {
     public Long count(Long meetUpId) {
         return scheduleMapper.count(meetUpId);
     }
+
+    @Override
+    public void checkDeadline() {
+        scheduleMapper.checkDeadline();
+    }
 }

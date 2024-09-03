@@ -11,4 +11,5 @@ public interface ScheduleService {
     void delete(Long id);
     ScheduleResponseDto findById(Long id);
     PageResponseDto findAll(Long meetUpId, int page);
+    void checkDeadline();
 }

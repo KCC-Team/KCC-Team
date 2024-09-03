@@ -286,7 +286,8 @@ create table MeetUpSchedule (
                                 person number,
                                 deadline timestamp,
                                 appointment_time timestamp,
-                                created_at timestamp
+                                created_at timestamp,
+                                dead_status varchar(1)
 );
 
 CREATE SEQUENCE SEQ_MEETUPSCHEDULE
@@ -303,7 +304,7 @@ INSERT INTO MeetUpSchedule VALUES (SEQ_MEETUPSCHEDULE.nextval, 3, 1,
                                    '안녕하세요,  귀여운 강아지 동호회 회원 여러분! 다가오는 주말, 강아지들과 함께 즐거운 시간을 보낼 모임을 준비했습니다',
                                    '창경궁로 254 동원빌딩 1층', 24,
                                    TO_TIMESTAMP('2024-09-09 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),
-                                   TO_TIMESTAMP('2024-09-24 13:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp
+                                   TO_TIMESTAMP('2024-09-24 13:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp, 'T'
                                   );
 
 INSERT INTO MeetUpSchedule VALUES (SEQ_MEETUPSCHEDULE.nextval, 3, 2,
@@ -311,7 +312,7 @@ INSERT INTO MeetUpSchedule VALUES (SEQ_MEETUPSCHEDULE.nextval, 3, 2,
                                    '안녕하세요,  귀여운 강아지 동호회 회원 여러분! 다가오는 주말, 강아지들과 함께 즐거운 시간을 보낼 모임을 준비했습니다',
                                    '창경궁로 254 동원빌딩 1층', 5,
                                    TO_TIMESTAMP('2024-09-05 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),
-                                   TO_TIMESTAMP('2024-10-03 15:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp
+                                   TO_TIMESTAMP('2024-10-03 15:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp, 'T'
                                   );
 
 INSERT INTO MeetUpSchedule VALUES (SEQ_MEETUPSCHEDULE.nextval, 3, 3,
@@ -319,7 +320,7 @@ INSERT INTO MeetUpSchedule VALUES (SEQ_MEETUPSCHEDULE.nextval, 3, 3,
                                    '안녕하세요,  귀여운 강아지 동호회 회원 여러분! 다가오는 주말, 강아지들과 함께 즐거운 시간을 보낼 모임을 준비했습니다',
                                    '창경궁로 254 동원빌딩 1층', 17,
                                    TO_TIMESTAMP('2024-09-04 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),
-                                   TO_TIMESTAMP('2024-09-12 14:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp
+                                   TO_TIMESTAMP('2024-09-12 14:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp, 'T'
                                   );
 
 INSERT INTO MeetUpSchedule VALUES (SEQ_MEETUPSCHEDULE.nextval, 3, 4,
@@ -327,7 +328,7 @@ INSERT INTO MeetUpSchedule VALUES (SEQ_MEETUPSCHEDULE.nextval, 3, 4,
                                    '안녕하세요,  귀여운 강아지 동호회 회원 여러분! 다가오는 주말, 강아지들과 함께 즐거운 시간을 보낼 모임을 준비했습니다',
                                    '창경궁로 254 동원빌딩 1층', 4,
                                    TO_TIMESTAMP('2024-09-07 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),
-                                   TO_TIMESTAMP('2024-09-13 15:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp
+                                   TO_TIMESTAMP('2024-09-13 15:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp, 'T'
                                   );
 
 INSERT INTO MeetUpSchedule VALUES (SEQ_MEETUPSCHEDULE.nextval, 3, 5,
@@ -335,7 +336,7 @@ INSERT INTO MeetUpSchedule VALUES (SEQ_MEETUPSCHEDULE.nextval, 3, 5,
                                    '안녕하세요,  귀여운 강아지 동호회 회원 여러분! 다가오는 주말, 강아지들과 함께 즐거운 시간을 보낼 모임을 준비했습니다',
                                    '창경궁로 254 동원빌딩 1층', 2,
                                    TO_TIMESTAMP('2024-09-17 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),
-                                   TO_TIMESTAMP('2024-09-17 15:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp
+                                   TO_TIMESTAMP('2024-09-17 15:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp, 'T'
                                   );
 
 INSERT INTO MeetUpSchedule VALUES (SEQ_MEETUPSCHEDULE.nextval, 2, 6,
@@ -343,7 +344,7 @@ INSERT INTO MeetUpSchedule VALUES (SEQ_MEETUPSCHEDULE.nextval, 2, 6,
                                    '안녕하세요,  귀여운 강아지 동호회 회원 여러분! 다가오는 주말, 강아지들과 함께 즐거운 시간을 보낼 모임을 준비했습니다',
                                    '창경궁로 254 동원빌딩 1층', 7,
                                    TO_TIMESTAMP('2024-09-30 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),
-                                   TO_TIMESTAMP('2024-09-15 13:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp
+                                   TO_TIMESTAMP('2024-09-15 13:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp, 'T'
                                   );
 
 INSERT INTO MeetUpSchedule VALUES (SEQ_MEETUPSCHEDULE.nextval, 2, 7,
@@ -351,7 +352,7 @@ INSERT INTO MeetUpSchedule VALUES (SEQ_MEETUPSCHEDULE.nextval, 2, 7,
                                    '안녕하세요,  귀여운 강아지 동호회 회원 여러분! 다가오는 주말, 강아지들과 함께 즐거운 시간을 보낼 모임을 준비했습니다',
                                    '창경궁로 254 동원빌딩 1층', 6,
                                    TO_TIMESTAMP('2024-09-12 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),
-                                   TO_TIMESTAMP('2024-10-12 11:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp
+                                   TO_TIMESTAMP('2024-10-12 11:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp, 'T'
                                   );
 
 INSERT INTO MeetUpSchedule VALUES (SEQ_MEETUPSCHEDULE.nextval, 2, 8,
@@ -359,7 +360,7 @@ INSERT INTO MeetUpSchedule VALUES (SEQ_MEETUPSCHEDULE.nextval, 2, 8,
                                    '안녕하세요,  귀여운 강아지 동호회 회원 여러분! 다가오는 주말, 강아지들과 함께 즐거운 시간을 보낼 모임을 준비했습니다',
                                    '창경궁로 254 동원빌딩 1층', 11,
                                    TO_TIMESTAMP('2024-09-13 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),
-                                   TO_TIMESTAMP('2024-10-22 16:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp
+                                   TO_TIMESTAMP('2024-10-22 16:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp, 'T'
                                   );
 
 INSERT INTO MeetUpSchedule VALUES (SEQ_MEETUPSCHEDULE.nextval, 2, 9,
@@ -367,7 +368,7 @@ INSERT INTO MeetUpSchedule VALUES (SEQ_MEETUPSCHEDULE.nextval, 2, 9,
                                    '안녕하세요,  귀여운 강아지 동호회 회원 여러분! 다가오는 주말, 강아지들과 함께 즐거운 시간을 보낼 모임을 준비했습니다',
                                    '창경궁로 254 동원빌딩 1층', 9,
                                    TO_TIMESTAMP('2024-09-25 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),
-                                   TO_TIMESTAMP('2024-09-27 21:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp
+                                   TO_TIMESTAMP('2024-09-27 21:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp, 'T'
                                   );
 
 INSERT INTO MeetUpSchedule VALUES (SEQ_MEETUPSCHEDULE.nextval, 2, 10,
@@ -375,7 +376,7 @@ INSERT INTO MeetUpSchedule VALUES (SEQ_MEETUPSCHEDULE.nextval, 2, 10,
                                    '안녕하세요,  귀여운 강아지 동호회 회원 여러분! 다가오는 주말, 강아지들과 함께 즐거운 시간을 보낼 모임을 준비했습니다',
                                    '창경궁로 254 동원빌딩 1층', 2,
                                    TO_TIMESTAMP('2024-09-27 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),
-                                   TO_TIMESTAMP('2024-09-21 22:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp
+                                   TO_TIMESTAMP('2024-09-21 22:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp, 'T'
 
                                   );
 
@@ -384,7 +385,7 @@ INSERT INTO MeetUpSchedule VALUES (SEQ_MEETUPSCHEDULE.nextval, 3, 7,
                                    '안녕하세요,  귀여운 강아지 동호회 회원 여러분! 다가오는 주말, 강아지들과 함께 즐거운 시간을 보낼 모임을 준비했습니다',
                                    '창경궁로 254 동원빌딩 1층', 3,
                                    TO_TIMESTAMP('2024-09-28 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),
-                                   TO_TIMESTAMP('2024-09-25 18:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp
+                                   TO_TIMESTAMP('2024-09-25 18:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp, 'T'
                                   );
 
 INSERT INTO MeetUpSchedule VALUES (SEQ_MEETUPSCHEDULE.nextval, 3, 4,
@@ -392,7 +393,7 @@ INSERT INTO MeetUpSchedule VALUES (SEQ_MEETUPSCHEDULE.nextval, 3, 4,
                                    '안녕하세요, 귀여운 강아지 동호회 회원 여러분! 다가오는 주말, 강아지들과 함께 즐거운 시간을 보낼 모임을 준비했습니다',
                                    '창경궁로 254 동원빌딩 1층', 4,
                                    TO_TIMESTAMP('2024-09-30 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),
-                                   TO_TIMESTAMP('2024-09-30 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp
+                                   TO_TIMESTAMP('2024-09-30 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp, 'T'
                                   );
 
 
@@ -401,7 +402,7 @@ INSERT INTO MeetUpSchedule VALUES (SEQ_MEETUPSCHEDULE.nextval, 3, 4,
                                    '안녕하세요, 귀여운 강아지 동호회 회원 여러분! 다가오는 주말, 강아지들과 함께 즐거운 시간을 보낼 모임을 준비했습니다',
                                    '창경궁로 254 동원빌딩 1층', 9,
                                    TO_TIMESTAMP('2024-09-03 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),
-                                   TO_TIMESTAMP('2024-09-03 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp
+                                   TO_TIMESTAMP('2024-09-03 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp, 'T'
                                   );
 
 
@@ -410,7 +411,7 @@ INSERT INTO MeetUpSchedule VALUES (SEQ_MEETUPSCHEDULE.nextval, 4, 7,
                                    '안녕하세요, 귀여운 강아지 동호회 회원 여러분! 다가오는 주말, 강아지들과 함께 즐거운 시간을 보낼 모임을 준비했습니다',
                                    '창경궁로 254 동원빌딩 1층', 4,
                                    TO_TIMESTAMP('2024-09-12 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),
-                                   TO_TIMESTAMP('2024-09-12 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp
+                                   TO_TIMESTAMP('2024-09-12 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp, 'T'
                                   );
 
 
@@ -419,7 +420,7 @@ INSERT INTO MeetUpSchedule VALUES (SEQ_MEETUPSCHEDULE.nextval, 4, 7,
                                    '안녕하세요, 귀여운 강아지 동호회 회원 여러분! 다가오는 주말, 강아지들과 함께 즐거운 시간을 보낼 모임을 준비했습니다',
                                    '창경궁로 254 동원빌딩 1층', 6,
                                    TO_TIMESTAMP('2024-09-16 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),
-                                   TO_TIMESTAMP('2024-09-16 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp
+                                   TO_TIMESTAMP('2024-09-16 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp, 'T'
                                   );
 
 
@@ -428,7 +429,7 @@ INSERT INTO MeetUpSchedule VALUES (SEQ_MEETUPSCHEDULE.nextval, 4, 7,
                                    '안녕하세요, 귀여운 강아지 동호회 회원 여러분! 다가오는 주말, 강아지들과 함께 즐거운 시간을 보낼 모임을 준비했습니다',
                                    '창경궁로 254 동원빌딩 1층', 2,
                                    TO_TIMESTAMP('2024-09-30 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),
-                                   TO_TIMESTAMP('2024-09-30 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp
+                                   TO_TIMESTAMP('2024-09-30 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp, 'T'
                                   );
 
 
@@ -437,7 +438,7 @@ INSERT INTO MeetUpSchedule VALUES (SEQ_MEETUPSCHEDULE.nextval, 4, 3,
                                    '안녕하세요, 귀여운 강아지 동호회 회원 여러분! 다가오는 주말, 강아지들과 함께 즐거운 시간을 보낼 모임을 준비했습니다',
                                    '창경궁로 254 동원빌딩 1층', 5,
                                    TO_TIMESTAMP('2024-09-30 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),
-                                   TO_TIMESTAMP('2024-09-30 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp
+                                   TO_TIMESTAMP('2024-09-30 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp, 'T'
                                   );
 
 
@@ -446,7 +447,7 @@ INSERT INTO MeetUpSchedule VALUES (SEQ_MEETUPSCHEDULE.nextval, 3, 1,
                                    '안녕하세요, 귀여운 강아지 동호회 회원 여러분! 다가오는 주말, 강아지들과 함께 즐거운 시간을 보낼 모임을 준비했습니다',
                                    '창경궁로 254 동원빌딩 1층', 3,
                                    TO_TIMESTAMP('2024-09-08 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),
-                                   TO_TIMESTAMP('2024-09-08 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp
+                                   TO_TIMESTAMP('2024-09-08 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp, 'T'
                                   );
 
 
@@ -455,7 +456,7 @@ INSERT INTO MeetUpSchedule VALUES (SEQ_MEETUPSCHEDULE.nextval, 4, 7,
                                    '안녕하세요, 귀여운 강아지 동호회 회원 여러분! 다가오는 주말, 강아지들과 함께 즐거운 시간을 보낼 모임을 준비했습니다',
                                    '창경궁로 254 동원빌딩 1층', 1,
                                    TO_TIMESTAMP('2024-09-29 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),
-                                   TO_TIMESTAMP('2024-09-29 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp
+                                   TO_TIMESTAMP('2024-09-29 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp, 'T'
                                   );
 
 
@@ -464,7 +465,7 @@ INSERT INTO MeetUpSchedule VALUES (SEQ_MEETUPSCHEDULE.nextval, 3, 1,
                                    '안녕하세요, 귀여운 강아지 동호회 회원 여러분! 다가오는 주말, 강아지들과 함께 즐거운 시간을 보낼 모임을 준비했습니다',
                                    '창경궁로 254 동원빌딩 1층', 8,
                                    TO_TIMESTAMP('2024-10-01 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),
-                                   TO_TIMESTAMP('2024-10-01 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp
+                                   TO_TIMESTAMP('2024-10-01 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp, 'T'
                                   );
 
 
@@ -473,7 +474,7 @@ INSERT INTO MeetUpSchedule VALUES (SEQ_MEETUPSCHEDULE.nextval, 4, 3,
                                    '안녕하세요, 귀여운 강아지 동호회 회원 여러분! 다가오는 주말, 강아지들과 함께 즐거운 시간을 보낼 모임을 준비했습니다',
                                    '창경궁로 254 동원빌딩 1층', 7,
                                    TO_TIMESTAMP('2024-10-01 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),
-                                   TO_TIMESTAMP('2024-10-01 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp
+                                   TO_TIMESTAMP('2024-10-01 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp, 'T'
                                   );
 
 
@@ -482,7 +483,7 @@ INSERT INTO MeetUpSchedule VALUES (SEQ_MEETUPSCHEDULE.nextval, 3, 1,
                                    '안녕하세요, 귀여운 강아지 동호회 회원 여러분! 다가오는 주말, 강아지들과 함께 즐거운 시간을 보낼 모임을 준비했습니다',
                                    '창경궁로 254 동원빌딩 1층', 7,
                                    TO_TIMESTAMP('2024-09-05 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),
-                                   TO_TIMESTAMP('2024-09-05 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp
+                                   TO_TIMESTAMP('2024-09-05 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp, 'T'
                                   );
 
 
@@ -491,7 +492,7 @@ INSERT INTO MeetUpSchedule VALUES (SEQ_MEETUPSCHEDULE.nextval, 4, 7,
                                    '안녕하세요, 귀여운 강아지 동호회 회원 여러분! 다가오는 주말, 강아지들과 함께 즐거운 시간을 보낼 모임을 준비했습니다',
                                    '창경궁로 254 동원빌딩 1층', 2,
                                    TO_TIMESTAMP('2024-09-04 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),
-                                   TO_TIMESTAMP('2024-09-04 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp
+                                   TO_TIMESTAMP('2024-09-04 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp, 'T'
                                   );
 
 
@@ -500,7 +501,7 @@ INSERT INTO MeetUpSchedule VALUES (SEQ_MEETUPSCHEDULE.nextval, 4, 7,
                                    '안녕하세요, 귀여운 강아지 동호회 회원 여러분! 다가오는 주말, 강아지들과 함께 즐거운 시간을 보낼 모임을 준비했습니다',
                                    '창경궁로 254 동원빌딩 1층', 10,
                                    TO_TIMESTAMP('2024-09-04 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),
-                                   TO_TIMESTAMP('2024-09-04 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp
+                                   TO_TIMESTAMP('2024-09-04 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp, 'T'
                                   );
 
 
@@ -509,7 +510,7 @@ INSERT INTO MeetUpSchedule VALUES (SEQ_MEETUPSCHEDULE.nextval, 4, 3,
                                    '안녕하세요, 귀여운 강아지 동호회 회원 여러분! 다가오는 주말, 강아지들과 함께 즐거운 시간을 보낼 모임을 준비했습니다',
                                    '창경궁로 254 동원빌딩 1층', 6,
                                    TO_TIMESTAMP('2024-09-06 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),
-                                   TO_TIMESTAMP('2024-09-06 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp
+                                   TO_TIMESTAMP('2024-09-06 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp, 'T'
                                   );
 
 
@@ -518,7 +519,7 @@ INSERT INTO MeetUpSchedule VALUES (SEQ_MEETUPSCHEDULE.nextval, 4, 3,
                                    '안녕하세요, 귀여운 강아지 동호회 회원 여러분! 다가오는 주말, 강아지들과 함께 즐거운 시간을 보낼 모임을 준비했습니다',
                                    '창경궁로 254 동원빌딩 1층', 2,
                                    TO_TIMESTAMP('2024-09-19 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),
-                                   TO_TIMESTAMP('2024-09-19 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp
+                                   TO_TIMESTAMP('2024-09-19 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp, 'T'
                                   );
 
 
@@ -527,7 +528,7 @@ INSERT INTO MeetUpSchedule VALUES (SEQ_MEETUPSCHEDULE.nextval, 4, 7,
                                    '안녕하세요, 귀여운 강아지 동호회 회원 여러분! 다가오는 주말, 강아지들과 함께 즐거운 시간을 보낼 모임을 준비했습니다',
                                    '창경궁로 254 동원빌딩 1층', 7,
                                    TO_TIMESTAMP('2024-09-14 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),
-                                   TO_TIMESTAMP('2024-09-14 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp
+                                   TO_TIMESTAMP('2024-09-14 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp, 'T'
                                   );
 
 
@@ -536,7 +537,7 @@ INSERT INTO MeetUpSchedule VALUES (SEQ_MEETUPSCHEDULE.nextval, 3, 1,
                                    '안녕하세요, 귀여운 강아지 동호회 회원 여러분! 다가오는 주말, 강아지들과 함께 즐거운 시간을 보낼 모임을 준비했습니다',
                                    '창경궁로 254 동원빌딩 1층', 4,
                                    TO_TIMESTAMP('2024-10-01 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),
-                                   TO_TIMESTAMP('2024-10-01 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp
+                                   TO_TIMESTAMP('2024-10-01 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp, 'T'
                                   );
 
 
@@ -545,7 +546,7 @@ INSERT INTO MeetUpSchedule VALUES (SEQ_MEETUPSCHEDULE.nextval, 4, 3,
                                    '안녕하세요, 귀여운 강아지 동호회 회원 여러분! 다가오는 주말, 강아지들과 함께 즐거운 시간을 보낼 모임을 준비했습니다',
                                    '창경궁로 254 동원빌딩 1층', 2,
                                    TO_TIMESTAMP('2024-09-28 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),
-                                   TO_TIMESTAMP('2024-09-28 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp
+                                   TO_TIMESTAMP('2024-09-28 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp, 'T'
                                   );
 
 
@@ -554,7 +555,7 @@ INSERT INTO MeetUpSchedule VALUES (SEQ_MEETUPSCHEDULE.nextval, 4, 7,
                                    '안녕하세요, 귀여운 강아지 동호회 회원 여러분! 다가오는 주말, 강아지들과 함께 즐거운 시간을 보낼 모임을 준비했습니다',
                                    '창경궁로 254 동원빌딩 1층', 7,
                                    TO_TIMESTAMP('2024-09-14 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),
-                                   TO_TIMESTAMP('2024-09-14 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp
+                                   TO_TIMESTAMP('2024-09-14 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp, 'T'
                                   );
 
 
@@ -563,7 +564,7 @@ INSERT INTO MeetUpSchedule VALUES (SEQ_MEETUPSCHEDULE.nextval, 3, 4,
                                    '안녕하세요, 귀여운 강아지 동호회 회원 여러분! 다가오는 주말, 강아지들과 함께 즐거운 시간을 보낼 모임을 준비했습니다',
                                    '창경궁로 254 동원빌딩 1층', 5,
                                    TO_TIMESTAMP('2024-09-25 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),
-                                   TO_TIMESTAMP('2024-09-25 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp
+                                   TO_TIMESTAMP('2024-09-25 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp, 'T'
                                   );
 
 
@@ -572,7 +573,7 @@ INSERT INTO MeetUpSchedule VALUES (SEQ_MEETUPSCHEDULE.nextval, 4, 7,
                                    '안녕하세요, 귀여운 강아지 동호회 회원 여러분! 다가오는 주말, 강아지들과 함께 즐거운 시간을 보낼 모임을 준비했습니다',
                                    '창경궁로 254 동원빌딩 1층', 5,
                                    TO_TIMESTAMP('2024-09-24 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),
-                                   TO_TIMESTAMP('2024-09-24 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp
+                                   TO_TIMESTAMP('2024-09-24 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp, 'T'
                                   );
 
 
@@ -581,7 +582,7 @@ INSERT INTO MeetUpSchedule VALUES (SEQ_MEETUPSCHEDULE.nextval, 4, 7,
                                    '안녕하세요, 귀여운 강아지 동호회 회원 여러분! 다가오는 주말, 강아지들과 함께 즐거운 시간을 보낼 모임을 준비했습니다',
                                    '창경궁로 254 동원빌딩 1층', 4,
                                    TO_TIMESTAMP('2024-09-30 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),
-                                   TO_TIMESTAMP('2024-09-30 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp
+                                   TO_TIMESTAMP('2024-09-30 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp, 'T'
                                   );
 
 
@@ -590,7 +591,7 @@ INSERT INTO MeetUpSchedule VALUES (SEQ_MEETUPSCHEDULE.nextval, 3, 4,
                                    '안녕하세요, 귀여운 강아지 동호회 회원 여러분! 다가오는 주말, 강아지들과 함께 즐거운 시간을 보낼 모임을 준비했습니다',
                                    '창경궁로 254 동원빌딩 1층', 7,
                                    TO_TIMESTAMP('2024-09-24 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),
-                                   TO_TIMESTAMP('2024-09-24 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp
+                                   TO_TIMESTAMP('2024-09-24 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp, 'T'
                                   );
 
 
@@ -599,7 +600,7 @@ INSERT INTO MeetUpSchedule VALUES (SEQ_MEETUPSCHEDULE.nextval, 4, 3,
                                    '안녕하세요, 귀여운 강아지 동호회 회원 여러분! 다가오는 주말, 강아지들과 함께 즐거운 시간을 보낼 모임을 준비했습니다',
                                    '창경궁로 254 동원빌딩 1층', 3,
                                    TO_TIMESTAMP('2024-09-24 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),
-                                   TO_TIMESTAMP('2024-09-24 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp
+                                   TO_TIMESTAMP('2024-09-24 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp, 'T'
                                   );
 
 
@@ -608,7 +609,7 @@ INSERT INTO MeetUpSchedule VALUES (SEQ_MEETUPSCHEDULE.nextval, 4, 7,
                                    '안녕하세요, 귀여운 강아지 동호회 회원 여러분! 다가오는 주말, 강아지들과 함께 즐거운 시간을 보낼 모임을 준비했습니다',
                                    '창경궁로 254 동원빌딩 1층', 8,
                                    TO_TIMESTAMP('2024-09-27 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),
-                                   TO_TIMESTAMP('2024-09-27 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp
+                                   TO_TIMESTAMP('2024-09-27 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp, 'T'
                                   );
 
 
@@ -617,7 +618,7 @@ INSERT INTO MeetUpSchedule VALUES (SEQ_MEETUPSCHEDULE.nextval, 4, 7,
                                    '안녕하세요, 귀여운 강아지 동호회 회원 여러분! 다가오는 주말, 강아지들과 함께 즐거운 시간을 보낼 모임을 준비했습니다',
                                    '창경궁로 254 동원빌딩 1층', 6,
                                    TO_TIMESTAMP('2024-09-09 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),
-                                   TO_TIMESTAMP('2024-09-09 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp
+                                   TO_TIMESTAMP('2024-09-09 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp, 'T'
                                   );
 
 
@@ -626,7 +627,7 @@ INSERT INTO MeetUpSchedule VALUES (SEQ_MEETUPSCHEDULE.nextval, 3, 1,
                                    '안녕하세요, 귀여운 강아지 동호회 회원 여러분! 다가오는 주말, 강아지들과 함께 즐거운 시간을 보낼 모임을 준비했습니다',
                                    '창경궁로 254 동원빌딩 1층', 4,
                                    TO_TIMESTAMP('2024-09-22 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),
-                                   TO_TIMESTAMP('2024-09-22 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp
+                                   TO_TIMESTAMP('2024-09-22 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp, 'T'
                                   );
 
 
@@ -635,7 +636,7 @@ INSERT INTO MeetUpSchedule VALUES (SEQ_MEETUPSCHEDULE.nextval, 3, 4,
                                    '안녕하세요, 귀여운 강아지 동호회 회원 여러분! 다가오는 주말, 강아지들과 함께 즐거운 시간을 보낼 모임을 준비했습니다',
                                    '창경궁로 254 동원빌딩 1층', 3,
                                    TO_TIMESTAMP('2024-09-03 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),
-                                   TO_TIMESTAMP('2024-09-03 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp
+                                   TO_TIMESTAMP('2024-09-03 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp, 'T'
                                   );
 
 
@@ -644,7 +645,7 @@ INSERT INTO MeetUpSchedule VALUES (SEQ_MEETUPSCHEDULE.nextval, 3, 4,
                                    '안녕하세요, 귀여운 강아지 동호회 회원 여러분! 다가오는 주말, 강아지들과 함께 즐거운 시간을 보낼 모임을 준비했습니다',
                                    '창경궁로 254 동원빌딩 1층', 2,
                                    TO_TIMESTAMP('2024-09-03 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),
-                                   TO_TIMESTAMP('2024-09-03 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp
+                                   TO_TIMESTAMP('2024-09-03 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp, 'T'
                                   );
 
 
@@ -653,9 +654,8 @@ INSERT INTO MeetUpSchedule VALUES (SEQ_MEETUPSCHEDULE.nextval, 3, 4,
                                    '안녕하세요, 귀여운 강아지 동호회 회원 여러분! 다가오는 주말, 강아지들과 함께 즐거운 시간을 보낼 모임을 준비했습니다',
                                    '창경궁로 254 동원빌딩 1층', 1,
                                    TO_TIMESTAMP('2024-09-04 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),
-                                   TO_TIMESTAMP('2024-09-04 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp
+                                   TO_TIMESTAMP('2024-09-04 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), systimestamp, 'T'
                                   );
-
 
 ------------------------------------------------------------------
 
