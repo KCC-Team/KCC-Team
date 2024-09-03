@@ -8,7 +8,6 @@ import com.kcc.springmini.domain.post.model.vo.PostVO;
 import com.kcc.springmini.domain.post.service.PostService;
 import com.kcc.springmini.domain.schedule.service.ScheduleService;
 import com.kcc.springmini.global.auth.PrincipalDetail;
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -29,10 +28,7 @@ public class MeetUpController {
     @GetMapping("/{meetUpId}")
     public String meetUp(@AuthenticationPrincipal PrincipalDetail principalDetail,
             @PathVariable("meetUpId") Long meetUpId,
-    					 Criteria cri, HttpServletResponse response, Model model) {
-        response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-        response.setHeader("Pragma", "no-cache");
-        response.setHeader("Expires", "0");
+    					 Criteria cri, Model model) {
 
         List<PostVO> posts = postService.findAll(meetUpId);
         List<PostVO> allWithPaging = postService.findAllWithPaging(cri, meetUpId);
@@ -63,5 +59,17 @@ public class MeetUpController {
     		@RequestPart(value = "file", required=false) MultipartFile file) {
     	meetUpService.insertMeetup(dto);
     	return "redirect:/";
+    }
+
+    // 모임 참가
+    @PostMapping("/{meetUpId}/join")
+    public String joinMeetup(@AuthenticationPrincipal PrincipalDetail principalDetail,
+                             @PathVariable("meetUpId") Long meetUpId) {
+        if (principalDetail == null) {
+            return "redirect:/login";
+        }
+
+        meetUpService.join(meetUpId, principalDetail.getMember().getMemberId());
+        return "redirect:/meetups/" + meetUpId;
     }
 }
