@@ -14,6 +14,7 @@
     <script src="https://code.jquery.com/jquery-latest.min.js"></script>
     <script src="../../../resources/common/common.js" type="text/javascript"></script>
     <link rel="icon" href="../../../resources/images/spring-logo.ico" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link
             href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
             rel="stylesheet"
@@ -142,6 +143,10 @@
 
     <aside class="schedule-sec">
         <div>
+            <span class="meet-date">오늘의 일정</span>
+        </div>
+        <br>
+        <div>
             <select id="sortOrder">
                 <option value="latest" selected>최신순</option>
                 <option value="deadline">마감일자 순</option>
@@ -152,15 +157,15 @@
             <input class="search" type="text" placeholder="일정 검색하기">
             <span class="icon-placeholder"><i class="fas fa-search icon-placeholder"></i></span>
         </div>
-        <br>
-            <span class="schedule-header">
-                <span class="meet-date">일정</span>
+        <div>
+            <span class="schedule-header mt-2 d-flex justify-content-end">
                 <c:if test="${isPass == 1}">
                     <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#createMeetUpModal">
                         일정 생성
                     </button>
                 </c:if>
             </span>
+        </div>
 
         <div id="scheduleList">
             <c:forEach var="schedule" items="${schedules.responses}">
@@ -175,11 +180,11 @@
             </c:forEach>
         </div>
         <div class="schedule-sec pagination">
-                <span onclick="loadSchedules(${schedules.currentPage} - 1)">이전</span>
+                <span onclick="loadSchedules(null, ${schedules.currentPage} - 1)">이전</span>
             <c:forEach begin="${schedules.startPage}" end="${schedules.endPage}" var="i">
-                <span class="${i == schedules.currentPage ? 'active' : ''}" onclick="loadSchedules(${i})">${i}</span>
+                <span class="${i == schedules.currentPage ? 'active' : ''}" onclick="loadSchedules(null, ${i})">${i}</span>
             </c:forEach>
-                <span onclick="loadSchedules(${schedules.currentPage} + 1)">다음</span>
+                <span onclick="loadSchedules(null, ${schedules.currentPage} + 1)">다음</span>
         </div>
     </aside>
 </main>

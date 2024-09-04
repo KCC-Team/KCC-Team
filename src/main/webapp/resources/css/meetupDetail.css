@@ -32,7 +32,7 @@ main {
 
 .meet-date {
   display: flex;
-  padding-right: 246px;
+  justify-content: center;
   font-size: 20px;
   font-weight: bold;
 }
@@ -382,6 +382,8 @@ aside {
   padding: 5px;
   border: 2px solid #000;
   border-radius: 50px;
+}
+
 .conent-count {
   margin-top: 5px;
   margin-left: 5px;

@@ -35,10 +35,6 @@ public class ScheduleServiceImpl implements ScheduleService {
     @Transactional
     @Override
     public void save(MemberVO member, Long meetupId, ScheduleVO scheduleVO) {
-        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-
         if (meetUpService.findById(meetupId).isEmpty()) {
             throw new NotFoundException("존재하지 않는 모임입니다.", HttpStatus.BAD_REQUEST);
         }
@@ -46,10 +42,11 @@ public class ScheduleServiceImpl implements ScheduleService {
         scheduleVO.setMeetUpId(meetupId);
         scheduleVO.setMemberId(member.getMemberId());
 
-        LocalDate deadline = LocalDate.parse(scheduleVO.getDeadline());
-        scheduleVO.setDeadline(deadline.atStartOfDay().format(dateFormatter));
-        LocalDateTime parsedDateTime = LocalDateTime.parse(scheduleVO.getScheduleTime(), inputFormatter);
-        scheduleVO.setScheduleTime(parsedDateTime.format(outputFormatter));
+        LocalDate scheduleDate = LocalDate.parse(scheduleVO.getDeadline(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        String formattedDate = scheduleDate.atStartOfDay().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        scheduleVO.setDeadline(formattedDate);
+        scheduleVO.setScheduleDateTime(scheduleVO.getScheduleDateTime().withSecond(0).withNano(0));
+        scheduleVO.setScheduleDateTimeString(scheduleVO.getScheduleDateTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
         scheduleRepository.save(scheduleVO);
     }
 

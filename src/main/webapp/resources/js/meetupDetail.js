@@ -76,27 +76,31 @@ function loadSchedules(search, page) {
 
     let url;
     if (search !== null && search !== undefined) {
+        console.log('search:', search);
         url = `/schedules?meetupId=${meetupId}&keyword=${search}&page=${page}`;
     } else {
-        url = `/schedules?meetupId=${meetupId}&page=1`;
+        url = `/schedules?meetupId=${meetupId}&page=${page}`;
     }
 
-    $.ajax({
-        url: url,
-        type: 'get',
-        success: function(response) {
-            console.log(response);
-            updateScheduleList(response.responses);
+    $('#scheduleList').fadeOut(100, function() {
+        $.ajax({
+            url: url,
+            type: 'GET',
+            success: function(response) {
+                updateScheduleList(response.responses);
+                $('#scheduleList').fadeIn(100);
 
-            if (response.responses.length === 0) {
-                updateSchedulePagination(1, 1, 1);
-            } else {
-                updateSchedulePagination(response.currentPage, response.startPage, response.endPage);
+                if (response.responses.length === 0) {
+                    updateSchedulePagination(search, 1, 1, 1);
+                } else {
+                    updateSchedulePagination(search, response.currentPage, response.startPage, response.endPage);
+                }
+            },
+            error: function(errorResponse) {
+                alert(errorResponse.responseJSON.messages.error);
+                $('#scheduleList').fadeIn(100);
             }
-        },
-        error: function(errorResponse) {
-            alert(errorResponse.responseJSON.messages.error);
-        }
+        });
     });
 }
 
@@ -114,12 +118,26 @@ function updateScheduleList(schedules) {
     $('#scheduleList').html(html);
 }
 
-function updateSchedulePagination(currentPage, startPage, endPage) {
-    let html = `<span onclick="loadSchedules(${currentPage - 1})">이전</span>`;
-    for (let i = startPage; i <= endPage; i++) {
-        html += `<span class="${i === currentPage ? 'active' : ''}" onclick="loadSchedules(${i})">${i}</span>`;
+function updateSchedulePagination(search, currentPage, startPage, endPage) {
+    let html;
+    if (search !== null && search !== undefined) {
+        html = `<span onclick="loadSchedules('${search}', ${currentPage - 1})">이전</span>`;
+    } else {
+        html = `<span onclick="loadSchedules(null, ${currentPage - 1})">이전</span>`;
     }
-    html += `<span onclick="loadSchedules(${currentPage + 1})">다음</span>`;
+
+    for (let i = startPage; i <= endPage; i++) {
+        if (search !== null && search !== undefined) {
+            html += `<span class="${i === currentPage ? 'active' : ''}" onclick="loadSchedules('${search}', ${i})">${i}</span>`;
+        } else {
+            html += `<span class="${i === currentPage ? 'active' : ''}" onclick="loadSchedules(null, ${i})">${i}</span>`;
+        }
+    }
+    if (search !== null && search !== undefined) {
+        html += `<span onclick="loadSchedules('${search}', ${currentPage + 1})">다음</span>`;
+    } else {
+        html += `<span onclick="loadSchedules(null, ${currentPage + 1})">다음</span>`;
+    }
     $('.schedule-sec .pagination').html(html);
 }
 
@@ -203,10 +221,57 @@ function applySchedule() {
 }
 
 function submitSchedule() {
-    let date = document.getElementById('scheduleDate').value;
-    let time = document.getElementById('scheduleTime').value;
-    document.getElementById('hiddenScheduleDateTime').value = date + ' ' + time;
-    document.getElementById('scheduleVO').submit();
+    const meetupId = window.location.pathname.split('/')[2];
+    let formData = {
+        scheduleTitle: document.getElementById('scheduleTitle').value,
+        scheduleDescription: document.getElementById('scheduleDescription').value,
+        location: document.getElementById('location').value,
+        participantLimit: document.getElementById('participantLimit').value,
+        deadline: document.getElementById('deadline').value,
+        scheduleDateTime: document.getElementById('scheduleDate').value + ' ' + document.getElementById('scheduleTime').value
+    };
+    $.ajax({
+        type: 'POST',
+        url: `/schedules?meetupId=${meetupId}`,
+        contentType: 'application/json',
+        data: JSON.stringify(formData),
+        success: function(response) {
+            location.href = `/meetups/${meetupId}`;
+        },
+        error: function(response) {
+            displayValidationErrors(response.responseJSON.errors);
+        }
+    });
+}
+
+function displayValidationErrors(errors) {
+    $('.error-message').remove();
+
+    for (const [key, message] of Object.entries(errors)) {
+        const inputForm = $(`#${message.field}`);
+        inputForm.css('border', '2px solid red');
+
+        if (message.field === 'scheduleDateTime') {
+            const inputForm = $(`#scheduleDate`);
+            inputForm.css('border', '2px solid red');
+
+            const inputField = $('#scheduleDate');
+            $('<div>')
+                .addClass('error-message')
+                .css('color', 'red')
+                .css('font-weight', 'bold')
+                .text(message.defaultMessage)
+                .insertAfter(inputField);
+        }
+
+        const inputField = $('#' + message.field);
+        $('<div>')
+            .addClass('error-message')
+            .css('color', 'red')
+            .css('font-weight', 'bold')
+            .text(message.defaultMessage)
+            .insertAfter(inputField);
+    }
 }
 
 function searchSchedule() {
@@ -226,21 +291,24 @@ function filterSchedule(type) {
         url = `/schedules?meetupId=${meetupId}&page=1`;
     }
 
-    $.ajax({
-        url: url,
-        type: 'get',
-        success: function(response) {
-            console.log(response);
-            updateScheduleList(response.responses);
+    $('#scheduleList').fadeOut(100, function() {
+        $.ajax({
+            url: url,
+            type: 'GET',
+            success: function(response) {
+                updateScheduleList(response.responses);
+                $('#scheduleList').fadeIn(100);
 
-            if (response.responses.length === 0) {
-                updateSchedulePagination(1, 1, 1);
-            } else {
-                updateSchedulePagination(response.currentPage, response.startPage, response.endPage);
+                if (response.responses.length === 0) {
+                    updateSchedulePagination(null, 1, 1, 1);
+                } else {
+                    updateSchedulePagination(null, response.currentPage, response.startPage, response.endPage);
+                }
+            },
+            error: function(errorResponse) {
+                alert(errorResponse.responseJSON.messages.error);
+                $('#scheduleList').fadeIn(100);
             }
-        },
-        error: function(errorResponse) {
-            alert(errorResponse.responseJSON.messages.error);
-        }
+        });
     });
 }

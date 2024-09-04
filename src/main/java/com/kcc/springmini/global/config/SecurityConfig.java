@@ -44,7 +44,7 @@ public class SecurityConfig {
                                 .requestMatchers("/meetups/register").authenticated()
                                 .requestMatchers("/posts/**").authenticated()
                                 .requestMatchers("/meetups/{meetUpId}/join").authenticated()
-                                .requestMatchers("/schedules/{scheduleId}/participate").authenticated()
+                                .requestMatchers("/schedules/{scheduleId}/**").authenticated()
                 .anyRequest().permitAll()
                 ).formLogin(formLogin -> formLogin.loginPage("/members/loginForm") // 로그인 페이지 지정
                         .loginProcessingUrl("/login") // 컨트롤러 지정 없이 시큐리티에서 로그인 진행

@@ -1,5 +1,6 @@
 package com.kcc.springmini.domain.schedule.controller;
 
+import com.kcc.springmini.domain.member.service.MemberService;
 import com.kcc.springmini.domain.schedule.model.ScheduleVO;
 import com.kcc.springmini.domain.schedule.model.dto.PageResponseDto;
 import com.kcc.springmini.domain.schedule.model.dto.ScheduleResponseDto;
@@ -26,7 +27,7 @@ public class ScheduleController {
 
     @PostMapping
     public String create(@AuthenticationPrincipal PrincipalDetail principalDetail,
-            @RequestParam(value = "meetupId") Long meetupId, @ModelAttribute @Valid ScheduleVO scheduleVO) {
+            @RequestParam(value = "meetupId") Long meetupId, @RequestBody @Valid ScheduleVO scheduleVO) {
         scheduleService.save(principalDetail.getMember(), meetupId, scheduleVO);
         return "redirect:/meetups/" + meetupId;
     }
@@ -43,8 +44,8 @@ public class ScheduleController {
 
     // ajax delete 미지원
     @PostMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable(value = "id") Long id, @AuthenticationPrincipal PrincipalDetail principalDetail) throws IOException {
-        if (!Objects.equals(scheduleService.findById(id).getMemberId(), principalDetail.getMember().getMemberId())) {
+    public ResponseEntity<Void> delete(@PathVariable(value = "id") Long id, @AuthenticationPrincipal PrincipalDetail principalDetail) throws IOException {;
+        if (scheduleService.findById(id).getMemberId() != 0 && !Objects.equals(scheduleService.findById(id).getMemberId(), principalDetail.getMember().getMemberId())) {
             throw new ForbiddenException("해당 일정을 삭제할 권한이 없습니다.", FORBIDDEN);
         }
 

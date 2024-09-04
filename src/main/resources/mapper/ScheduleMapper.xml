@@ -9,7 +9,7 @@
         values(SEQ_MEETUPSCHEDULE.nextval, #{meetUpId}, #{memberId}, #{scheduleTitle}, #{scheduleDescription},
                #{location}, #{participantLimit},
                TO_TIMESTAMP(#{deadline}, 'YYYY-MM-DD HH24:MI:SS'),
-               TO_TIMESTAMP(#{scheduleTime}, 'YYYY-MM-DD HH24:MI:SS'), systimestamp, 'T')
+               TO_TIMESTAMP(#{scheduleDateTimeString}, 'YYYY-MM-DD HH24:MI:SS'), systimestamp, 'T')
     </insert>
 
     <!-- 모임 일정 맴버 생성 (참가하기) -->
@@ -36,7 +36,7 @@
     </delete>
 
     <select id="findById" parameterType="long" resultType="ScheduleResponseDto">
-        select ms.title, ms.content, ms.appointment_time, ms.person, ms.deadline, m.nickname as leader,
+        select ms.title, ms.content, ms.appointment_time, ms.person, ms.deadline, m.nickname as leader, m.member_id as memberId,
                (select count(*) from SCHEDULEBELONGMEMBER sbm where sbm.schedule_id = ms.schedule_id) as accept_count
         from MeetUpSchedule ms
         inner join Member m on ms.member_id = m.member_id
