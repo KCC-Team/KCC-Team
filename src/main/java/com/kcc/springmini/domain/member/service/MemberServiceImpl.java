@@ -33,6 +33,9 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public int update(MemberVO member) {
+        String rawPassword = member.getPassword();
+        String encryptedPassword = bCryptPasswordEncoder.encode(rawPassword);
+        member.setPassword(encryptedPassword);
         return memberRepository.update(member);
     }
 

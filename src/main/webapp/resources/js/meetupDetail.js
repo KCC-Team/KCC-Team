@@ -131,7 +131,13 @@ function applySchedule() {
             location.href = `/meetups/${meetupId}`;
         },
         error: function(xhr, status, error) {
-            console.error("Request failed: " + error);
+            if (xhr.status === 401) {  // 인증되지 않은 경우
+                var response = JSON.parse(xhr.responseText);
+                alert("로그인이 필요합니다.");
+                window.location.href = response.loginUrl;  // 로그인 페이지로 리디렉션
+            } else {
+                console.error("Error: " + error);
+            }
         }
     });
 }
