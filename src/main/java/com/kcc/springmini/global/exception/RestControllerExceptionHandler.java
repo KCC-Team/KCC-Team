@@ -65,17 +65,4 @@ public class RestControllerExceptionHandler extends ResponseEntityExceptionHandl
         String encodedErrorMessage = URLEncoder.encode(errorMessage, StandardCharsets.UTF_8);
         response.sendRedirect("/members/loginForm?loginDenied=" + encodedErrorMessage);
     }
-
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    @Order(1)
-    public String handleMethodArgumentNotValid(MethodArgumentNotValidException e, HttpServletRequest request, Model model) {
-        Map<String, String> messages = new HashMap<>();
-        for (FieldError fieldError : e.getBindingResult().getFieldErrors()) {
-            messages.put(fieldError.getField(), fieldError.getDefaultMessage());
-        }
-        ExceptionResponse response = null;
-        response = new ExceptionResponse("", messages, HttpStatus.BAD_REQUEST, LocalDateTime.now().toString());
-
-        return "redirect:" + request.getRequestURI();
-    }
 }
