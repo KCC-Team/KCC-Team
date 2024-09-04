@@ -43,7 +43,9 @@ public class SecurityConfig {
                                 .requestMatchers("/members/mypage").authenticated()
                                 .requestMatchers("/meetups/register").authenticated()
                                 .requestMatchers("/posts/**").authenticated()
-                                .anyRequest().permitAll()
+                                .requestMatchers("/meetups/{meetUpId}/join").authenticated()
+                                .requestMatchers("/schedules/{scheduleId}/participate").authenticated()
+                .anyRequest().permitAll()
                 ).formLogin(formLogin -> formLogin.loginPage("/members/loginForm") // 로그인 페이지 지정
                         .loginProcessingUrl("/login") // 컨트롤러 지정 없이 시큐리티에서 로그인 진행
                         .successHandler((request, response, authentication) -> {
@@ -62,7 +64,22 @@ public class SecurityConfig {
                         .invalidateHttpSession(true)
                 )
                 .headers(headers -> headers
-                        .frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin)); // 보안 헤더 설정 추가
+                        .frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin)) // 보안 헤더 설정 추가
+                // 인증되지 않은 AJAX 요청에 대해 401 반환
+                .exceptionHandling(exceptionHandling -> exceptionHandling
+                        .authenticationEntryPoint((request, response, authException) -> {
+                            // AJAX 요청 여부 확인
+                            if ("XMLHttpRequest".equals(request.getHeader("X-Requested-With"))) {
+                                // AJAX 요청에 대해서는 401 Unauthorized 상태 코드 반환
+                                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                                response.setContentType("application/json");
+                                response.getWriter().write("{\"error\": \"Unauthorized\", \"loginUrl\": \"/members/loginForm\"}");
+                            } else {
+                                // 일반 요청에 대해서는 로그인 페이지로 리디렉션
+                                response.sendRedirect("/members/loginForm");
+                            }
+                        })
+                );
 
         return http.build();
     }

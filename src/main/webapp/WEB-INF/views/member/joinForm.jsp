@@ -66,7 +66,7 @@
       </c:if>
       <div class="form-group">
           <label for="birthdate">생년월일</label>
-          <input type="text" id="birthdate" name="birthdate" placeholder="yyyy/mm/dd">
+          <input type="date" id="birthdate" name="birthdate" >
       </div>
       <div class="form-group">
           <label for="email">이메일</label>

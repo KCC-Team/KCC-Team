@@ -19,7 +19,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -86,7 +88,16 @@ public class MemberController {
     @GetMapping("/memberModify")
     public String memberModify(Principal principal, Model model) {
         String username = principal.getName();
-        model.addAttribute("list", memberService.findById(username));
+        MemberVO member = memberService.findById(username);
+
+        // 날짜 형식을 지정
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        Date birthdate = member.getBirthdate();
+        if (birthdate != null) {
+            String formattedBirthdate = formatter.format(birthdate);
+            model.addAttribute("formattedBirthdate", formattedBirthdate);
+        }
+        model.addAttribute("list", member);
         return "member/memberModify";
     }
 
