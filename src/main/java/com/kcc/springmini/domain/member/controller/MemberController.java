@@ -25,7 +25,11 @@ public class MemberController {
     private final MemberService memberService;
 
     @GetMapping("/loginForm")
-    public String loginForm(HttpServletRequest request, Model model) {
+    public String loginForm(HttpServletRequest request, Model model, @RequestParam(value = "loginDenied", required = false) String loginDenied) {
+        if (loginDenied != null) {
+            model.addAttribute("loginDenied", loginDenied);
+        }
+
         String referrer = request.getHeader("Referer");
         request.getSession().setAttribute("prevPage", referrer);
         return "member/loginForm";

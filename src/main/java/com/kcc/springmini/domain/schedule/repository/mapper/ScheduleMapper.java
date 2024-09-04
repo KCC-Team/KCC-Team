@@ -4,6 +4,7 @@ import com.kcc.springmini.domain.schedule.model.ScheduleVO;
 import com.kcc.springmini.domain.schedule.model.dto.ScheduleListResponseDto;
 import com.kcc.springmini.domain.schedule.model.dto.ScheduleResponseDto;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -14,7 +15,7 @@ public interface ScheduleMapper {
     int lockScheduleMember(Long scheduleId);
     int updateSchedulePerson(Long scheduleId);
     int saveMember(Map<String, Long> map);
-    int delete(Long id);
+    int delete(@Param("id") Long id, @Param("memberId") Long memberId);
     ScheduleResponseDto findById(Long id);
     List<ScheduleListResponseDto> findAll(Map<String, Long> map);
     Long count(Long meetUpId);

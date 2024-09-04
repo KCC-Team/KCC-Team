@@ -6,6 +6,7 @@ import com.kcc.springmini.domain.meetup.model.vo.MeetUpVO;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public interface MeetUpRepository {
     List<MeetUpVO> findAll(Criteria cri);
@@ -16,4 +17,5 @@ public interface MeetUpRepository {
     int isPass(Map<String, Long> map);
     void join(Map<String, Object> map);
     void insertQuestion(Map<String, Object> map);
+    Optional<MeetUpVO> findById(Long meetUpId);
 }
