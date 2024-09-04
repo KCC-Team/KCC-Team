@@ -1,9 +1,13 @@
 package com.kcc.springmini.domain.meetup.repository;
 
+import com.kcc.springmini.domain.meetup.controller.AnswerDto;
 import com.kcc.springmini.domain.meetup.model.dto.Criteria;
 import com.kcc.springmini.domain.meetup.model.dto.MeetUpRequestDto;
 import com.kcc.springmini.domain.meetup.model.vo.MeetUpVO;
+import com.kcc.springmini.domain.meetup.model.vo.Question;
 import com.kcc.springmini.domain.meetup.repository.mapper.MeetUpMapper;
+import com.kcc.springmini.domain.member.model.dto.MemberQAResponseDto;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -55,6 +59,27 @@ public class MeetUpRepositoryImpl implements MeetUpRepository {
 	@Override
 	public void insertQuestion(Map<String, Object> map) {
 		meetUpMapper.insertQuestion(map);
+	}
+
+	@Override
+	public List<Question> findQuestions(Long meetUpId) {
+		return meetUpMapper.findQuestions(meetUpId);
+	}
+
+
+	@Override
+	public void insertAnswers(AnswerDto answer) {
+		meetUpMapper.insertAnswers(answer);
+	}
+
+	@Override
+	public List<Long> selectMeetUpId(Long memberId) {
+		return meetUpMapper.selectMeetUpId(memberId);
+	}
+
+	@Override
+	public MemberQAResponseDto findMemberQA(Long meetUpId) {
+		return meetUpMapper.findMemberQA(meetUpId);
 	}
 
     @Override

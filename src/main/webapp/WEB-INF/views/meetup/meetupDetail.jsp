@@ -50,7 +50,8 @@
           <c:if test="${isPass == 0}">
               <form action="<c:url value='/meetups/${meetupId}/join'/>" method="post">
                 <input type="hidden" name="meetupId" value="${meetupId}"/>
-                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#applyModal">참가하기</button>
+                <button id="y-applyButton" type="button" 
+                class="btn btn-success">참가하기</button>
             </form>
           </c:if>
       </span>
@@ -253,21 +254,13 @@
                 <h5 class="modal-title" id="exampleModalLabel">참가 질문</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                <form>
-                    <div class="mb-3">
-                        1. <label class="col-form-label">질문 제목</label>
-                    </div>
-                    <div class="mb-3">
-                        <label for="answer-text" class="col-form-label">답변</label>
-                        <textarea class="form-control" id="answer-text"></textarea>
-                    </div>
+            <div class="modal-body ">
+               <form id="applyForm">
+                    <!-- 질문 제목과 답변을 동적으로 추가할 컨테이너 -->
                 </form>
             </div>
             <div class="modal-footer">
-                <form action="<c:url value='/meetups/${meetupId}/join'/>" method="post">
-                    <button type="submit" class="btn btn-success">제출</button>
-                </form>
+                <button type="button" class="btn btn-success" id="submitAnswers">제출</button>
             </div>
         </div>
     </div>
@@ -280,13 +273,79 @@
 <script type="text/javascript" src="../../../resources/js/meetupDetail.js"></script>
 <script>
     $(document).ready(function() {
-        $('.post-section').on('click', '.posts', function() {
+    	var meetUpId = '<c:out value="${meetupId}"/>';
+
+    	$('.post-section').on('click', '.posts', function() {
             // 클릭된 .posts 요소 내부의 #y-postId 값을 가져옵니다.
             let postId = $(this).find('#y-postId').text();
             console.log(postId);
             location.href = "/posts/" + postId;
         });
+        
+        $('#y-applyButton').on('click', function(){
+        	console.log('button click');
+        	$.ajax({
+        		url: '/meetups/' + meetUpId + '/questions',
+        		type: 'get',
+        		dataType: 'json',
+        		success: function(response) {
+        			if (response.length === 0) { //즉시가입 모임
+                        handleNoQuestions();
+                        return;
+                    }
+        			
+                    var $form = $('#applyForm');
+                    $form.empty();
+                   
+        			$.each(response, function(index, question) {
+        				let questionHTML = "<div class='mb-3'>";
+        				questionHTML += "<label class='col-form-label'>질문 " + (index+1) + ": " + question.content + "</label>";
+        				questionHTML += "<textarea class='form-control' name='" + question.questionId + "'" + " rows='3'></textarea>";
+        				questionHTML += "</div>";
+                       
+                        $form.append(questionHTML);
+                    });
+        			
+        			 $('#applyModal').modal('show');
+        		} 
+        	})
+        });
+        
+        $('#submitAnswers').on('click', function() {
+            var formData = {};
+
+            $('#applyForm textarea').each(function() {
+                var questionId = $(this).attr('name'); // name 속성에서 questionId 추출
+                var answer = $(this).val();
+                             
+                formData[questionId] = answer; // formData 객체에 추가
+            });
+            
+            
+            $.ajax({
+                url: '/meetups/' + meetUpId + '/join',
+                type: 'POST',
+                data: formData,
+                success: function(response) {
+                	console.log(response);
+                    alert('답변이 제출되었습니다!');
+                    $('#applyModal').modal('hide'); // 모달을 닫습니다.
+                }               
+            });
+        });
     });
+
+    function handleNoQuestions() {
+    	var meetUpId = '<c:out value="${meetupId}"/>';
+    	$.ajax({
+            url: '/meetups/' + meetUpId + '/join',
+            type: 'POST',
+            success: function(response) {
+            	location.href = response;		
+                $('#applyModal').modal('hide');
+            }      
+        });
+    }
 </script>
 <script src="../../../resources/js/main.js"></script>
 </body>
