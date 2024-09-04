@@ -53,9 +53,12 @@
                         <option value="2">승인 후 가입</option>
                     </select>
                 </div>
-                <div class="form-group register-content">
-                    <label for="content">가입 질문</label>
+                <div class="form-group register-content" data-index="1">
+                    <label for="content">가입 질문 1</label>
                     <textarea id="content" name="content" placeholder="가입 질문을 입력해주세요."></textarea>
+                    <span class="question-plus">
+                        <button type="button" class="btn-question-plus">+</button>
+                    </span>
                 </div>
                 <div class="form-group">
                     <label for="person">최대 인원</label>

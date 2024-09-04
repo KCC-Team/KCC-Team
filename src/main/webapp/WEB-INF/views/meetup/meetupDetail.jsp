@@ -47,21 +47,25 @@
       <span class="group-details">
           <span class="meet-leader-img"><img src="#" alt="사진"></span>
           <h1>모임 이름 <span class="meet-name">대형견</span></h1>
-          <c:if test="${isPass == 0}">
-              <form action="<c:url value='/meetups/${meetupId}/join'/>" method="post">
-                <input type="hidden" name="meetupId" value="${meetupId}"/>
-                <button id="y-applyButton" type="button" 
-                class="btn btn-success">참가하기</button>
-            </form>
-          </c:if>
       </span>
     <div class="meet-member">
-        <p>
-            <span class="total-board">총게시글</span>
-            <span class="member-count">모임인원</span>
+        <p class="total_content">
+            <span class="total-board">총게시글</span> <span class="meet-total-count">${totalPosts}</span>
         </p>
-        <span class="meet-total-count">${totalPosts}</span>
-        <span class="meet-member-count">${totalMembers}</span>
+        <p class="total_content">
+        <span class="member-count">모임인원</span> <span class="meet-member-count">${totalMembers}</span>
+        </p>
+
+        <span class="form_meet_join">
+            <c:if test="${isPass == 0}">
+                <form action="<c:url value='/meetups/${meetupId}/join'/>" method="post">
+                    <input type="hidden" name="meetupId" value="${meetupId}"/>
+                    <button id="y-applyButton" type="button"
+                            class="btn btn-success">참가하기</button>
+                </form>
+            </c:if>
+        </span>
+
     </div>
 </section>
 
@@ -330,7 +334,16 @@
                 	console.log(response);
                     alert('답변이 제출되었습니다!');
                     $('#applyModal').modal('hide'); // 모달을 닫습니다.
-                }               
+                },
+                error: function(xhr, status, error) {
+                    if (xhr.status === 401) {  // 인증되지 않은 경우
+                        var response = JSON.parse(xhr.responseText);
+                        alert("로그인이 필요합니다.");
+                        window.location.href = response.loginUrl;  // 로그인 페이지로 리디렉션
+                    } else {
+                        console.error("Error: " + error);
+                    }
+                }
             });
         });
     });

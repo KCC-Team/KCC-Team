@@ -39,17 +39,23 @@
 
 	<div class="container">
 
-
 		<div class="section">
 			<div class="section-header">
 				<span>내 모임</span>
 			</div>
 
+			<c:if test="${empty meetupList}">
+				<div class="item">
+					<p class="label">참여중인 모임이 없습니다.</p>
+				</div>
+			</c:if>
+
 			<c:forEach items="${meetupList}" var="meetup" begin="0" end="4">
 				<div class="item">
-					<span class="label"> <a
-						href="/meetups/<c:out value="${meetup.meet_up_id}" />"><c:out
-								value="${meetup.title}" /></a>
+					<span class="label">
+						<a href="/meetups/<c:out value="${meetup.meet_up_id}" />">
+							<c:out value="${meetup.title}" />
+						</a>
 					</span>
 				</div>
 			</c:forEach>
@@ -60,6 +66,13 @@
 			<div class="section-header">
 				<span>내 일정 조회</span>
 			</div>
+
+			<c:if test="${empty scheduleList}">
+				<div class="item">
+					<p class="label">예정된 일정이 없습니다.</p>
+				</div>
+			</c:if>
+
 			<c:forEach items="${scheduleList}" var="schedule" begin="0" end="4">
 				<table class="schedule">
 					<tr>
@@ -76,6 +89,13 @@
 			<div class="section-header">
 				<span>승인 대기 목록</span>
 			</div>
+
+			<c:if test="${answer == null}">
+				<div class="item">
+					<p class="label">대기중인 승인 목록이 없습니다.</p>
+				</div>
+			</c:if>
+
 			<c:if test="${not empty answers}">
 				<c:forEach items="${answers}" var="answer">
 					<c:if test="${answer != null}">
@@ -126,14 +146,14 @@
 
 
 		<div class="buttons">
-			<a href="/members/memberModify" class="btn btn-primary me-2">회원수정</a>
+			<a href="/members/memberModify" class="btn-modify">회원수정</a>
 			<form id="deleteForm" action="/members/delete" method="post"
 				class="d-inline-block">
 				<sec:authorize access="isAuthenticated()">
 					<input type="hidden" name="username"
 						value="<sec:authentication property="principal.username"/>">
 				</sec:authorize>
-				<button type="submit" class="btn btn-danger">회원 탈퇴</button>
+				<button type="submit" class="btn-delete">회원 탈퇴</button>
 			</form>
 		</div>
 

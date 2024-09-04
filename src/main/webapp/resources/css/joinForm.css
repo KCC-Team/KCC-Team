@@ -32,6 +32,7 @@
 
 .form-group input[type="text"],
 .form-group input[type="password"],
+.form-group input[type="date"],
 .form-group select,
 .form-group textarea {
   flex-grow: 1;

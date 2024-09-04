@@ -2,23 +2,19 @@ let dup_check = false;
 
 $(document).ready(function () {
 
-    $('#form1').submit(function(){
+    $('#form1').submit(function(event){
         let name = $("#username").val();
         let password = $("#password").val();
 
         if (dup_check === false) {
-            alert("아이디 중복 확인 바랍니다.");
             name.focus();
+            event.preventDefault();
             return false;
         }
+
         if (password == '') {
-            alert("비밀번호를 입력해주세요.");
             password.focus();
-            return false;
-        }
-        if (dup_check === false) {
-            alert("아이디가 중복되어 가입이 불가능합니다.");
-            name.focus();
+            event.preventDefault();
             return false;
         }
     });
@@ -43,6 +39,7 @@ function duplicate_check() {
                 dup_check = true;
             } else {
                 alert("이미 사용중인 아이디입니다.");
+                dup_check = false;
                 return false;
             }
         },
