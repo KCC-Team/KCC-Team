@@ -42,15 +42,16 @@ public class MemberController {
 
     @GetMapping("/mypage")
     public String mypage(Principal principal, Model model) {
-       // String username = principal.getName();
-        String username = "test0"; //테스트용
+       String username = principal.getName();
         model.addAttribute("meetupList", memberService.getMeetupList(username));
         model.addAttribute("scheduleList", memberService.getScheduleList(username));
         return "member/mypage";
     }
 
     @GetMapping("/memberModify")
-    public String memberModify() {
+    public String memberModify(Principal principal, Model model) {
+        String username = principal.getName();
+        model.addAttribute("list", memberService.findById(username));
         return "member/memberModify";
     }
 

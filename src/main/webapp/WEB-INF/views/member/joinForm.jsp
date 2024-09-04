@@ -40,18 +40,30 @@
           <input type="text" id="username" name="username"  placeholder="아이디">
           <a href="#" class="duplicate-check" onclick="duplicate_check();">중복확인</a>
       </div>
+      <c:if test="${messages['username'] != null}">
+          <p class="valid-text0" style="color:red;">${messages['username']}</p>
+      </c:if>
       <div class="form-group">
           <label for="password">비밀번호</label>
           <input type="password" id="password" name="password"  placeholder="비밀번호">
       </div>
+      <c:if test="${messages['password'] != null}">
+          <p class="valid-text5" style="color:red;">${messages['password']}</p>
+      </c:if>
       <div class="form-group">
           <label for="nickname">이름</label>
           <input type="text" id="nickname" name="nickname" placeholder="이름">
       </div>
+      <c:if test="${messages['nickname'] != null}">
+          <p class="valid-text1" style="color:red;">${messages['nickname']}</p>
+      </c:if>
       <div class="form-group">
           <label for="gender">성별</label>
           <input type="text" id="gender" name="gender" placeholder="M">
       </div>
+      <c:if test="${messages['gender'] != null}">
+          <p class="valid-text2" style="color:red;">${messages['gender']}</p>
+      </c:if>
       <div class="form-group">
           <label for="birthdate">생년월일</label>
           <input type="text" id="birthdate" name="birthdate" placeholder="yyyy/mm/dd">
@@ -60,15 +72,23 @@
           <label for="email">이메일</label>
           <input type="text" id="email" name="email" placeholder="이메일">
       </div>
+      <c:if test="${messages['email'] != null}">
+          <p class="valid-text3" style="color:red;">${messages['email']}</p>
+      </c:if>
       <div class="form-group">
           <label for="tel">휴대폰</label>
           <input type="text" id="tel" name="tel" placeholder="휴대폰">
       </div>
+      <c:if test="${messages['tel'] != null}">
+          <p class="valid-text4" style="color:red;">${messages['tel']}</p>
+      </c:if>
       <div class="form-group">
           <label for="address">주소</label>
           <input type="text" id="address" name="address" placeholder="주소">
       </div>
-
+      <c:if test="${messages['address'] != null}">
+          <p class="valid-text1" style="color:red;">${messages['address']}</p>
+      </c:if>
       <input type="hidden" name="isdelete" value="F">
       <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 
