@@ -1,9 +1,12 @@
 package com.kcc.springmini.domain.meetup.service;
 
+import com.kcc.springmini.domain.meetup.controller.AnswerDto;
 import com.kcc.springmini.domain.meetup.model.dto.Criteria;
 import com.kcc.springmini.domain.meetup.model.dto.MeetUpRequestDto;
 import com.kcc.springmini.domain.meetup.model.vo.MeetUpVO;
+import com.kcc.springmini.domain.meetup.model.vo.Question;
 import com.kcc.springmini.domain.meetup.repository.MeetUpRepository;
+import com.kcc.springmini.domain.member.model.dto.MemberQAResponseDto;
 import com.kcc.springmini.global.auth.PrincipalDetail;
 import com.kcc.springmini.global.exception.AlreadyExistException;
 import lombok.RequiredArgsConstructor;
@@ -77,4 +80,28 @@ public class MeetUpServiceImpl implements MeetUpService{
     	Map<String, Object> map = Map.of("meetupId", meetupId, "content", content);
     	meetUpRepository.insertQuestion(map);
     }
+
+	@Override
+	public List<Question> findQuestions(Long meetupId) {
+		return meetUpRepository.findQuestions(meetupId);
+	}
+
+	@Override
+	public void insertAnswers(List<AnswerDto> answers) {
+		for(AnswerDto answer : answers) {
+			meetUpRepository.insertAnswers(answer);
+		}
+	}
+
+	@Override
+	public List<Long> selectMeetUpId(Long memberId) {
+		return meetUpRepository.selectMeetUpId(memberId);
+	}
+
+	@Override
+	public MemberQAResponseDto findMemberQA(Long meetUpId) {
+		return meetUpRepository.findMemberQA(meetUpId);
+	}
+
+	
 }

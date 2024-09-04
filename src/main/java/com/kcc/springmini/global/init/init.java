@@ -1,12 +1,17 @@
 package com.kcc.springmini.global.init;
 
+import com.kcc.springmini.domain.meetup.model.dto.MeetUpRequestDto;
+import com.kcc.springmini.domain.meetup.service.MeetUpService;
 import com.kcc.springmini.domain.member.model.vo.MemberVO;
 import com.kcc.springmini.domain.member.service.MemberService;
+import com.kcc.springmini.global.auth.PrincipalDetailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
@@ -17,6 +22,8 @@ import java.util.Date;
 @RequiredArgsConstructor
 public class init implements ApplicationRunner {
     private final MemberService memberService;
+    private final MeetUpService meetUpService;
+    private final PrincipalDetailService principalDetailService;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
@@ -89,5 +96,27 @@ public class init implements ApplicationRunner {
                 .build();
 
         memberService.save(member5);
+
+        SecurityContextHolder.getContext().setAuthentication(
+                new UsernamePasswordAuthenticationToken(
+                        principalDetailService.loadUserByUsername("admin"),
+                        null,
+                        principalDetailService.loadUserByUsername("admin").getAuthorities()
+                )
+        );
+        meetUpService.insertMeetup(MeetUpRequestDto.builder()
+                .title("test")
+                .intro("test")
+                .content("test")
+                .person(4)
+                .category("test")
+                .build());
+        meetUpService.insertMeetup(MeetUpRequestDto.builder()
+                .title("test2")
+                .intro("test2")
+                .content("test2")
+                .person(4)
+                .category("test2")
+                .build());
     }
 }

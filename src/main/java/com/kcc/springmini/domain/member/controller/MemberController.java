@@ -1,7 +1,11 @@
 package com.kcc.springmini.domain.member.controller;
 
+import com.kcc.springmini.domain.meetup.service.MeetUpService;
+import com.kcc.springmini.domain.member.model.dto.MemberQAResponseDto;
 import com.kcc.springmini.domain.member.model.vo.MemberVO;
 import com.kcc.springmini.domain.member.service.MemberService;
+import com.kcc.springmini.global.auth.PrincipalDetail;
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +19,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -23,7 +29,8 @@ import java.security.Principal;
 public class MemberController {
 
     private final MemberService memberService;
-
+    private final MeetUpService meetUpService;
+    
     @GetMapping("/loginForm")
     public String loginForm(HttpServletRequest request, Model model) {
         String referrer = request.getHeader("Referer");
@@ -36,12 +43,39 @@ public class MemberController {
         return "member/joinForm";
     }
 
+//    @GetMapping("/mypage")
+//    public String mypage(Principal principal, Model model) {
+//       // String username = principal.getName();
+//        String username = "test0"; //테스트용
+//
+//        model.addAttribute("meetupList", memberService.getMeetupList(username));
+//        model.addAttribute("scheduleList", memberService.getScheduleList(username));
+//        return "member/mypage";
+//    }
+    
     @GetMapping("/mypage")
-    public String mypage(Principal principal, Model model) {
+    public String mypage(Principal principal, Model model, @AuthenticationPrincipal PrincipalDetail principalDetail) {
        // String username = principal.getName();
         String username = "test0"; //테스트용
+ 
         model.addAttribute("meetupList", memberService.getMeetupList(username));
         model.addAttribute("scheduleList", memberService.getScheduleList(username));
+        
+        
+        Long memberId = principalDetail.getMember().getMemberId();
+        List<Long> meetupIds = meetUpService.selectMeetUpId(memberId);
+        
+        List<MemberQAResponseDto> qas = new ArrayList<>();
+        
+        for(Long meetupId : meetupIds) {
+        	qas.add(meetUpService.findMemberQA(meetupId));
+        }
+        
+        System.out.println("11111111111111");
+        System.out.println(qas);
+        
+        model.addAttribute("answers", qas);
+       
         return "member/mypage";
     }
 
