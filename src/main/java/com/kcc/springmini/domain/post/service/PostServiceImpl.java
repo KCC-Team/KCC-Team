@@ -1,6 +1,7 @@
 package com.kcc.springmini.domain.post.service;
 
 import com.kcc.springmini.domain.meetup.model.dto.Criteria;
+import com.kcc.springmini.domain.post.model.vo.BoardVO;
 import com.kcc.springmini.domain.post.model.vo.PostVO;
 import com.kcc.springmini.domain.post.repository.mapper.PostMapper;
 import lombok.RequiredArgsConstructor;
@@ -32,6 +33,11 @@ public class PostServiceImpl implements PostService{
     @Override
     public PostVO findById(Long postId) {
         return postMapper.findById(postId);
+    }
+
+    @Override
+    public void create(BoardVO board) {
+        postMapper.create(board);
     }
 
 }

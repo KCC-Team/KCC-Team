@@ -2,6 +2,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -71,10 +73,17 @@
 
 <main>
     <section class="post-section">
-        <form class="post-input">
-            <textarea placeholder="게시글을 입력하세요" maxlength="500"></textarea>
+        <form id="post_create_form" class="post-input" action="/posts/create" method="post">
+            <sec:authorize access="isAuthenticated()">
+                <input type="hidden" name="memberId" value="<sec:authentication property="principal.member.memberId"/>">
+            </sec:authorize>
+            <input type="hidden" name="meetupId" value="${meetupId}">
+            <input type="text" id="title" name="title" placeholder="게시글 제목을 입력하세요" value=""><br />
+            <textarea id="content" name="content" placeholder="게시글을 입력하세요" maxlength="500"></textarea>
             <div class="post-actions">
-                <span class="char-count">0 / 500</span>
+                <span class="conent-count">
+                    <span class="char-count">0</span><span class=""> / 500</span>
+                </span>
                 <button type="submit" class="post-button">게시</button>
             </div>
         </form>
@@ -92,7 +101,7 @@
                         </span>
                     </span>
                 <span class="post">
-                        <p class="post-text">${post.title}</p><br>
+                        <p class="post-text">${post.title}</p>
                         <p class="post-text">${post.content}</p>
                     </span>
             </div>

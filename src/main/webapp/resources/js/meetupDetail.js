@@ -20,6 +20,41 @@ $(function() {
             text: time
         }).appendTo($('#scheduleTime'));
     }
+
+    let apply_btn = document.querySelector("#y-applyButton");
+
+    $('#post_create_form').submit(function() {
+        let title = $("#title").val();
+        let content = $("#content").val();
+        if (title == '') {
+            alert("게시글 제목을 입력해주세요.");
+            return false;
+        }
+        if (content == '') {
+            alert("게시글을 입력해주세요.");
+            return false;
+        }
+        if (apply_btn) {
+            alert("모임 참가 후 게시글 작성이 가능합니다.");
+            return false;
+        }
+    });
+
+    // 게시글 글자수 감지
+    $("#content").keyup(function (e){
+        let content = $(this).val();
+        //글자수 세기
+        if (content.length == 0 || content == "") {
+            $(".char-count").text('0');
+        } else {
+            $(".char-count").text(content.length);
+        }
+        if (content.length > 500) {
+            alert("글자수는 500까지 입력 가능합니다.");
+            return false;
+        }
+    });
+
 });
 
 function loadSchedules(page) {
