@@ -3,20 +3,29 @@ package com.kcc.springmini.domain.meetup.controller;
 import com.kcc.springmini.domain.meetup.model.dto.Criteria;
 import com.kcc.springmini.domain.meetup.model.dto.MeetUpRequestDto;
 import com.kcc.springmini.domain.meetup.model.dto.PageDto;
+import com.kcc.springmini.domain.meetup.model.vo.Question;
 import com.kcc.springmini.domain.meetup.service.MeetUpService;
 import com.kcc.springmini.domain.post.model.vo.PostVO;
 import com.kcc.springmini.domain.post.service.PostService;
 import com.kcc.springmini.domain.schedule.service.ScheduleService;
 import com.kcc.springmini.global.aop.LoginValid;
 import com.kcc.springmini.global.auth.PrincipalDetail;
+
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.view.RedirectView;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
@@ -67,10 +76,38 @@ public class MeetUpController {
     // 모임 참가
     @LoginValid
     @PostMapping("/{meetUpId}/join")
+    @ResponseBody
     public String joinMeetup(@AuthenticationPrincipal PrincipalDetail principalDetail,
-                             @PathVariable("meetUpId") Long meetUpId, Model model) {
+                             @PathVariable("meetUpId") Long meetUpId, 
+                            @RequestParam Map<String, String> answers
+                          ) throws IOException {
+        if (principalDetail == null) {
+        	return "/members/loginForm";
+        }
+    	
+    	Long memberId = principalDetail.getMember().getMemberId();
+    	
+    	List<AnswerDto> answersDto = new ArrayList<>();
+
+        answers.forEach((key, answer) -> {
+            Long questionId = Long.valueOf(key);
+            answersDto.add(new AnswerDto(memberId, questionId, answer, meetUpId));
+        });
+        
+        if(answers.isEmpty()) { //즉시가입 가능 모임
+        	meetUpService.join(meetUpId, principalDetail.getMember().getMemberId(), "일반회원");
+        } else { //승인대기 모임
+        	meetUpService.insertAnswers(answersDto);
+        }
+        
+        return "/meetups/" + meetUpId;
+    }
+    
+    @GetMapping("/{meetUpId}/questions")
+    @ResponseBody
+    public List<Question> getQuestion(\@PathVariable("meetUpId") Long meetUpId, Model model) {
         model.addAttribute("message", "모임에 가입을 축하드립니다!!!");
         meetUpService.join(meetUpId, principalDetail.getMember().getMemberId(), "일반회원");
-        return "redirect:/meetups/" + meetUpId;
+        return "redirect:/meetups/" + meetUpId;\
     }
 }

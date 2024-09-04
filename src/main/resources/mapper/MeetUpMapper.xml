@@ -77,6 +77,79 @@
     <insert id="insertQuestion">
     	INSERT INTO JOINQUESTION VALUES (#{meetupId}, SEQ_JOINQUESTION.NEXTVAL, #{content}, 'T')
     </insert>
+  
+    <select id="findQuestions"  resultType="com.kcc.springmini.domain.meetup.model.vo.Question">
+    	SELECT content,question_id as questionId FROM JOINQUESTION WHERE MEET_UP_ID = #{meetUpId}
+    </select>
+    
+    <insert id="insertAnswers">
+    	INSERT INTO ANSWER(MEMBER_ID, MEET_UP_ID, QUESTION_ID, ANSWER) 
+    	VALUES (#{memberId}, #{meetupId}, #{questionId}, #{answer})
+    </insert>
+    
+    
+    <select id="selectMeetUpId" resultType="long">
+    	SELECT MEET_UP_ID 
+    	FROM BELONGMEMBER
+    	WHERE GRADE = '모임장' AND MEMBER_ID = #{meberId} 
+    </select>
+   
+    <resultMap id="AnswerDetailResultMap" type="com.kcc.springmini.domain.member.model.dto.QuestionAnswer">
+        <id property="questionId" column="question_id"/>
+        <result property="answer" column="answer"/>
+        <result property="nickname" column="nickname"/>
+        <result property="questionContent" column="question_content"/>
+    </resultMap>
+ 
+    <resultMap id="AnswerResultMap" type="com.kcc.springmini.domain.member.model.dto.MemberQAResponseDto">
+        <id property="meetUpId" column="meet_up_id"/>
+        <collection property="answerDetails" resultMap="AnswerDetailResultMap"/>
+    </resultMap>
+
+    <!-- SQL to get answers with member nickname and question content -->
+    <select id="findMemberQA" resultMap="AnswerResultMap">
+        SELECT a.meet_up_id, a.question_id, jq.content AS question_content, 
+               a.answer, m.nickname
+        FROM ANSWER a
+        JOIN MEMBER m ON a.member_id = m.member_id
+        JOIN JoinQuestion jq ON a.meet_up_id = jq.meet_up_id AND a.question_id = jq.question_id
+        WHERE a.meet_up_id = #{meetUpId}
+    </select>
+    
+    <!-- <select id="findMemberQA" resultType="com.kcc.springmini.domain.member.model.dto.MemberQAResponseDto">
+    	SELECT A.MEET_UP_ID as , M.MEMBER_ID,  A.ANSWER, M.NICKNAME, A.QUESTION_ID, Q.CONTENT
+    	FROM MEMBER M, ANSWER A, JOINQUESTION Q
+    	WHERE M.MEMBER_ID = A.MEMBER_ID AND
+            Q.QUESTION_ID = A.QUESTION_ID
+        AND A.MEET_UP_ID = #{meetupId}
+    </select>  -->
+    
+    <!-- <resultMap id="MemberQAResponseDtoMap" type="com.kcc.springmini.domain.member.model.dto.MemberQAResponseDto">
+	     <id property="nickname" column="nickname"/>
+   		 <id property="meetupId" column="meet_up_id"/>
+	    
+	    
+	    <collection property="questionAnswers" ofType="com.kcc.springmini.domain.member.model.dto.QuestionAnswer">
+	        <result property="question" column="question"/>
+        	<result property="answer" column="answer"/>
+	    </collection>
+	</resultMap>
+
+	<select id="findMemberQA" resultMap="MemberQAResponseDtoMap">
+	    SELECT 
+	        M.nickname,
+	        A.meet_up_id,
+	        J.content AS question,
+	        A.answer
+	    FROM 
+	        MEMBER M
+	    JOIN 
+	        ANSWER A ON M.member_id = A.member_id
+	    JOIN 
+	        JOINQUESTION J ON A.meet_up_id = J.meet_up_id AND A.question_id = J.question_id
+	    WHERE 
+	       A.MEET_UP_ID = #{meetupId}
+	</select> -->
 
     <select id="findById" resultType="MeetUpVO" parameterType="Long">
         SELECT MEET_UP_ID, TITLE, PERSON, CATEGORY, INTRO FROM MEETUP WHERE MEET_UP_ID = #{meetUpId}
