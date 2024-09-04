@@ -17,7 +17,7 @@ public interface ScheduleMapper {
     int saveMember(Map<String, Long> map);
     int delete(@Param("id") Long id, @Param("memberId") Long memberId);
     ScheduleResponseDto findById(Long id);
-    List<ScheduleListResponseDto> findAll(Map<String, Long> map);
+    List<ScheduleListResponseDto> findAll(Map<String, Object> map);
     Long count(Long meetUpId);
     void checkDeadline();
 }

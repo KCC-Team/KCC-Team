@@ -44,24 +44,39 @@
     </select>
 
     <select id="findAll" parameterType="map" resultType="ScheduleListResponseDto">
+        SELECT ms.title, ms.content, ms.person, ms.deadline, ms.appointment_time, ms.schedule_id
+        FROM (
+        SELECT title, content, person, deadline, appointment_time, schedule_id, ROWNUM rnum
+        FROM (
+        SELECT /*+ INDEX_DESC(meetupschedule PK_MeetUpSchedule) */
+        title, content, person, deadline, appointment_time, schedule_id
+        FROM MeetUpSchedule
+        WHERE meet_up_id = #{meetUpId}
+        AND dead_status = 'T'
+        <if test="keyword != null and keyword != ''">
+            <![CDATA[
+                AND (
+                    title LIKE '%' || #{keyword} || '%' OR
+                    content LIKE '%' || #{keyword} || '%'
+                )
+                ]]>
+        </if>
+        <choose>
+            <when test="type == 'deadline'">
+                <![CDATA[ ORDER BY deadline DESC, schedule_id DESC ]]>
+            </when>
+            <when test="type == 'latest'">
+                <![CDATA[ ORDER BY appointment_time DESC, schedule_id DESC ]]>
+            </when>
+            <otherwise>
+                <![CDATA[ ORDER BY schedule_id DESC ]]>
+            </otherwise>
+        </choose>
+        )
         <![CDATA[
-        select inline_ms.title, inline_ms.content, inline_ms.person,
-               inline_ms.deadline, inline_ms.appointment_time, inline_ms.schedule_id
-        from
-            (
-                select ms.title, ms.content, ms.person,
-                       ms.deadline, ms.appointment_time, schedule_id, ROWNUM rnum
-                from (
-                    select /*+INDEX_DESC(meetupschedule PK_MeetUpSchedule) */
-                        *
-                    from MeetUpSchedule ms
-                    where ms.meet_up_id = #{meetUpId}
-                    AND ms.dead_status = 'T'
-                    order by ms.schedule_id desc
-                ) ms
-                where ROWNUM <= #{limit} + #{offset}
-            ) inline_ms
-        where rnum > #{offset}
+        WHERE ROWNUM <= #{limit} + #{offset}
+        ) ms
+        WHERE ms.rnum > #{offset}
         ]]>
     </select>
 

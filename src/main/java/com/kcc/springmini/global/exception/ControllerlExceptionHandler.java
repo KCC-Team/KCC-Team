@@ -41,6 +41,11 @@ public class ControllerlExceptionHandler {
         return modelAndView;
     }
 
+    @ExceptionHandler(NotFoundToErrorException.class)
+    public String handleNotFoundToErrorException(NotFoundToErrorException e) {
+        return "404";
+    }
+
     // 요청 URL에 따라 뷰 이름을 결정하는 메서드
     private String determineViewName(String requestURI) {
         System.out.println("requestURI = " + requestURI);

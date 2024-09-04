@@ -16,9 +16,26 @@ spring:
   servlet:
     multipart:
       enabled: true
+  h2:
+    console:
+      enabled: false
 mybatis:
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: com.kcc.springmini.domain
+
+cloud:
+  aws:
+    s3:
+      bucket: kcc-bucket
+      url: https://kcc-bucket.s3.ap-northeast-2.amazonaws.com/
+    credentials:
+      access-key: ${cloud.aws.accessKey}
+      secret-key: ${cloud.aws.secretKey}
+    region:
+      static: ap-northeast-2
+      auto: false
+    stack:
+      auto: false
 
 
 ---

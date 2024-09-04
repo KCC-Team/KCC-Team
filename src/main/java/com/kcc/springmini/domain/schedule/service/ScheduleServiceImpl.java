@@ -85,8 +85,8 @@ public class ScheduleServiceImpl implements ScheduleService {
     }
 
     @Override
-    public PageResponseDto findAll(Long meetUpId, int page) {
-        Map<String, Long> map = prepareParameters(meetUpId, page, LIMIT);
+    public PageResponseDto findAll(Long meetUpId, String keyword, String type, int page) {
+        Map<String, Object> map = prepareParameters(meetUpId, page, LIMIT, keyword, type);
         List<ScheduleListResponseDto> schedules = scheduleRepository.findAll(map);
 
         Long totalCount = scheduleRepository.count(meetUpId);
@@ -105,11 +105,13 @@ public class ScheduleServiceImpl implements ScheduleService {
         scheduleRepository.checkDeadline();
     }
 
-    private Map<String, Long> prepareParameters(Long meetUpId, int page, int limit) {
-        Map<String, Long> map = new HashMap<>();
+    private Map<String, Object> prepareParameters(Long meetUpId, int page, int limit, String keyword, String type) {
+        Map<String, Object> map = new HashMap<>();
         map.put("meetUpId", meetUpId);
         map.put("offset", (long) (page - 1) * limit);
         map.put("limit", (long) limit);
+        map.put("keyword", keyword);
+        map.put("type", type);
         return map;
     }
 }

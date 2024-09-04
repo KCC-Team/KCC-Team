@@ -65,7 +65,6 @@
                 </form>
             </c:if>
         </span>
-
     </div>
 </section>
 
@@ -74,7 +73,6 @@
         <form class="post-input">
             <textarea placeholder="게시글을 입력하세요" maxlength="500"></textarea>
             <div class="post-actions">
-                <span class="char-count">0 / 500</span>
                 <button type="submit" class="post-button">게시</button>
             </div>
         </form>
@@ -133,6 +131,18 @@
     </section>
 
     <aside class="schedule-sec">
+        <div>
+            <select id="sortOrder">
+                <option value="latest" selected>최신순</option>
+                <option value="deadline">마감일자 순</option>
+            </select>
+        </div>
+        <br>
+        <div class="search-area">
+            <input class="search" type="text" placeholder="일정 검색하기">
+            <span class="icon-placeholder"><i class="fas fa-search icon-placeholder"></i></span>
+        </div>
+        <br>
             <span class="schedule-header">
                 <span class="meet-date">일정</span>
                 <c:if test="${isPass == 1}">
