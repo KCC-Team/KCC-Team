@@ -52,4 +52,10 @@
         WHERE b.member_id = m.member_id
           AND B.BOARD_ID = #{postId}
     </select>
+
+    <insert id="create">
+        insert into board
+        (board_id, meet_up_id, member_id, title, content, created_at, updated_at)
+        values (seq_board.nextval, #{meetupId}, #{memberId}, #{title}, #{content}, SYSDATE, SYSDATE)
+    </insert>
 </mapper>
