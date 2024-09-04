@@ -60,5 +60,8 @@
             on B.meet_up_id = MS.meet_up_id
         WHERE m.username = #{username}
     </select>
-
+	
+	<delete id="deletePendingMember">
+		delete from answer where member_id = #{memberId} and meet_up_id = #{meetUpId}
+	</delete>
 </mapper>

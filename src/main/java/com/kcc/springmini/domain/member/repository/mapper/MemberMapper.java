@@ -1,6 +1,7 @@
 package com.kcc.springmini.domain.member.repository.mapper;
 
 import com.kcc.springmini.domain.meetup.model.vo.MeetUpVO;
+import com.kcc.springmini.domain.member.model.dto.MemberApproveRequestDto;
 import com.kcc.springmini.domain.member.model.vo.MemberVO;
 import com.kcc.springmini.domain.schedule.model.ScheduleVO;
 import org.apache.ibatis.annotations.Mapper;
@@ -17,4 +18,5 @@ public interface MemberMapper {
     int isApplied(Map<String, Long> map);
     List<MeetUpVO> getMeetupList(String username);
     List<ScheduleVO> getScheduleList(String username);
+    void deletePendingMember(MemberApproveRequestDto dto);
 }

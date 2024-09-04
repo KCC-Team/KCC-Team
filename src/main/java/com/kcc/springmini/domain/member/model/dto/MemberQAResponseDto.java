@@ -8,5 +8,6 @@ import lombok.Data;
 @Data
 public class MemberQAResponseDto implements Serializable {
 	private int meetUpId;
+	private String meetUpTitle;
     private List<QuestionAnswer> answerDetails;
 }
