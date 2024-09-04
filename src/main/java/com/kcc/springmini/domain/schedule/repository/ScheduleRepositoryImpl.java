@@ -41,7 +41,7 @@ public class ScheduleRepositoryImpl implements ScheduleRepository {
     }
 
     @Override
-    public List<ScheduleListResponseDto> findAll(Map<String, Long> map) {
+    public List<ScheduleListResponseDto> findAll(Map<String, Object> map) {
         return scheduleMapper.findAll(map);
     }
 

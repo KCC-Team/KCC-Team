@@ -23,7 +23,15 @@ import java.util.Map;
 
 @ControllerAdvice
 @Slf4j
-public class RestControllerExceptionHandler extends ResponseEntityExceptionHandler {
+public class RestControllerExceptionHandler {
+
+    @ExceptionHandler(UnAuthorizedException.class)
+    @ResponseBody
+    public void handleUnauthenticatedAccessException(HttpServletResponse response) throws IOException {
+        String errorMessage = "로그인이 필요합니다.";
+        String encodedErrorMessage = URLEncoder.encode(errorMessage, StandardCharsets.UTF_8);
+        response.sendRedirect("/login?error=" + encodedErrorMessage);
+    }
 
     @ExceptionHandler(RuntimeException.class)
     @ResponseBody
@@ -50,19 +58,5 @@ public class RestControllerExceptionHandler extends ResponseEntityExceptionHandl
                 Map.of("error", e.getMessage()),
                 e.getCode(), LocalDateTime.now().toString());
         return ResponseEntity.status(e.getCode()).body(exceptionResponse);
-    }
-
-    @ExceptionHandler(NotFoundToErrorException.class)
-    public String handleNotFoundToErrorException(NotFoundToErrorException e) {
-        log.error("handleNotFoundException", e);
-        return "404";
-    }
-
-    @ExceptionHandler(UnAuthorizedException.class)
-    @ResponseBody
-    public void handleUnauthenticatedAccessException(HttpServletResponse response) throws IOException {
-        String errorMessage = "로그인이 필요합니다.";
-        String encodedErrorMessage = URLEncoder.encode(errorMessage, StandardCharsets.UTF_8);
-        response.sendRedirect("/members/loginForm?loginDenied=" + encodedErrorMessage);
     }
 }

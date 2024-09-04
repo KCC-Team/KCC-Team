@@ -11,7 +11,7 @@ $(function() {
         })
         .on("click", ".delete-btn", function() {
             deleteSchedule();
-        });;
+        });
 
     for (let hour = 0; hour < 24; hour++) {
         let time = (hour < 10 ? '0' + hour : hour) + ':00';
@@ -21,6 +21,21 @@ $(function() {
         }).appendTo($('#scheduleTime'));
     }
 
+    $('.search').keydown(function(event) {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+            searchSchedule();
+        }
+    });
+
+    $('.icon-placeholder').click(function() {
+        searchSchedule();
+    });
+
+    $('#sortOrder').change(function() {
+        filterSchedule($(this).val());
+    });
+  
     let apply_btn = document.querySelector("#y-applyButton");
 
     $('#post_create_form').submit(function() {
@@ -40,10 +55,8 @@ $(function() {
         }
     });
 
-    // 게시글 글자수 감지
     $("#content").keyup(function (e){
         let content = $(this).val();
-        //글자수 세기
         if (content.length == 0 || content == "") {
             $(".char-count").text('0');
         } else {
@@ -57,17 +70,29 @@ $(function() {
 
 });
 
-function loadSchedules(page) {
+function loadSchedules(search, page) {
     const pathArray = window.location.pathname.split('/');
     const meetupId = pathArray[2];
 
+    let url;
+    if (search !== null && search !== undefined) {
+        url = `/schedules?meetupId=${meetupId}&keyword=${search}&page=${page}`;
+    } else {
+        url = `/schedules?meetupId=${meetupId}&page=1`;
+    }
+
     $.ajax({
-        url: `/schedules?meetupId=${meetupId}&page=${page}`,
+        url: url,
         type: 'get',
         success: function(response) {
             console.log(response);
             updateScheduleList(response.responses);
-            updateSchedulePagination(response.currentPage, response.startPage, response.endPage);
+
+            if (response.responses.length === 0) {
+                updateSchedulePagination(1, 1, 1);
+            } else {
+                updateSchedulePagination(response.currentPage, response.startPage, response.endPage);
+            }
         },
         error: function(errorResponse) {
             alert(errorResponse.responseJSON.messages.error);
@@ -182,4 +207,40 @@ function submitSchedule() {
     let time = document.getElementById('scheduleTime').value;
     document.getElementById('hiddenScheduleDateTime').value = date + ' ' + time;
     document.getElementById('scheduleVO').submit();
+}
+
+function searchSchedule() {
+    let search = $('.search').val();
+    console.log('search:', search);
+    loadSchedules(search, 1);
+}
+
+function filterSchedule(type) {
+    const pathArray = window.location.pathname.split('/');
+    const meetupId = pathArray[2];
+
+    let url;
+    if (type !== null && type !== undefined) {
+        url = `/schedules?meetupId=${meetupId}&type=${type}&page=1`;
+    } else {
+        url = `/schedules?meetupId=${meetupId}&page=1`;
+    }
+
+    $.ajax({
+        url: url,
+        type: 'get',
+        success: function(response) {
+            console.log(response);
+            updateScheduleList(response.responses);
+
+            if (response.responses.length === 0) {
+                updateSchedulePagination(1, 1, 1);
+            } else {
+                updateSchedulePagination(response.currentPage, response.startPage, response.endPage);
+            }
+        },
+        error: function(errorResponse) {
+            alert(errorResponse.responseJSON.messages.error);
+        }
+    });
 }

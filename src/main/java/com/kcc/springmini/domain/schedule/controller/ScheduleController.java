@@ -4,23 +4,19 @@ import com.kcc.springmini.domain.schedule.model.ScheduleVO;
 import com.kcc.springmini.domain.schedule.model.dto.PageResponseDto;
 import com.kcc.springmini.domain.schedule.model.dto.ScheduleResponseDto;
 import com.kcc.springmini.domain.schedule.service.ScheduleService;
-import com.kcc.springmini.global.aop.LoginValid;
 import com.kcc.springmini.global.auth.PrincipalDetail;
 import com.kcc.springmini.global.exception.ForbiddenException;
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.Objects;
 
-import static org.springframework.http.HttpStatus.*;
+import static org.springframework.http.HttpStatus.FORBIDDEN;
 
 @Controller
 @RequiredArgsConstructor
@@ -28,7 +24,6 @@ import static org.springframework.http.HttpStatus.*;
 public class ScheduleController {
     private final ScheduleService scheduleService;
 
-    @LoginValid
     @PostMapping
     public String create(@AuthenticationPrincipal PrincipalDetail principalDetail,
             @RequestParam(value = "meetupId") Long meetupId, @ModelAttribute @Valid ScheduleVO scheduleVO) {
@@ -36,7 +31,6 @@ public class ScheduleController {
         return "redirect:/meetups/" + meetupId;
     }
 
-    @LoginValid
     @PostMapping("/{id}/participate")
     public ResponseEntity<String> participate(
             @RequestParam(value = "meetupId") Long meetupId,
@@ -48,7 +42,6 @@ public class ScheduleController {
     }
 
     // ajax delete 미지원
-    @LoginValid
     @PostMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable(value = "id") Long id, @AuthenticationPrincipal PrincipalDetail principalDetail) throws IOException {
         if (!Objects.equals(scheduleService.findById(id).getMemberId(), principalDetail.getMember().getMemberId())) {
@@ -69,7 +62,9 @@ public class ScheduleController {
     @ResponseBody
     public ResponseEntity<PageResponseDto> findAll(
             @RequestParam(value = "meetupId") Long meetupId,
+            @RequestParam(value = "keyword", defaultValue = "") String keyword,
+            @RequestParam(value = "type", defaultValue = "latest") String type,
             @RequestParam(value = "page", defaultValue = "1") int page) {
-        return ResponseEntity.ok().body(scheduleService.findAll(meetupId, page));
+        return ResponseEntity.ok().body(scheduleService.findAll(meetupId, keyword, type, page));
     }
 }

@@ -10,24 +10,18 @@ import com.kcc.springmini.domain.member.service.MemberService;
 import com.kcc.springmini.domain.post.model.vo.PostVO;
 import com.kcc.springmini.domain.post.service.PostService;
 import com.kcc.springmini.domain.schedule.service.ScheduleService;
-import com.kcc.springmini.global.aop.LoginValid;
 import com.kcc.springmini.global.auth.PrincipalDetail;
-
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.view.RedirectView;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
@@ -50,7 +44,7 @@ public class MeetUpController {
         model.addAttribute("totalPosts", posts.size()); //총 게시글
         model.addAttribute("totalMembers", meetUpService.getMemberTotal(meetUpId)); //모임 인원
         model.addAttribute("meetupId", meetUpId);
-        model.addAttribute("schedules", scheduleService.findAll(meetUpId, 1));
+        model.addAttribute("schedules", scheduleService.findAll(meetUpId, "", "latest", 1));
 
         model.addAttribute("pageMaker", new PageDto(cri, posts.size())); //페이징 수 ex.(|1|2|3|4|5)
         if (principalDetail != null) {
@@ -77,7 +71,6 @@ public class MeetUpController {
     }
 
     // 모임 참가
-    @LoginValid
     @PostMapping("/{meetUpId}/join")
     @ResponseBody
     public String joinMeetup(@AuthenticationPrincipal PrincipalDetail principalDetail,
@@ -89,7 +82,6 @@ public class MeetUpController {
         }
     	
     	Long memberId = principalDetail.getMember().getMemberId();
-    	
     	List<AnswerDto> answersDto = new ArrayList<>();
 
         answers.forEach((key, answer) -> {
@@ -97,7 +89,7 @@ public class MeetUpController {
             answersDto.add(new AnswerDto(memberId, questionId, answer, meetUpId));
         });
         
-        if(answers.isEmpty()) { //즉시가입 가능 모임
+        if(answers.isEmpty()) {
         	meetUpService.join(meetUpId, principalDetail.getMember().getMemberId(), "일반회원");
         } else { //승인대기 모임
         	meetUpService.insertAnswers(answersDto);
@@ -112,10 +104,7 @@ public class MeetUpController {
         model.addAttribute("message", "모임에 가입을 축하드립니다!!!");
         return meetUpService.findQuestions(meetUpId);
     }
-    
-    
-    
-    
+
     @PostMapping("/{meetUpId}/members/{memberId}/approve")
     @ResponseBody
     public String approveJoin(@PathVariable("meetUpId") Long meetUpId,
@@ -128,7 +117,4 @@ public class MeetUpController {
     	memberService.deletePendingMember(new MemberApproveRequestDto(memberId, meetUpId));
     	return null;
     }
-    
-    
-    
 }

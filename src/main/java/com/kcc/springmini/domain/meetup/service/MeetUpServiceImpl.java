@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
@@ -21,6 +22,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class MeetUpServiceImpl implements MeetUpService{
 
     private final MeetUpRepository meetUpRepository;
@@ -52,6 +54,7 @@ public class MeetUpServiceImpl implements MeetUpService{
         return pass == 1;
     }
 
+    @Transactional
     @Override
     public void join(Long meetUpId, Long memberId, String grade) {
         if (isPass(meetUpId, memberId)) {
@@ -62,6 +65,7 @@ public class MeetUpServiceImpl implements MeetUpService{
         meetUpRepository.join(map);
     }
 
+    @Transactional
     @Override
 	public void insertMeetup(MeetUpRequestDto dto) {
 		meetUpRepository.insertMeetup(dto);
@@ -75,7 +79,8 @@ public class MeetUpServiceImpl implements MeetUpService{
 		join(meetupId, memberId, "모임장");
 		insertQuestion(meetupId, dto.getContent());
 	}
-    
+
+    @Transactional
     @Override
     public void insertQuestion(Long meetupId, String content) {
     	Map<String, Object> map = Map.of("meetupId", meetupId, "content", content);
@@ -87,6 +92,7 @@ public class MeetUpServiceImpl implements MeetUpService{
 		return meetUpRepository.findQuestions(meetupId);
 	}
 
+    @Transactional
 	@Override
 	public void insertAnswers(List<AnswerDto> answers) {
 		for(AnswerDto answer : answers) {
