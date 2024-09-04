@@ -26,18 +26,13 @@ public class ScheduleRepositoryImpl implements ScheduleRepository {
     }
 
     @Override
-    public int updateSchedulePerson(Long scheduleId) {
-        return scheduleMapper.updateSchedulePerson(scheduleId);
-    }
-
-    @Override
     public int saveMember(Map<String, Long> map) {
         return scheduleMapper.saveMember(map);
     }
 
     @Override
-    public int delete(Long id) {
-        return scheduleMapper.delete(id);
+    public int delete(Long id, Long memberId) {
+        return scheduleMapper.delete(id, memberId);
     }
 
     @Override
@@ -53,5 +48,10 @@ public class ScheduleRepositoryImpl implements ScheduleRepository {
     @Override
     public Long count(Long meetUpId) {
         return scheduleMapper.count(meetUpId);
+    }
+
+    @Override
+    public void checkDeadline() {
+        scheduleMapper.checkDeadline();
     }
 }

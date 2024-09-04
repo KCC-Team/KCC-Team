@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -76,5 +77,10 @@ public class MeetUpServiceImpl implements MeetUpService{
     public void insertQuestion(Long meetupId, String content) {
     	Map<String, Object> map = Map.of("meetupId", meetupId, "content", content);
     	meetUpRepository.insertQuestion(map);
+    }
+
+    @Override
+    public Optional<MeetUpVO> findById(Long meetUpId) {
+        return meetUpRepository.findById(meetUpId);
     }
 }

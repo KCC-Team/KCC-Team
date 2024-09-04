@@ -1,5 +1,6 @@
 package com.kcc.springmini.domain.schedule.service;
 
+import com.kcc.springmini.domain.meetup.service.MeetUpService;
 import com.kcc.springmini.domain.member.model.vo.MemberVO;
 import com.kcc.springmini.domain.schedule.model.ScheduleVO;
 import com.kcc.springmini.domain.schedule.model.dto.PageResponseDto;
@@ -26,6 +27,7 @@ import java.util.Map;
 @Transactional(readOnly = true)
 public class ScheduleServiceImpl implements ScheduleService {
     private final ScheduleRepository scheduleRepository;
+    private final MeetUpService meetUpService;
 
     private static final int LIMIT = 3;
     private static final int PAGE_LIMIT_SIZE = 5;
@@ -35,12 +37,17 @@ public class ScheduleServiceImpl implements ScheduleService {
     public void save(MemberVO member, Long meetupId, ScheduleVO scheduleVO) {
         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+        if (meetUpService.findById(meetupId).isEmpty()) {
+            throw new NotFoundException("존재하지 않는 모임입니다.", HttpStatus.BAD_REQUEST);
+        }
 
         scheduleVO.setMeetUpId(meetupId);
         scheduleVO.setMemberId(member.getMemberId());
 
         LocalDate deadline = LocalDate.parse(scheduleVO.getDeadline());
-        scheduleVO.setDeadline(deadline.atStartOfDay().format(outputFormatter));
+        scheduleVO.setDeadline(deadline.atStartOfDay().format(dateFormatter));
         LocalDateTime parsedDateTime = LocalDateTime.parse(scheduleVO.getScheduleTime(), inputFormatter);
         scheduleVO.setScheduleTime(parsedDateTime.format(outputFormatter));
         scheduleRepository.save(scheduleVO);
@@ -66,8 +73,8 @@ public class ScheduleServiceImpl implements ScheduleService {
     }
 
     @Override
-    public void delete(Long id) {
-        if (scheduleRepository.delete(id) == 0) {
+    public void delete(Long id, Long memberId) {
+        if (scheduleRepository.delete(id, memberId) == 0) {
             throw new BadRequestException("모임 일정을 삭제할 수 없습니다.", HttpStatus.BAD_REQUEST);
         }
     }
@@ -90,6 +97,12 @@ public class ScheduleServiceImpl implements ScheduleService {
             throw new NotFoundToErrorException("존재하지 않는 페이지입니다.", HttpStatus.BAD_REQUEST);
         }
         return new PageResponseDto(page, startPage, endPage, schedules);
+    }
+
+    @Transactional
+    @Override
+    public void checkDeadline() {
+        scheduleRepository.checkDeadline();
     }
 
     private Map<String, Long> prepareParameters(Long meetUpId, int page, int limit) {

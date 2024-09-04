@@ -30,7 +30,13 @@
   <title>PET KCC</title>
 </head>
 <body>
-
+<c:if test="${loginDenied != null}">
+    <script>
+        $(function () {
+            alert("${loginDenied}");
+        })
+    </script>
+</c:if>
 <%@ include file="../../../resources/common/header.jsp" %>
 
 <div class="d-flex container text-center">

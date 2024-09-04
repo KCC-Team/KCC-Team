@@ -5,11 +5,11 @@
 
 <mapper namespace="com.kcc.springmini.domain.schedule.repository.mapper.ScheduleMapper">
     <insert id="save" parameterType="ScheduleVO">
-        insert into MeetUpSchedule(schedule_id, meet_up_id, member_id, title, content, location, person, deadline, appointment_time, created_at)
+        insert into MeetUpSchedule(schedule_id, meet_up_id, member_id, title, content, location, person, deadline, appointment_time, created_at, dead_status)
         values(SEQ_MEETUPSCHEDULE.nextval, #{meetUpId}, #{memberId}, #{scheduleTitle}, #{scheduleDescription},
-               #{location}, #{participantLimit, jdbcType=INTEGER},
+               #{location}, #{participantLimit},
                TO_TIMESTAMP(#{deadline}, 'YYYY-MM-DD HH24:MI:SS'),
-               TO_TIMESTAMP(#{scheduleTime}, 'YYYY-MM-DD HH24:MI:SS'), systimestamp)
+               TO_TIMESTAMP(#{scheduleTime}, 'YYYY-MM-DD HH24:MI:SS'), systimestamp, 'T')
     </insert>
 
     <!-- 모임 일정 맴버 생성 (참가하기) -->
@@ -31,8 +31,8 @@
         values(#{meetUpId}, #{memberId}, #{scheduleId})
     </insert>
 
-    <delete id="delete" parameterType="long">
-        delete from MeetUpSchedule where schedule_id = #{id}
+    <delete id="delete" parameterType="map">
+        delete from MeetUpSchedule where schedule_id = #{id} and member_id = #{memberId}
     </delete>
 
     <select id="findById" parameterType="long" resultType="ScheduleResponseDto">
@@ -56,7 +56,7 @@
                         *
                     from MeetUpSchedule ms
                     where ms.meet_up_id = #{meetUpId}
-                    AND ms.deadline >= systimestamp
+                    AND ms.dead_status = 'T'
                     order by ms.schedule_id desc
                 ) ms
                 where ROWNUM <= #{limit} + #{offset}
@@ -71,4 +71,12 @@
         where meet_up_id = #{meetUpId}
         AND deadline >= systimestamp
     </select>
+
+    <update id="checkDeadline">
+        <![CDATA[
+        update MeetUpSchedule
+        set dead_status = 'F'
+        where deadline <= systimestamp
+        ]]>
+    </update>
 </mapper>

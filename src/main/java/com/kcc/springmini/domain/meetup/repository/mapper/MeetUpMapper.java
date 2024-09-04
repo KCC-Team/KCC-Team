@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Mapper
 public interface MeetUpMapper {
@@ -19,4 +20,5 @@ public interface MeetUpMapper {
     void insertMeetup(MeetUpRequestDto dto);
     void join(Map<String, Object> map);
     void insertQuestion(Map<String, Object> map);
+    Optional<MeetUpVO> findById(Long meetUpId);
 }
