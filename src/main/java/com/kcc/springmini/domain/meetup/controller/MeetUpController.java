@@ -105,9 +105,8 @@ public class MeetUpController {
     
     @GetMapping("/{meetUpId}/questions")
     @ResponseBody
-    public List<Question> getQuestion(\@PathVariable("meetUpId") Long meetUpId, Model model) {
+    public List<Question> getQuestion(@PathVariable("meetUpId") Long meetUpId, Model model) {
         model.addAttribute("message", "모임에 가입을 축하드립니다!!!");
-        meetUpService.join(meetUpId, principalDetail.getMember().getMemberId(), "일반회원");
-        return "redirect:/meetups/" + meetUpId;\
+        return meetUpService.findQuestions(meetUpId);
     }
 }
