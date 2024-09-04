@@ -77,4 +77,8 @@
     <insert id="insertQuestion">
     	INSERT INTO JOINQUESTION VALUES (#{meetupId}, SEQ_JOINQUESTION.NEXTVAL, #{content}, 'T')
     </insert>
+
+    <select id="findById" resultType="MeetUpVO" parameterType="Long">
+        SELECT MEET_UP_ID, TITLE, PERSON, CATEGORY, INTRO FROM MEETUP WHERE MEET_UP_ID = #{meetUpId}
+    </select>
 </mapper>

@@ -1,5 +1,6 @@
 package com.kcc.springmini.domain.schedule.service;
 
+import com.kcc.springmini.domain.meetup.service.MeetUpService;
 import com.kcc.springmini.domain.member.model.vo.MemberVO;
 import com.kcc.springmini.domain.schedule.model.ScheduleVO;
 import com.kcc.springmini.domain.schedule.model.dto.PageResponseDto;
@@ -7,6 +8,7 @@ import com.kcc.springmini.domain.schedule.model.dto.ScheduleListResponseDto;
 import com.kcc.springmini.domain.schedule.model.dto.ScheduleResponseDto;
 import com.kcc.springmini.domain.schedule.repository.ScheduleRepository;
 import com.kcc.springmini.global.exception.BadRequestException;
+import com.kcc.springmini.global.exception.NotFoundException;
 import com.kcc.springmini.global.exception.NotFoundToErrorException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -25,6 +27,7 @@ import java.util.Map;
 @Transactional(readOnly = true)
 public class ScheduleServiceImpl implements ScheduleService {
     private final ScheduleRepository scheduleRepository;
+    private final MeetUpService meetUpService;
 
     private static final int LIMIT = 3;
     private static final int PAGE_LIMIT_SIZE = 5;
@@ -35,6 +38,10 @@ public class ScheduleServiceImpl implements ScheduleService {
         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+        if (meetUpService.findById(meetupId).isEmpty()) {
+            throw new NotFoundException("존재하지 않는 모임입니다.", HttpStatus.BAD_REQUEST);
+        }
 
         scheduleVO.setMeetUpId(meetupId);
         scheduleVO.setMemberId(member.getMemberId());
