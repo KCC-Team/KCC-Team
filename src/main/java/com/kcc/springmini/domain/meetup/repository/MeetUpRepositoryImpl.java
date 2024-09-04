@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
@@ -53,13 +54,11 @@ public class MeetUpRepositoryImpl implements MeetUpRepository {
     @Override
 	public void insertMeetup(MeetUpRequestDto dto) {
 		meetUpMapper.insertMeetup(dto);
-
 	}
 
 	@Override
 	public void insertQuestion(Map<String, Object> map) {
 		meetUpMapper.insertQuestion(map);
-		
 	}
 
 	@Override
@@ -83,5 +82,8 @@ public class MeetUpRepositoryImpl implements MeetUpRepository {
 		return meetUpMapper.findMemberQA(meetUpId);
 	}
 
-	
+    @Override
+    public Optional<MeetUpVO> findById(Long meetUpId) {
+        return meetUpMapper.findById(meetUpId);
+    }
 }

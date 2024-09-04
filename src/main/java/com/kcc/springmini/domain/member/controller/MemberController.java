@@ -32,7 +32,11 @@ public class MemberController {
     private final MeetUpService meetUpService;
     
     @GetMapping("/loginForm")
-    public String loginForm(HttpServletRequest request, Model model) {
+    public String loginForm(HttpServletRequest request, Model model, @RequestParam(value = "loginDenied", required = false) String loginDenied) {
+        if (loginDenied != null) {
+            model.addAttribute("loginDenied", loginDenied);
+        }
+
         String referrer = request.getHeader("Referer");
         request.getSession().setAttribute("prevPage", referrer);
         return "member/loginForm";
@@ -58,6 +62,8 @@ public class MemberController {
        // String username = principal.getName();
         String username = "test0"; //테스트용
  
+    public String mypage(Principal principal, Model model) {
+       String username = principal.getName();
         model.addAttribute("meetupList", memberService.getMeetupList(username));
         model.addAttribute("scheduleList", memberService.getScheduleList(username));
         
@@ -80,7 +86,9 @@ public class MemberController {
     }
 
     @GetMapping("/memberModify")
-    public String memberModify() {
+    public String memberModify(Principal principal, Model model) {
+        String username = principal.getName();
+        model.addAttribute("list", memberService.findById(username));
         return "member/memberModify";
     }
 

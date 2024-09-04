@@ -14,6 +14,7 @@ public class ScheduleResponseDto {
     private int person;                 // 제한 인원
     private String deadline;            // 마감 기한
     private String leader;              // 모임장
+    private Long memberId;           // 회원 아이디
     private int accept_count;           // 참여 인원
 
     @Builder

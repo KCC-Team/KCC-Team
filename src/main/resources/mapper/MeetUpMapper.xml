@@ -77,7 +77,7 @@
     <insert id="insertQuestion">
     	INSERT INTO JOINQUESTION VALUES (#{meetupId}, SEQ_JOINQUESTION.NEXTVAL, #{content}, 'T')
     </insert>
-    
+  
     <select id="findQuestions"  resultType="com.kcc.springmini.domain.meetup.model.vo.Question">
     	SELECT content,question_id as questionId FROM JOINQUESTION WHERE MEET_UP_ID = #{meetUpId}
     </select>
@@ -93,9 +93,6 @@
     	FROM BELONGMEMBER
     	WHERE GRADE = '모임장' AND MEMBER_ID = #{meberId} 
     </select>
-    	
-    
-    
    
     <resultMap id="AnswerDetailResultMap" type="com.kcc.springmini.domain.member.model.dto.QuestionAnswer">
         <id property="questionId" column="question_id"/>
@@ -103,7 +100,6 @@
         <result property="nickname" column="nickname"/>
         <result property="questionContent" column="question_content"/>
     </resultMap>
-
  
     <resultMap id="AnswerResultMap" type="com.kcc.springmini.domain.member.model.dto.MemberQAResponseDto">
         <id property="meetUpId" column="meet_up_id"/>
@@ -119,10 +115,6 @@
         JOIN JoinQuestion jq ON a.meet_up_id = jq.meet_up_id AND a.question_id = jq.question_id
         WHERE a.meet_up_id = #{meetUpId}
     </select>
-    
-    
-    
-    
     
     <!-- <select id="findMemberQA" resultType="com.kcc.springmini.domain.member.model.dto.MemberQAResponseDto">
     	SELECT A.MEET_UP_ID as , M.MEMBER_ID,  A.ANSWER, M.NICKNAME, A.QUESTION_ID, Q.CONTENT
@@ -158,5 +150,8 @@
 	    WHERE 
 	       A.MEET_UP_ID = #{meetupId}
 	</select> -->
-   
+
+    <select id="findById" resultType="MeetUpVO" parameterType="Long">
+        SELECT MEET_UP_ID, TITLE, PERSON, CATEGORY, INTRO FROM MEETUP WHERE MEET_UP_ID = #{meetUpId}
+    </select>
 </mapper>

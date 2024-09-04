@@ -32,8 +32,12 @@
         }
     </style>
 </head>
-
 <body>
+    <c:if test="${loginDenied != null}">
+        <script>
+            alert("${loginDenied}");
+        </script>
+    </c:if>
 
 <header>
     <%@ include file="../../../resources/common/header.jsp" %>
@@ -127,9 +131,11 @@
     <aside class="schedule-sec">
             <span class="schedule-header">
                 <span class="meet-date">일정</span>
-                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#createMeetUpModal">
-                  일정 생성
-                </button>
+                <c:if test="${isPass == 1}">
+                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#createMeetUpModal">
+                        일정 생성
+                    </button>
+                </c:if>
             </span>
 
         <div id="scheduleList">
@@ -183,18 +189,26 @@
                         <textarea class="form-control" id="location" name="location" rows="3" placeholder="위치를 입력하세요"></textarea>
                     </div>
                     <div class="mb-3">
-                        <label for="scheduleTime" class="form-label">일정</label>
-                        <input type="text" class="form-control" id="scheduleTime" name="scheduleTime" placeholder="예: 2024-09-15 14:00" />
+                        <label for="scheduleDate" class="form-label">일정 날짜</label>
+                        <input type="date" id="scheduleDate" name="scheduleDate" class="form-control">
                     </div>
+                    <div class="mb-3">
+                        <label for="scheduleTime" class="form-label">일정 시간</label>
+                        <select id="scheduleTime" name="scheduleTime" class="form-control">
+                        </select>
+                    </div>
+                    <input type="hidden" id="hiddenScheduleDateTime" name="scheduleDateTime">
                     <div class="mb-3">
                         <label for="participantLimit" class="form-label">제한인원</label>
                         <input type="number" class="form-control" id="participantLimit" name="participantLimit" placeholder="예: 30" />
                     </div>
                     <div class="mb-3">
                         <label for="deadline" class="form-label">마감일</label>
-                        <input type="text" class="form-control" id="deadline" name="deadline" placeholder="예: 2024-09-15" />
+                        <input type="date" id="deadline" name="deadline" class="form-control">
                     </div>
-                    <button type="submit" class="btn" style="background-color: #80d69b">만들기</button>
+
+                    <input type="hidden" id="hiddenDeadline" name="deadline">
+                    <button type="button" onclick="submitSchedule()" class="btn btn-success">만들기</button>
                 </form>
             </div>
         </div>
@@ -224,7 +238,9 @@
                 </span>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger delete-btn">삭제</button>
+                <c:if test="${isPass == 1}">
+                    <button type="button" class="btn btn-danger delete-btn">삭제</button>
+                </c:if>
                 <button type="button" class="btn btn-primary btn-meetup apply-btn">참가 <span class="accept_count"></span></button>
             </div>
         </div>

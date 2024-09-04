@@ -1,22 +1,18 @@
 package com.kcc.springmini.domain.meetup.model.dto;
 
+import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class MeetUpRequestDto {
+	private Long createMeetupId;
 	private String title;
 	private String intro;
 	private String content;
 	private Integer person;
 	private String  category;
 	private MultipartFile file;
-	private Long createMeetupId;
 }

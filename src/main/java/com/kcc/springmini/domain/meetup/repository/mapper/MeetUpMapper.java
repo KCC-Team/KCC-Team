@@ -12,6 +12,7 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Mapper
 public interface MeetUpMapper {
@@ -27,4 +28,5 @@ public interface MeetUpMapper {
     void insertAnswers(AnswerDto answer);
     List<Long> selectMeetUpId(Long memberId);
     MemberQAResponseDto findMemberQA(Long meetUpId);
+    Optional<MeetUpVO> findById(Long meetUpId);
 }

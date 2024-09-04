@@ -10,6 +10,7 @@ import com.kcc.springmini.domain.member.model.dto.MemberQAResponseDto;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public interface MeetUpService {
 	void insertMeetup(MeetUpRequestDto dto);
@@ -24,4 +25,5 @@ public interface MeetUpService {
     void insertAnswers(List<AnswerDto> answers);
     List<Long> selectMeetUpId(Long memberId);
     MemberQAResponseDto findMemberQA(Long meetUpId);
+    Optional<MeetUpVO> findById(Long meetUpId);
 }

@@ -10,10 +10,10 @@ import java.util.Map;
 public interface ScheduleRepository {
     int save(ScheduleVO scheduleVO);
     int lockScheduleMember(Long scheduleId);
-    int updateSchedulePerson(Long scheduleId);
     int saveMember(Map<String, Long> map);
-    int delete(Long id);
+    int delete(Long id, Long memberId);
     ScheduleResponseDto findById(Long id);
     List<ScheduleListResponseDto> findAll(Map<String, Long> map);
     Long count(Long meetUpId);
+    void checkDeadline();
 }

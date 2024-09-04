@@ -9,6 +9,7 @@ import com.kcc.springmini.domain.member.model.dto.MemberQAResponseDto;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public interface MeetUpRepository {
     List<MeetUpVO> findAll(Criteria cri);
@@ -23,4 +24,5 @@ public interface MeetUpRepository {
     void insertAnswers(AnswerDto answer);
     List<Long> selectMeetUpId(Long memberId);
     MemberQAResponseDto findMemberQA(Long meetUpId);
+    Optional<MeetUpVO> findById(Long meetUpId);
 }
