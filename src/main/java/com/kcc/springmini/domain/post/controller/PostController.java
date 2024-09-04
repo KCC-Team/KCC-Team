@@ -1,5 +1,6 @@
 package com.kcc.springmini.domain.post.controller;
 
+import com.kcc.springmini.domain.post.model.vo.BoardVO;
 import com.kcc.springmini.domain.post.model.vo.PostVO;
 import com.kcc.springmini.domain.post.service.PostService;
 import com.kcc.springmini.domain.post.service.PostServiceImpl;
@@ -10,7 +11,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.List;
 
@@ -51,4 +55,12 @@ public class PostController {
         model.addAttribute("post",findPost);
         return "meetup/postDetail";
     }
+
+    @PostMapping("/posts/create")
+    public RedirectView create(BoardVO board) {
+        Long meetupId = board.getMeetupId();
+        postService.create(board);
+        return new RedirectView("/meetups/" + meetupId);
+    }
+
 }
