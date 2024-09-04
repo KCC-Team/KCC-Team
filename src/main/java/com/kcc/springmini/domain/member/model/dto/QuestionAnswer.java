@@ -9,5 +9,6 @@ public class QuestionAnswer implements Serializable {
 	private int questionId;
     private String answer;
     private String nickname;
+    private Long memberId;
     private String questionContent;
 }

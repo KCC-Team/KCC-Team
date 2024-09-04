@@ -95,24 +95,27 @@
     </select>
    
     <resultMap id="AnswerDetailResultMap" type="com.kcc.springmini.domain.member.model.dto.QuestionAnswer">
-        <id property="questionId" column="question_id"/>
+        <result property="questionId" column="question_id"/>
         <result property="answer" column="answer"/>
         <result property="nickname" column="nickname"/>
+        <result property="memberId" column="member_id"/>
         <result property="questionContent" column="question_content"/>
     </resultMap>
  
     <resultMap id="AnswerResultMap" type="com.kcc.springmini.domain.member.model.dto.MemberQAResponseDto">
         <id property="meetUpId" column="meet_up_id"/>
+        <id property="meetUpTitle" column="meetUpTitle"/>
         <collection property="answerDetails" resultMap="AnswerDetailResultMap"/>
     </resultMap>
 
     <!-- SQL to get answers with member nickname and question content -->
     <select id="findMemberQA" resultMap="AnswerResultMap">
-        SELECT a.meet_up_id, a.question_id, jq.content AS question_content, 
-               a.answer, m.nickname
+        SELECT a.meet_up_id, mu.title as meetUpTitle, a.question_id, jq.content AS question_content, 
+               a.answer, m.nickname, m.member_id as member_id
         FROM ANSWER a
         JOIN MEMBER m ON a.member_id = m.member_id
-        JOIN JoinQuestion jq ON a.meet_up_id = jq.meet_up_id AND a.question_id = jq.question_id
+        JOIN JoinQuestion jq ON a.meet_up_id = jq.meet_up_id and a.question_id = jq.question_id
+        JOIN MEETUP mu ON mu.meet_up_id = jq.meet_up_id 
         WHERE a.meet_up_id = #{meetUpId}
     </select>
     
