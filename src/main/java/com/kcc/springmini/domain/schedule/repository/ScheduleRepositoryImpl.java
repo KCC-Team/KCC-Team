@@ -26,11 +26,6 @@ public class ScheduleRepositoryImpl implements ScheduleRepository {
     }
 
     @Override
-    public int updateSchedulePerson(Long scheduleId) {
-        return scheduleMapper.updateSchedulePerson(scheduleId);
-    }
-
-    @Override
     public int saveMember(Map<String, Long> map) {
         return scheduleMapper.saveMember(map);
     }
