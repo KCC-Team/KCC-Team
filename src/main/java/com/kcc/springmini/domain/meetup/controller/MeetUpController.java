@@ -5,6 +5,8 @@ import com.kcc.springmini.domain.meetup.model.dto.MeetUpRequestDto;
 import com.kcc.springmini.domain.meetup.model.dto.PageDto;
 import com.kcc.springmini.domain.meetup.model.vo.Question;
 import com.kcc.springmini.domain.meetup.service.MeetUpService;
+import com.kcc.springmini.domain.member.model.dto.MemberApproveRequestDto;
+import com.kcc.springmini.domain.member.service.MemberService;
 import com.kcc.springmini.domain.post.model.vo.PostVO;
 import com.kcc.springmini.domain.post.service.PostService;
 import com.kcc.springmini.domain.schedule.service.ScheduleService;
@@ -34,6 +36,7 @@ public class MeetUpController {
     private final PostService postService;
     private final MeetUpService meetUpService;
     private final ScheduleService scheduleService;
+    private final MemberService memberService;
 
     @GetMapping("/{meetUpId}")
     public String meetUp(@AuthenticationPrincipal PrincipalDetail principalDetail,
@@ -109,4 +112,23 @@ public class MeetUpController {
         model.addAttribute("message", "모임에 가입을 축하드립니다!!!");
         return meetUpService.findQuestions(meetUpId);
     }
+    
+    
+    
+    
+    @PostMapping("/{meetUpId}/members/{memberId}/approve")
+    @ResponseBody
+    public String approveJoin(@PathVariable("meetUpId") Long meetUpId,
+    	    @PathVariable("memberId") Long memberId) {
+    	System.out.println("1231231231");
+		System.out.println(meetUpId);
+    	System.out.println(memberId);
+    	
+    	meetUpService.join(meetUpId, memberId, "일반회원");
+    	memberService.deletePendingMember(new MemberApproveRequestDto(memberId, meetUpId));
+    	return null;
+    }
+    
+    
+    
 }

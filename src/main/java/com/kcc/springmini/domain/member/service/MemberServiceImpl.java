@@ -1,6 +1,7 @@
 package com.kcc.springmini.domain.member.service;
 
 import com.kcc.springmini.domain.meetup.model.vo.MeetUpVO;
+import com.kcc.springmini.domain.member.model.dto.MemberApproveRequestDto;
 import com.kcc.springmini.domain.member.model.vo.MemberVO;
 import com.kcc.springmini.domain.member.repository.MemberRepository;
 import com.kcc.springmini.domain.schedule.model.ScheduleVO;
@@ -49,5 +50,10 @@ public class MemberServiceImpl implements MemberService {
     public List<ScheduleVO> getScheduleList(String username) {
         return memberRepository.getScheduleList(username);
     }
+
+	@Override
+	public void deletePendingMember(MemberApproveRequestDto dto) {
+		memberRepository.deletePendingMember(dto);
+	}
 
 }

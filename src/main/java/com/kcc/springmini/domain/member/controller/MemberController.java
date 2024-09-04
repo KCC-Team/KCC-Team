@@ -68,7 +68,6 @@ public class MemberController {
         model.addAttribute("meetupList", memberService.getMeetupList(username));
         model.addAttribute("scheduleList", memberService.getScheduleList(username));
         
-        
         Long memberId = principalDetail.getMember().getMemberId();
         List<Long> meetupIds = meetUpService.selectMeetUpId(memberId);
         
@@ -78,9 +77,7 @@ public class MemberController {
         	qas.add(meetUpService.findMemberQA(meetupId));
         }
         
-        System.out.println("11111111111111");
-        System.out.println(qas);
-        
+        System.out.println(qas);   
         model.addAttribute("answers", qas);
        
         return "member/mypage";
