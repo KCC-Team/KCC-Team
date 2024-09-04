@@ -99,3 +99,34 @@ input[type="radio"], input[type="checkbox"] {
   margin-right: 10px;
 }
 
+.valid-text0, .valid-text1,
+.valid-text2, .valid-text3,
+.valid-text4, .valid-text5{
+  margin-top:  3px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.valid-text0 {
+  margin-left: 112px;
+}
+
+.valid-text1 {
+  margin-left: 95px;
+}
+
+.valid-text2 {
+  margin-left: 10px;
+}
+
+.valid-text3 {
+  margin-right: 79px;
+}
+
+.valid-text4 {
+  margin-right: 33px;
+}
+
+.valid-text5 {
+  margin-left: 3px;
+}
