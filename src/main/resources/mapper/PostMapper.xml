@@ -19,13 +19,8 @@
         <result property="title" column="title"/>
         <result property="content" column="content"/>
         <result property="createdAt" column="created_at"/>
-        <association property="member" column="b_member_id" resultMap="memberResult"/>
+        <result property="nickname" column="nickname"/>
     </resultMap>
-
-    <resultMap id="memberResult" type="com.kcc.springmini.domain.member.model.vo.MemberVO">
-        <id property="nickname" column="nickname"/>
-    </resultMap>
-
     
     <select id="findAllWithPaging" parameterType="Map" resultType="com.kcc.springmini.domain.post.model.vo.PostVO">
         <![CDATA[

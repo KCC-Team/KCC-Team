@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 
 import java.util.Date;
+import java.util.List;
 
 @MybatisTest(properties = "spring.profiles.active=test")
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
@@ -42,7 +43,7 @@ class ScheduleRepositoryTest {
         meetUpRepository.insertMeetup(MeetUpRequestDto.builder()
                 .title("test")
                 .intro("test")
-                .content("test")
+                .contentList(List.of("말티즈좋아함?","test2","test3"))
                 .person(4)
                 .category("test")
                 .build());

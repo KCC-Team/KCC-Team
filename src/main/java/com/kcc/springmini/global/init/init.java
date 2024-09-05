@@ -15,6 +15,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.List;
 
 @Configuration
 @Transactional
@@ -107,14 +108,14 @@ public class init implements ApplicationRunner {
         meetUpService.insertMeetup(MeetUpRequestDto.builder()
                 .title("test")
                 .intro("test")
-                .content("test")
+                .contentList(List.of("말티즈좋아함?","test2","test3"))
                 .person(4)
                 .category("test")
                 .build());
         meetUpService.insertMeetup(MeetUpRequestDto.builder()
                 .title("test2")
                 .intro("test2")
-                .content("test2")
+                .contentList(List.of("고양이좋아함?","test2","test3"))
                 .person(4)
                 .category("test2")
                 .build());
