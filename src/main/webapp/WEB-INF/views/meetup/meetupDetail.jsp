@@ -57,7 +57,7 @@
             <span class="total-board">총 게시글</span> <span class="meet-total-count">${totalPosts}</span>
         </p>
         <p class="total_content">
-        <span class="member-count">모임 인원</span> <span class="meet-member-count">${totalMembers}</span>
+            <span class="member-count">모임 인원</span> <span class="meet-member-count">${totalMembers}</span>
         </p>
 
         <span class="form_meet_join">
@@ -182,11 +182,11 @@
             </c:forEach>
         </div>
         <div class="schedule-sec pagination">
-                <span onclick="loadSchedules(null, ${schedules.currentPage} - 1)">이전</span>
+            <span onclick="loadSchedules(null, ${schedules.currentPage} - 1)">이전</span>
             <c:forEach begin="${schedules.startPage}" end="${schedules.endPage}" var="i">
                 <span class="${i == schedules.currentPage ? 'active' : ''}" onclick="loadSchedules(null, ${i})">${i}</span>
             </c:forEach>
-                <span onclick="loadSchedules(null, ${schedules.currentPage} + 1)">다음</span>
+            <span onclick="loadSchedules(null, ${schedules.currentPage} + 1)">다음</span>
         </div>
     </aside>
 </main>
@@ -271,8 +271,49 @@
             <div class="modal-footer">
                 <c:if test="${isPass == 1}">
                     <button type="button" class="btn btn-danger delete-btn">삭제</button>
+                    <button type="button" class="btn btn-primary update-btn">수정</button>
                 </c:if>
                 <button type="button" class="btn btn-primary btn-meetup apply-btn">참가 <span class="accept_count"></span></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 일정 수정 모달 -->
+<div class="modal fade" id="updateMeetUpModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="updateModalLabel">모임 일정 수정</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="updateScheduleForm">
+                    <div class="mb-3">
+                        <label for="updateScheduleTitle" class="form-label">제목</label>
+                        <input type="text" class="form-control" id="updateScheduleTitle" name="title" placeholder="일정 제목을 입력하세요">
+                    </div>
+                    <div class="mb-3">
+                        <label for="updateScheduleContent" class="form-label">내용</label>
+                        <textarea class="form-control" id="updateScheduleContent" name="content" rows="3" placeholder="일정 내용을 입력하세요"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="updateScheduleTime" class="form-label">일정 시간</label>
+                        <input type="text" class="form-control" id="updateScheduleTime" name="appointment_time" placeholder="예: 2024-09-15 14:00">
+                    </div>
+                    <div class="mb-3">
+                        <label for="updateParticipantLimit" class="form-label">제한인원</label>
+                        <input type="number" class="form-control" id="updateParticipantLimit" name="person" placeholder="예: 30">
+                    </div>
+                    <div class="mb-3">
+                        <label for="updateDeadline" class="form-label">마감 기한</label>
+                        <input type="date" class="form-control" id="updateDeadline" name="deadline">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                <button type="button" class="btn btn-success" onclick="submitUpdateSchedule()">저장</button>
             </div>
         </div>
     </div>
