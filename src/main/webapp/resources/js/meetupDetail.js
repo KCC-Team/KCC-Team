@@ -53,10 +53,6 @@ $(function() {
             alert("게시글을 입력해주세요.");
             return false;
         }
-        if (apply_btn) {
-            alert("모임 참가 후 게시글 작성이 가능합니다.");
-            return false;
-        }
     });
 
     $("#content").keyup(function (e){

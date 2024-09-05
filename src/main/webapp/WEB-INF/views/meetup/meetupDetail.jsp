@@ -35,11 +35,11 @@
     </style>
 </head>
 <body>
-    <c:if test="${loginDenied != null}">
-        <script>
-            alert("${loginDenied}");
-        </script>
-    </c:if>
+<c:if test="${loginDenied != null}">
+    <script>
+        alert("${loginDenied}");
+    </script>
+</c:if>
 
 <header>
     <%@ include file="../../../resources/common/header.jsp" %>
@@ -160,7 +160,7 @@
             <span class="icon-placeholder"><i class="fas fa-search icon-placeholder"></i></span>
         </div>
         <br>
-            <span class="schedule-header">
+        <span class="schedule-header">
                 <span class="meet-date">일정</span>
                 <c:if test="${isPass == 1}">
                     <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#createMeetUpModal">
