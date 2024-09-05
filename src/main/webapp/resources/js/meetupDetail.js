@@ -243,8 +243,7 @@ function submitSchedule() {
         deadline: document.getElementById('deadline').value,
         scheduleDateTime: document.getElementById('scheduleDate').value + ' ' + document.getElementById('scheduleTime').value
     };
-
-    console.log(formData);
+  
     $.ajax({
         type: 'POST',
         url: `/schedules?meetupId=${meetupId}`,

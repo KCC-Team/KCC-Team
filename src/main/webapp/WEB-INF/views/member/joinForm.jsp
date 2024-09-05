@@ -86,6 +86,10 @@
           <label for="address">주소</label>
           <input type="text" id="address" name="address" placeholder="주소">
       </div>
+      <div class="form-group">
+          <label for="file_original_name">프로필 사진</label>
+          <input type="file" id="file_original_name" name="file">
+      </div>
       <c:if test="${messages['address'] != null}">
           <p class="valid-text1" style="color:red;">${messages['address']}</p>
       </c:if>
