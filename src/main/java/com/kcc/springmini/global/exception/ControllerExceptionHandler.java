@@ -61,13 +61,11 @@ public class ControllerExceptionHandler {
 
     // 요청 URL에 따라 뷰 이름을 결정하는 메서드
     private String determineViewName(String requestURI) {
-    	System.out.println("aaaa");
         if (requestURI.contains("/members/save")) {
             return "/member/joinForm";  // 회원가입 폼
         } else if(requestURI.contains("/meetups/register")) {
         	return "/meetup/meetupRegister";
-        }
-        else {
+        } else {
             return "404";  // 기본 에러 페이지
         }
     }
