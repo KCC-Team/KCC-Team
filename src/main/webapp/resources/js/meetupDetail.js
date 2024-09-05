@@ -103,7 +103,7 @@ function loadSchedules(search, page) {
                 }
             },
             error: function(error) {
-                alert(error.responseJSON.message);
+                alert(error.responseJSON.error);
                 $('#scheduleList').fadeIn(100);
             }
         });
@@ -163,7 +163,7 @@ function deleteSchedule() {
             location.href = `/meetups/${meetupId}`;
         },
         error: function(error) {
-            alert(error.responseJSON.message);
+            alert(error.responseJSON.error);
         }
     });
 }
@@ -194,7 +194,7 @@ function loadMeetupDetails(meetupId, scheduleId) {
             $('#meetUpModal').modal('show');
         },
         error: function(error) {
-            alert(error.responseJSON.message);
+            alert(error.responseJSON.error);
         }
     });
 }
@@ -286,7 +286,7 @@ function loadScheduleData() {
             $('#updateMeetUpModal').modal('show');
         },
         error: function(error) {
-            alert(error.responseJSON.message);
+            alert(error.responseJSON.error);
         }
     });
 }
@@ -374,7 +374,7 @@ function filterSchedule(type) {
             }
         },
         error: function(errorResponse) {
-            alert(error.responseJSON.message);
+            alert(errorResponse.responseJSON.error);
         }
     });
 }

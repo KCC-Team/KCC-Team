@@ -37,12 +37,13 @@ public class ScheduleVO implements Serializable {
     @NotNull(message = "마감 기한을 입력해주세요.")
     private String deadline;
 
-    @FutureOrPresent(message = "약속 시간은 현재 시간 이후여야 합니다.")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
-    private LocalDateTime scheduleDateTime;
+    //    @FutureOrPresent(message = "약속 시간은 현재 시간 이후여야 합니다.")
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    private String scheduleDateTime;
 
-    public ScheduleVO(Long meetUpId, Long memberId, String scheduleTitle, String scheduleDescription, String location, Integer participantLimit,
-                      String deadline, LocalDateTime scheduleDateTime) {
+    public ScheduleVO(Long scheduleId, Long meetUpId, Long memberId, String scheduleTitle, String scheduleDescription,
+                      String location, Integer participantLimit, String deadline, String scheduleDateTime) {
+        this.scheduleId = scheduleId;
         this.meetUpId = meetUpId;
         this.memberId = memberId;
         this.scheduleTitle = scheduleTitle;
