@@ -31,7 +31,7 @@
             rownum <= #{cri.pageNum} * #{cri.amount}
             ]]>
         <if test="title != null and title != ''">
-            and title like '%' || #{title} || '%'
+            and REPLACE(title, ' ', '') like '%' || REPLACE(#{title}, ' ', '') || '%'
         </if>
         )
         where
