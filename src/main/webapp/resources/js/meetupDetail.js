@@ -13,7 +13,7 @@ $(function() {
             deleteSchedule();
         })
         .on("click", ".update-btn", function() {
-            loadScheduleData($(this).data('schedule-id'));
+            loadScheduleData();
         });
 
     for (let hour = 0; hour < 24; hour++) {
@@ -102,8 +102,8 @@ function loadSchedules(search, page) {
                     updateSchedulePagination(search, response.currentPage, response.startPage, response.endPage);
                 }
             },
-            error: function(errorResponse) {
-                alert(errorResponse.responseJSON.messages.error);
+            error: function(error) {
+                alert(error.responseJSON.message);
                 $('#scheduleList').fadeIn(100);
             }
         });
@@ -158,8 +158,8 @@ function deleteSchedule() {
             $('#meetUpModal').modal('hide');
             location.href = `/meetups/${meetupId}`;
         },
-        error: function(xhr) {
-            console.error('Failed to delete schedule:', xhr);
+        error: function(error) {
+            alert(error.responseJSON.message);
         }
     });
 }
@@ -189,8 +189,8 @@ function loadMeetupDetails(meetupId, scheduleId) {
       `);
             $('#meetUpModal').modal('show');
         },
-        error: function(xhr) {
-            console.error('Failed to load meetup details:', xhr);
+        error: function(error) {
+            alert(error.responseJSON.message);
         }
     });
 }
@@ -227,7 +227,7 @@ function applySchedule() {
                 alert("로그인이 필요합니다.");
                 window.location.href = response.loginUrl;  // 로그인 페이지로 리디렉션
             } else {
-                console.error("Error: " + error);
+                alert(error.responseJSON.message);
             }
         }
     });
@@ -235,6 +235,7 @@ function applySchedule() {
 
 function submitSchedule() {
     const meetupId = window.location.pathname.split('/')[2];
+
     let formData = {
         scheduleTitle: document.getElementById('scheduleTitle').value,
         scheduleDescription: document.getElementById('scheduleDescription').value,
@@ -243,7 +244,8 @@ function submitSchedule() {
         deadline: document.getElementById('deadline').value,
         scheduleDateTime: document.getElementById('scheduleDate').value + ' ' + document.getElementById('scheduleTime').value
     };
-  
+
+    console.log(formData);
     $.ajax({
         type: 'POST',
         url: `/schedules?meetupId=${meetupId}`,
@@ -258,38 +260,60 @@ function submitSchedule() {
     });
 }
 
-function loadScheduleData(scheduleId) {
+function loadScheduleData() {
+    const scheduleId = $('.schedule_id').val();
+
     $.ajax({
         url: `/schedules/${scheduleId}/edit`,
         type: 'GET',
         success: function(response) {
+            let split = response.appointment_time.split(' ');
+            split[1] = split[1].slice(0, 5);
+
+            for (let hour = 0; hour < 24; hour++) {
+                let time = (hour < 10 ? '0' + hour : hour) + ':00';
+                console.log(time);
+                let option = $('<option>', {
+                    value: time,
+                    text: time,
+                    selected: time === split[1]
+                });
+                option.appendTo($('#updateScheduleTime'));
+            }
+
             $('#updateScheduleTitle').val(response.title);
             $('#updateScheduleContent').val(response.content);
-            $('#updateScheduleTime').val(response.appointment_time);
+            $('#updateScheduleDate').val(split[0]);
             $('#updateParticipantLimit').val(response.person);
             $('#updateDeadline').val(response.deadline.slice(0, 10)); // 날짜만 추출
             $('#updateMeetUpModal').modal('show');
         },
         error: function(error) {
-            console.error('Error loading schedule data:', error);
+            alert(error.responseJSON.message);
         }
     });
 }
 
 function submitUpdateSchedule() {
-    const scheduleId = $('#updateMeetUpModal').data('schedule-id'); // 모달에 데이터 설정 필요
-    const formData = $('#updateScheduleForm').serialize();
+    const meetupId = window.location.pathname.split('/')[2];
+    const scheduleId = $('.schedule_id').val();
 
     $.ajax({
-        url: `/api/schedules/${scheduleId}/edit`,
-        type: 'POST',
-        data: formData,
-        success: function() {
-            $('#updateMeetUpModal').modal('hide');
-            alert('일정이 수정되었습니다.');
+        type: 'post',
+        url: `/schedules/${scheduleId}/edit?meetupId=${meetupId}`,
+        contentType: 'application/json',
+        data: JSON.stringify({
+            scheduleTitle: document.getElementById('updateScheduleTitle').value,
+            scheduleDescription: document.getElementById('updateScheduleContent').value,
+            participantLimit: document.getElementById('updateParticipantLimit').value,
+            deadline: document.getElementById('updateDeadline').value,
+            scheduleDateTime: document.getElementById('updateScheduleDate').value + ' ' + document.getElementById('updateScheduleTime').value
+        }),
+        success: function(response) {
+            location.href = `/meetups/${meetupId}`;
         },
-        error: function(error) {
-            console.error('Error updating schedule:', error);
+        error: function(response) {
+            displayValidationErrors(response.responseJSON.errors);
         }
     });
 }
@@ -355,7 +379,7 @@ function filterSchedule(type) {
             }
         },
         error: function(errorResponse) {
-            alert(errorResponse.responseJSON.messages.error);
+            alert(error.responseJSON.message);
         }
     });
 }

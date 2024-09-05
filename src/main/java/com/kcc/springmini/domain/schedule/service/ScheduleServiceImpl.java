@@ -73,6 +73,15 @@ public class ScheduleServiceImpl implements ScheduleService {
     }
 
     @Override
+    public boolean isParticipated(Long meetupId, Long scheduleId, Long memberId) {
+        Map<String, Long> map = new HashMap<>();
+        map.put("meetUpId", meetupId);
+        map.put("memberId", memberId);
+        map.put("scheduleId", scheduleId);
+        return scheduleMapper.isParticipated(map) > 0;
+    }
+
+    @Override
     public void delete(Long id, Long memberId) {
         if (scheduleMapper.delete(id, memberId) == 0) {
             throw new BadRequestException("모임 일정을 삭제할 수 없습니다.", HttpStatus.BAD_REQUEST);

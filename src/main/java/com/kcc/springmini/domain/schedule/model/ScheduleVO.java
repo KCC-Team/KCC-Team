@@ -25,7 +25,6 @@ public class ScheduleVO implements Serializable {
     @Length(max=250, message = "250자 이상 입력할 수 없습니다.")
     private String scheduleDescription;
 
-    @NotNull
     private String location;
 
     @NotNull

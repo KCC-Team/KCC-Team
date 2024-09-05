@@ -298,8 +298,13 @@
                         <textarea class="form-control" id="updateScheduleContent" name="content" rows="3" placeholder="일정 내용을 입력하세요"></textarea>
                     </div>
                     <div class="mb-3">
-                        <label for="updateScheduleTime" class="form-label">일정 시간</label>
-                        <input type="text" class="form-control" id="updateScheduleTime" name="appointment_time" placeholder="예: 2024-09-15 14:00">
+                        <label for="scheduleDate" class="form-label">일정 날짜</label>
+                        <input type="date" id="updateScheduleDate" name="scheduleDate" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label for="scheduleTime" class="form-label">일정 시간</label>
+                        <select id="updateScheduleTime" name="scheduleTime" class="form-control">
+                        </select>
                     </div>
                     <div class="mb-3">
                         <label for="updateParticipantLimit" class="form-label">제한인원</label>
@@ -309,11 +314,10 @@
                         <label for="updateDeadline" class="form-label">마감 기한</label>
                         <input type="date" class="form-control" id="updateDeadline" name="deadline">
                     </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" onclick="submitUpdateSchedule()">저장</button>
+                    </div>
                 </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-                <button type="button" class="btn btn-success" onclick="submitUpdateSchedule()">저장</button>
             </div>
         </div>
     </div>

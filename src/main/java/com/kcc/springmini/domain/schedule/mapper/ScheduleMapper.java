@@ -13,7 +13,8 @@ import java.util.Map;
 public interface ScheduleMapper {
     int save(ScheduleVO scheduleVO);
     int lockScheduleMember(Long scheduleId);
-    int update(Long id, ScheduleVO scheduleVO);
+    int isParticipated(Map<String, Long> map);
+    int update(@Param("id")Long id, @Param("scheduleVO") ScheduleVO scheduleVO);
     int saveMember(Map<String, Long> map);
     int delete(@Param("id") Long id, @Param("memberId") Long memberId);
     ScheduleResponseDto findById(Long id);
