@@ -48,6 +48,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 
         LocalDate deadline = LocalDate.parse(scheduleVO.getDeadline());
         scheduleVO.setDeadline(deadline.atStartOfDay().format(dateFormatter));
+        scheduleVO.setScheduleDateTime(LocalDateTime.parse(scheduleVO.getScheduleDateTime(), inputFormatter).format(outputFormatter));
 
         scheduleMapper.save(scheduleVO);
         participateSchedule(meetupId, scheduleVO.getScheduleId(), member.getMemberId());
@@ -102,6 +103,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 
         LocalDate deadline = LocalDate.parse(scheduleVO.getDeadline());
         scheduleVO.setDeadline(deadline.atStartOfDay().format(dateFormatter));
+        scheduleVO.setScheduleDateTime(LocalDateTime.parse(scheduleVO.getScheduleDateTime(), inputFormatter).format(outputFormatter));
 
         if (scheduleMapper.update(id, scheduleVO) == 0) {
             throw new BadRequestException("모임 일정을 수정할 수 없습니다.", HttpStatus.BAD_REQUEST);

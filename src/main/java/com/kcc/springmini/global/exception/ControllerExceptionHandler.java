@@ -1,12 +1,14 @@
 package com.kcc.springmini.global.exception;
 
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.time.LocalDateTime;
@@ -15,8 +17,8 @@ import java.util.Map;
 
 @ControllerAdvice
 @Order(1) // 더 높은 우선순위
+@Slf4j
 public class ControllerExceptionHandler {
-
     // NotFoundToErrorException 처리
     @ExceptionHandler(NotFoundToErrorException.class)
     public String handleNotFoundToErrorException(NotFoundToErrorException e) {
@@ -57,6 +59,25 @@ public class ControllerExceptionHandler {
 
             return modelAndView;
         }
+    }
+
+    @ExceptionHandler(RuntimeException.class)
+    @ResponseBody
+    public ResponseEntity<String> handleRuntimeException(HttpServletRequest request, RuntimeException e) {
+        log.error("handleRuntimeException", e);
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("서버 오류가 발생했습니다.");
+    }
+
+    @ExceptionHandler({
+            NotFoundException.class,
+            BadRequestException.class,
+            AlreadyExistException.class,
+            ForbiddenException.class,
+    })
+    @ResponseBody
+    public ResponseEntity<String> handleException(HttpServletRequest request, NotFoundException e) {
+        log.error("handleNotFoundException", e);
+        return ResponseEntity.status(e.getCode()).body(e.getMessage());
     }
 
     // 요청 URL에 따라 뷰 이름을 결정하는 메서드

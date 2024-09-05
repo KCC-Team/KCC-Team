@@ -14,6 +14,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -28,81 +29,27 @@ public class init implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        MemberVO member = MemberVO.builder()
-                .username("admin")
-                .password("admin")
-                .nickname("admin")
-                .email("admin@example.com")
-                .gender("M")
-                .birthdate(Date.from(new Date().toInstant()))
-                .tel("010-1234-5678")
-                .address("서울시 강남구")
-                .isdelete("F")
-                .build();
 
-        memberService.save(member, null);
-
-        MemberVO member2 = MemberVO.builder()
-                .username("admin2")
-                .password("admin2")
-                .nickname("admin2")
-                .email("admin@example.com")
-                .gender("M")
-                .birthdate(Date.from(new Date().toInstant()))
-                .tel("010-1234-5678")
-                .address("서울시 강남구")
-                .isdelete("F")
-                .build();
-
-        memberService.save(member2, null);
-
-        MemberVO member3 = MemberVO.builder()
-                .username("admin3")
-                .password("admin3")
-                .nickname("admin3")
-                .email("admin@example.com")
-                .gender("M")
-                .birthdate(Date.from(new Date().toInstant()))
-                .tel("010-1234-5678")
-                .address("서울시 강남구")
-                .isdelete("F")
-                .build();
-
-        memberService.save(member3, null);
-
-        MemberVO member4 = MemberVO.builder()
-                .username("admin4")
-                .password("admin4")
-                .nickname("admin4")
-                .email("admin@example.com")
-                .gender("M")
-                .birthdate(Date.from(new Date().toInstant()))
-                .tel("010-1234-5678")
-                .address("서울시 강남구")
-                .isdelete("F")
-                .build();
-
-        memberService.save(member4, null);
-
-        MemberVO member5 = MemberVO.builder()
-                .username("admin5")
-                .password("admin5")
-                .nickname("admin5")
-                .email("admin@example.com")
-                .gender("M")
-                .birthdate(Date.from(new Date().toInstant()))
-                .tel("010-1234-5678")
-                .address("서울시 강남구")
-                .isdelete("F")
-                .build();
-
-        memberService.save(member5, null);
+        for (int i = 0; i < 100; i++) {
+            MemberVO member = MemberVO.builder()
+                    .username("admin" + i)
+                    .password("admin" + i)
+                    .nickname("admin" + i)
+                    .email("admin" + i + "@example.com")
+                    .gender("M")
+                    .birthdate(Date.from(new Date().toInstant()))
+                    .tel("010-1234-5678")
+                    .address("서울시 강남구")
+                    .isdelete("F")
+                    .build();
+            memberService.save(member, null);
+        }
 
         SecurityContextHolder.getContext().setAuthentication(
                 new UsernamePasswordAuthenticationToken(
-                        principalDetailService.loadUserByUsername("admin"),
+                        principalDetailService.loadUserByUsername("admin1"),
                         null,
-                        principalDetailService.loadUserByUsername("admin").getAuthorities()
+                        principalDetailService.loadUserByUsername("admin1").getAuthorities()
                 )
         );
 //        meetUpService.insertMeetup(MeetUpRequestDto.builder()
