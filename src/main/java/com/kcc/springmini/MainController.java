@@ -25,7 +25,7 @@ public class MainController {
 
 		model.addAttribute("list", meetUpService.findAll(cri));
 		model.addAttribute("pageMaker", new PageDto(cri, total));
-		return "/main";
+		return "main";
 	}
 
 	@GetMapping("/search")
@@ -33,6 +33,6 @@ public class MainController {
 		int total = meetUpService.getTotalCount(title, cri);
 		model.addAttribute("list", meetUpService.findByTitle(title, cri));
 		model.addAttribute("pageMaker", new PageDto(cri, total));
-		return "/main";
+		return "main";
 	}
 }

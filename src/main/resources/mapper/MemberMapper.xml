@@ -17,6 +17,10 @@
         insert into member
         (member_id, username, password, nickname, email, gender, birthdate, tel, address, created_at, updated_at, isdelete)
         values (seq_member.nextval, #{username}, #{password}, #{nickname}, #{email}, #{gender}, #{birthdate}, #{tel}, #{address}, sysdate, sysdate, #{isdelete})
+
+        <selectKey keyProperty="memberId" order="AFTER" resultType="long">
+            select max(member_id) from member
+        </selectKey>
     </insert>
 
     <update id="update">
