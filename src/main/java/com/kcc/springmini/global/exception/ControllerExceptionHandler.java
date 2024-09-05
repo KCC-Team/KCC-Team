@@ -45,7 +45,6 @@ public class ControllerExceptionHandler {
         } else {
             // 일반 Form 요청일 경우
             Object target = e.getBindingResult().getTarget();  // 원래의 객체를 다시 가져옴
-
             // 요청 URL에 따라 뷰 이름을 동적으로 결정
             String viewName = determineViewName(request.getRequestURI());
 
@@ -64,6 +63,8 @@ public class ControllerExceptionHandler {
     private String determineViewName(String requestURI) {
         if (requestURI.contains("/members/save")) {
             return "/member/joinForm";  // 회원가입 폼
+        } else if(requestURI.contains("/meetups/register")) {
+        	return "/meetup/meetupRegister";
         } else {
             return "404";  // 기본 에러 페이지
         }
