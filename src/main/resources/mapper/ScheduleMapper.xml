@@ -9,7 +9,7 @@
         values(SEQ_MEETUPSCHEDULE.nextval, #{meetUpId}, #{memberId}, #{scheduleTitle}, #{scheduleDescription},
                #{location}, #{participantLimit},
                TO_TIMESTAMP(#{deadline}, 'YYYY-MM-DD HH24:MI:SS'),
-               TO_TIMESTAMP(#{scheduleTime}, 'YYYY-MM-DD HH24:MI:SS'), systimestamp, 'T')
+               TO_TIMESTAMP(#{scheduleDateTime}, 'YYYY-MM-DD HH24:MI:SS'), systimestamp, 'T')
     </insert>
 
     <!-- 모임 일정 맴버 생성 (참가하기) -->
@@ -35,8 +35,19 @@
         delete from MeetUpSchedule where schedule_id = #{id} and member_id = #{memberId}
     </delete>
 
+    <update id="update" parameterType="ScheduleVO">
+        update MeetUpSchedule
+        set title = #{scheduleTitle},
+            content = #{scheduleDescription},
+            location = #{location},
+            person = #{participantLimit},
+            deadline = TO_TIMESTAMP(#{deadline}, 'YYYY-MM-DD HH24:MI:SS'),
+            appointment_time = TO_TIMESTAMP(#{scheduleTime}, 'YYYY-MM-DD HH24:MI:SS')
+        where schedule_id = #{scheduleId}
+    </update>
+
     <select id="findById" parameterType="long" resultType="ScheduleResponseDto">
-        select ms.title, ms.content, ms.appointment_time, ms.person, ms.deadline, m.nickname as leader,
+        select ms.title, ms.content, ms.appointment_time, ms.person, ms.deadline, m.nickname as leader, ms.MEMBER_ID as memberId,
                (select count(*) from SCHEDULEBELONGMEMBER sbm where sbm.schedule_id = ms.schedule_id) as accept_count
         from MeetUpSchedule ms
         inner join Member m on ms.member_id = m.member_id
@@ -63,10 +74,10 @@
         </if>
         <choose>
             <when test="type == 'deadline'">
-                <![CDATA[ ORDER BY deadline DESC, schedule_id DESC ]]>
+                <![CDATA[ ORDER BY deadline, schedule_id DESC ]]>
             </when>
             <when test="type == 'latest'">
-                <![CDATA[ ORDER BY appointment_time DESC, schedule_id DESC ]]>
+                <![CDATA[ ORDER BY created_at DESC, schedule_id DESC ]]>
             </when>
             <otherwise>
                 <![CDATA[ ORDER BY schedule_id DESC ]]>

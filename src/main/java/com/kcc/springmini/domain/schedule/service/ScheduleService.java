@@ -9,6 +9,7 @@ public interface ScheduleService {
     void save(MemberVO member, Long meetupId, ScheduleVO scheduleVO);
     void participateSchedule(Long meetupId, Long scheduleId, Long memberId);
     void delete(Long id, Long memberId);
+    void update(Long id, ScheduleVO scheduleVO);
     ScheduleResponseDto findById(Long id);
     PageResponseDto findAll(Long meetUpId, String keyword, String type, int page);
     void checkDeadline();

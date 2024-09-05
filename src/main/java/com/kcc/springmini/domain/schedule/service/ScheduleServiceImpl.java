@@ -48,8 +48,8 @@ public class ScheduleServiceImpl implements ScheduleService {
 
         LocalDate deadline = LocalDate.parse(scheduleVO.getDeadline());
         scheduleVO.setDeadline(deadline.atStartOfDay().format(dateFormatter));
-        LocalDateTime parsedDateTime = LocalDateTime.parse(scheduleVO.getScheduleTime(), inputFormatter);
-        scheduleVO.setScheduleTime(parsedDateTime.format(outputFormatter));
+        LocalDateTime parsedDateTime = LocalDateTime.parse(scheduleVO.getScheduleDateTime(), inputFormatter);
+        scheduleVO.setScheduleDateTime(parsedDateTime.format(outputFormatter));
         scheduleMapper.save(scheduleVO);
     }
 
@@ -76,6 +76,28 @@ public class ScheduleServiceImpl implements ScheduleService {
     public void delete(Long id, Long memberId) {
         if (scheduleMapper.delete(id, memberId) == 0) {
             throw new BadRequestException("모임 일정을 삭제할 수 없습니다.", HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @Transactional
+    @Override
+    public void update(Long id, ScheduleVO scheduleVO) {
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+        ScheduleResponseDto schedule = scheduleMapper.findById(id);
+        if (schedule == null) {
+            throw new NotFoundException("존재하지 않는 일정입니다.", HttpStatus.BAD_REQUEST);
+        }
+
+        LocalDate deadline = LocalDate.parse(scheduleVO.getDeadline());
+        scheduleVO.setDeadline(deadline.atStartOfDay().format(dateFormatter));
+        LocalDateTime parsedDateTime = LocalDateTime.parse(scheduleVO.getScheduleDateTime(), inputFormatter);
+        scheduleVO.setScheduleDateTime(parsedDateTime.format(outputFormatter));
+
+        if (scheduleMapper.update(id, scheduleVO) == 0) {
+            throw new BadRequestException("모임 일정을 수정할 수 없습니다.", HttpStatus.BAD_REQUEST);
         }
     }
 

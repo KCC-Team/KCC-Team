@@ -11,6 +11,9 @@ $(function() {
         })
         .on("click", ".delete-btn", function() {
             deleteSchedule();
+        })
+        .on("click", ".update-btn", function() {
+            loadScheduleData($(this).data('schedule-id'));
         });
 
     for (let hour = 0; hour < 24; hour++) {
@@ -240,6 +243,8 @@ function submitSchedule() {
         deadline: document.getElementById('deadline').value,
         scheduleDateTime: document.getElementById('scheduleDate').value + ' ' + document.getElementById('scheduleTime').value
     };
+
+    console.log(formData);
     $.ajax({
         type: 'POST',
         url: `/schedules?meetupId=${meetupId}`,
@@ -254,14 +259,51 @@ function submitSchedule() {
     });
 }
 
+function loadScheduleData(scheduleId) {
+    $.ajax({
+        url: `/schedules/${scheduleId}/edit`,
+        type: 'GET',
+        success: function(response) {
+            $('#updateScheduleTitle').val(response.title);
+            $('#updateScheduleContent').val(response.content);
+            $('#updateScheduleTime').val(response.appointment_time);
+            $('#updateParticipantLimit').val(response.person);
+            $('#updateDeadline').val(response.deadline.slice(0, 10)); // 날짜만 추출
+            $('#updateMeetUpModal').modal('show');
+        },
+        error: function(error) {
+            console.error('Error loading schedule data:', error);
+        }
+    });
+}
+
+function submitUpdateSchedule() {
+    const scheduleId = $('#updateMeetUpModal').data('schedule-id'); // 모달에 데이터 설정 필요
+    const formData = $('#updateScheduleForm').serialize();
+
+    $.ajax({
+        url: `/api/schedules/${scheduleId}/edit`,
+        type: 'POST',
+        data: formData,
+        success: function() {
+            $('#updateMeetUpModal').modal('hide');
+            alert('일정이 수정되었습니다.');
+        },
+        error: function(error) {
+            console.error('Error updating schedule:', error);
+        }
+    });
+}
+
 function displayValidationErrors(errors) {
     $('.error-message').remove();
+    console.log(errors)
 
     for (const [key, message] of Object.entries(errors)) {
-        const inputForm = $(`#${message.field}`);
+        const inputForm = $(`#${key}`);
         inputForm.css('border', '2px solid red');
 
-        if (message.field === 'scheduleDateTime') {
+        if (message === 'scheduleDateTime') {
             const inputForm = $(`#scheduleDate`);
             inputForm.css('border', '2px solid red');
 
@@ -270,61 +312,22 @@ function displayValidationErrors(errors) {
                 .addClass('error-message')
                 .css('color', 'red')
                 .css('font-weight', 'bold')
-                .text(message.defaultMessage)
+                .text(message)
                 .insertAfter(inputField);
         }
 
-        const inputField = $('#' + message.field);
+        const inputField = $('#' + key);
         $('<div>')
             .addClass('error-message')
             .css('color', 'red')
             .css('font-weight', 'bold')
-            .text(message.defaultMessage)
+            .text(message)
             .insertAfter(inputField);
     }
 }
 
 function searchSchedule() {
     let search = $('.search').val();
-    loadSchedules(search, 1);
-}
-
-function filterSchedule(type) {
-    const pathArray = window.location.pathname.split('/');
-    const meetupId = pathArray[2];
-
-    let url;
-    if (type !== null && type !== undefined) {
-        url = `/schedules?meetupId=${meetupId}&type=${type}&page=1`;
-    } else {
-        url = `/schedules?meetupId=${meetupId}&page=1`;
-    }
-
-    $('#scheduleList').fadeOut(100, function() {
-        $.ajax({
-            url: url,
-            type: 'GET',
-            success: function(response) {
-                updateScheduleList(response.responses);
-                $('#scheduleList').fadeIn(100);
-
-                if (response.responses.length === 0) {
-                    updateSchedulePagination(null, 1, 1, 1);
-                } else {
-                    updateSchedulePagination(null, response.currentPage, response.startPage, response.endPage);
-                }
-            },
-            error: function(errorResponse) {
-                alert(errorResponse.responseJSON.messages.error);
-                $('#scheduleList').fadeIn(100);
-            }
-        });
-    });
-}
-
-function searchSchedule() {
-    let search = $('.search').val();
-    console.log('search:', search);
     loadSchedules(search, 1);
 }
 
