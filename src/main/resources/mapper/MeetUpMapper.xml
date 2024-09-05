@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 
-<mapper namespace="com.kcc.springmini.domain.meetup.repository.mapper.MeetUpMapper">
+<mapper namespace="com.kcc.springmini.domain.meetup.mapper.MeetUpMapper">
     <cache />
 
     <select id="findAll" resultType="com.kcc.springmini.domain.meetup.model.vo.MeetUpVO">
@@ -154,7 +154,9 @@
 	       A.MEET_UP_ID = #{meetupId}
 	</select> -->
 
-    <select id="findById" resultType="MeetUpVO" parameterType="Long">
-        SELECT MEET_UP_ID, TITLE, PERSON, CATEGORY, INTRO FROM MEETUP WHERE MEET_UP_ID = #{meetUpId}
+    <select id="findById" resultType="MeetUpVO" parameterType="long">
+        SELECT m.MEET_UP_ID, m.TITLE, m.PERSON, m.CATEGORY, m.INTRO, f.FILE_UUID_NAME as url FROM MEETUP m
+        JOIN FILES f ON m.MEET_UP_ID = f.MEET_UP_ID
+        WHERE m.MEET_UP_ID = #{meetUpId}
     </select>
 </mapper>

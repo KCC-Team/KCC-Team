@@ -17,4 +17,5 @@ public class MeetUpVO implements Serializable {
     private Long person;
     private String category;
     private String intro;
+    private String url;
 }

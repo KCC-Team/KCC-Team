@@ -1,19 +1,19 @@
 package com.kcc.springmini.domain.meetup.service;
 
 
-import com.kcc.springmini.domain.meetup.controller.AnswerDto;
+import com.kcc.springmini.domain.meetup.model.dto.AnswerDto;
 import com.kcc.springmini.domain.meetup.model.dto.Criteria;
 import com.kcc.springmini.domain.meetup.model.dto.MeetUpRequestDto;
 import com.kcc.springmini.domain.meetup.model.vo.MeetUpVO;
 import com.kcc.springmini.domain.meetup.model.vo.Question;
 import com.kcc.springmini.domain.member.model.dto.MemberQAResponseDto;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 public interface MeetUpService {
-	void insertMeetup(MeetUpRequestDto dto);
+	void insertMeetup(MeetUpRequestDto dto, MultipartFile file);
     List<MeetUpVO> findAll(Criteria cri);
     List<MeetUpVO> findByTitle(String title, Criteria cri);
     int getTotalCount(String title, Criteria cri);

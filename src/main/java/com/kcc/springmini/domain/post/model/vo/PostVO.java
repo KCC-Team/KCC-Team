@@ -16,4 +16,5 @@ public class PostVO implements Serializable {
     private String updatedAt;
     private String nickname;
     private MemberVO member;
+    private String fileUrl;
 }

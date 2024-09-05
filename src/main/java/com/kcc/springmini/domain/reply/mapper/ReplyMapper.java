@@ -1,13 +1,16 @@
-package com.kcc.springmini.domain.reply.repository;
-
-import java.util.List;
+package com.kcc.springmini.domain.reply.mapper;
 
 import com.kcc.springmini.domain.reply.model.Reply;
 import com.kcc.springmini.domain.reply.model.dto.ReplyCreateRequestDto;
 import com.kcc.springmini.domain.reply.model.dto.ReplyRequestDto;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
-public interface ReplyRepository {
-	Reply getReplyById(Long replyId);
+import java.util.List;
+
+@Mapper
+public interface ReplyMapper {
+    Reply getReplyById(Long replyId);
     List<Reply> getAllPostReplies(Long postId);
     void insertReply(ReplyCreateRequestDto reply);
     void updateReply(ReplyRequestDto reply);
