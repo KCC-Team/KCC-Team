@@ -10,4 +10,9 @@
         INSERT INTO FILES (FILE_ID, FILE_ORIGINAL_NAME, FILE_UUID_NAME, FILE_TYPE, MEET_UP_ID)
         VALUES (SEQ_FILE.NEXTVAL, #{fileOriginalName}, #{fileName}, #{type}, #{meetupId})
     </insert>
+
+    <insert id="saveMemberFile" parameterType="map">
+        INSERT INTO FILES (FILE_ID, FILE_ORIGINAL_NAME, FILE_UUID_NAME, FILE_TYPE, MEMBER_ID)
+        VALUES (SEQ_FILE.NEXTVAL, #{fileOriginalName}, #{fileName}, #{type}, #{memberId})
+    </insert>
 </mapper>

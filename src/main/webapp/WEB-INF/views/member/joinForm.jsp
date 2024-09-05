@@ -34,7 +34,7 @@
 <div class="signup-container">
   <h2 class="form-title">회원 정보 입력</h2>
 
-  <form id="form1" action="/members/save" method="post">
+  <form id="form1" action="/members/save" method="post" enctype="multipart/form-data">
       <div class="form-group">
           <label for="username">아이디</label>
           <input type="text" id="username" name="username"  placeholder="아이디">

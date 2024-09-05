@@ -16,6 +16,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
@@ -112,11 +113,12 @@ public class MemberController {
     }
 
     @PostMapping("/save")
-    public String save(@Valid MemberVO member) {
+    public String save(@Valid MemberVO member,
+                       @RequestPart(value = "file", required=false) MultipartFile file) {
         if (member == null) {
             return "redirect:/loginForm";
         }
-        memberService.save(member);
+        memberService.save(member, file);
         return "redirect:/";
     }
 

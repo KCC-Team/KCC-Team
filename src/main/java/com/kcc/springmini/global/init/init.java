@@ -40,7 +40,7 @@ public class init implements ApplicationRunner {
                 .isdelete("F")
                 .build();
 
-        memberService.save(member);
+        memberService.save(member, null);
 
         MemberVO member2 = MemberVO.builder()
                 .username("admin2")
@@ -54,7 +54,7 @@ public class init implements ApplicationRunner {
                 .isdelete("F")
                 .build();
 
-        memberService.save(member2);
+        memberService.save(member2, null);
 
         MemberVO member3 = MemberVO.builder()
                 .username("admin3")
@@ -68,7 +68,7 @@ public class init implements ApplicationRunner {
                 .isdelete("F")
                 .build();
 
-        memberService.save(member3);
+        memberService.save(member3, null);
 
         MemberVO member4 = MemberVO.builder()
                 .username("admin4")
@@ -82,7 +82,7 @@ public class init implements ApplicationRunner {
                 .isdelete("F")
                 .build();
 
-        memberService.save(member4);
+        memberService.save(member4, null);
 
         MemberVO member5 = MemberVO.builder()
                 .username("admin5")
@@ -96,7 +96,7 @@ public class init implements ApplicationRunner {
                 .isdelete("F")
                 .build();
 
-        memberService.save(member5);
+        memberService.save(member5, null);
 
         SecurityContextHolder.getContext().setAuthentication(
                 new UsernamePasswordAuthenticationToken(
