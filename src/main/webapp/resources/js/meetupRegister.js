@@ -12,7 +12,7 @@ $(function() {
 	$(".register-content").hide();
 	$("#way").on('change', function() {
 		$(".register-content").hide();
-		if ($(this).val() == '2') {
+		if ($(this).val() == 'false') {
 			$(".register-content").show();
 		}
 	});

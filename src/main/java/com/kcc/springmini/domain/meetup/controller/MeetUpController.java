@@ -16,11 +16,14 @@ import com.kcc.springmini.domain.post.service.PostService;
 import com.kcc.springmini.domain.schedule.service.ScheduleService;
 import com.kcc.springmini.global.auth.PrincipalDetail;
 import com.kcc.springmini.global.exception.NotFoundException;
+
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -76,8 +79,9 @@ public class MeetUpController {
     }
     
     @PostMapping("/register")
-    public String postMeetup(@ModelAttribute MeetUpRequestDto dto ,
+    public String postMeetup(@Valid MeetUpRequestDto dto ,
     		@RequestPart(value = "file", required=false) MultipartFile file) {
+	
     	meetUpService.insertMeetup(dto, file);
     	return "redirect:/";
     }
