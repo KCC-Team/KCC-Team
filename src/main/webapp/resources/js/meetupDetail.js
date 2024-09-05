@@ -121,7 +121,9 @@ function updateScheduleList(schedules) {
             <input type="hidden" value="${schedule.schedule_id}">
         </div> 
     `).join('');
-    $('#scheduleList').html(html);
+    $('#scheduleList').fadeOut(100, function() {
+        $(this).html(html).fadeIn(100);
+    });
 }
 
 function updateSchedulePagination(search, currentPage, startPage, endPage) {
@@ -144,7 +146,9 @@ function updateSchedulePagination(search, currentPage, startPage, endPage) {
     } else {
         html += `<span onclick="loadSchedules(null, ${currentPage + 1})">다음</span>`;
     }
-    $('.schedule-sec .pagination').html(html);
+    $('.schedule-sec .pagination').fadeOut(100, function() {
+        $(this).html(html).fadeIn(100);
+    });
 }
 
 function deleteSchedule() {
@@ -221,14 +225,9 @@ function applySchedule() {
             alert(response);
             location.href = `/meetups/${meetupId}`;
         },
-        error: function(xhr, status, error) {
-            if (xhr.status === 401) {  // 인증되지 않은 경우
-                var response = JSON.parse(xhr.responseText);
-                alert("로그인이 필요합니다.");
-                window.location.href = response.loginUrl;  // 로그인 페이지로 리디렉션
-            } else {
-                alert(error.responseJSON.message);
-            }
+        error: function(error) {
+            alert(error.responseText);
+            window.location.href = `/meetups/${meetupId}`;
         }
     });
 }
@@ -245,7 +244,6 @@ function submitSchedule() {
         scheduleDateTime: document.getElementById('scheduleDate').value + ' ' + document.getElementById('scheduleTime').value
     };
 
-    console.log(formData);
     $.ajax({
         type: 'POST',
         url: `/schedules?meetupId=${meetupId}`,
@@ -272,7 +270,6 @@ function loadScheduleData() {
 
             for (let hour = 0; hour < 24; hour++) {
                 let time = (hour < 10 ? '0' + hour : hour) + ':00';
-                console.log(time);
                 let option = $('<option>', {
                     value: time,
                     text: time,
@@ -320,7 +317,6 @@ function submitUpdateSchedule() {
 
 function displayValidationErrors(errors) {
     $('.error-message').remove();
-    console.log(errors)
 
     for (const [key, message] of Object.entries(errors)) {
         const inputForm = $(`#${key}`);
@@ -369,7 +365,6 @@ function filterSchedule(type) {
         url: url,
         type: 'get',
         success: function(response) {
-            console.log(response);
             updateScheduleList(response.responses);
 
             if (response.responses.length === 0) {

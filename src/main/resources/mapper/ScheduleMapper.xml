@@ -5,8 +5,11 @@
 
 <mapper namespace="com.kcc.springmini.domain.schedule.mapper.ScheduleMapper">
     <insert id="save" parameterType="ScheduleVO">
+        <selectKey keyProperty="scheduleId" resultType="long" order="BEFORE">
+            SELECT SEQ_MEETUPSCHEDULE.nextval FROM DUAL
+        </selectKey>
         insert into MeetUpSchedule(schedule_id, meet_up_id, member_id, title, content, location, person, deadline, appointment_time, created_at, dead_status)
-        values(SEQ_MEETUPSCHEDULE.nextval, #{meetUpId}, #{memberId}, #{scheduleTitle}, #{scheduleDescription},
+        values(#{scheduleId}, #{meetUpId}, #{memberId}, #{scheduleTitle}, #{scheduleDescription},
                #{location}, #{participantLimit},
                TO_TIMESTAMP(#{deadline}, 'YYYY-MM-DD HH24:MI:SS'),
                TO_TIMESTAMP(#{scheduleDateTime}, 'YYYY-MM-DD HH24:MI:SS'), systimestamp, 'T')
