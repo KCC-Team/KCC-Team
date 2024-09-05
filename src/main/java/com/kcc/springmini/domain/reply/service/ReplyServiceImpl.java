@@ -3,17 +3,15 @@ package com.kcc.springmini.domain.reply.service;
 import com.kcc.springmini.domain.reply.model.Reply;
 import com.kcc.springmini.domain.reply.model.dto.ReplyCreateRequestDto;
 import com.kcc.springmini.domain.reply.model.dto.ReplyRequestDto;
-import com.kcc.springmini.domain.reply.repository.mapper.ReplyMapper;
+import com.kcc.springmini.domain.reply.mapper.ReplyMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.sql.SQLOutput;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class ReplyServiceImpl implements ReplyService {
-
     private final ReplyMapper mapper;
 
     @Override
@@ -28,8 +26,6 @@ public class ReplyServiceImpl implements ReplyService {
         List<Reply> allPostReplies = mapper.getAllPostReplies(postId);
         return allPostReplies;
     }
-
-
 
     @Override
     public void updateReply(ReplyRequestDto reply) {

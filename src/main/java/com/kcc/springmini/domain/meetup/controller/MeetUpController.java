@@ -1,8 +1,13 @@
 package com.kcc.springmini.domain.meetup.controller;
 
+import com.kcc.springmini.domain.common.config.EnvVariableProperties;
+import com.kcc.springmini.domain.common.service.FileService;
+import com.kcc.springmini.domain.common.utils.AwsS3Utils;
+import com.kcc.springmini.domain.meetup.model.dto.AnswerDto;
 import com.kcc.springmini.domain.meetup.model.dto.Criteria;
 import com.kcc.springmini.domain.meetup.model.dto.MeetUpRequestDto;
 import com.kcc.springmini.domain.meetup.model.dto.PageDto;
+import com.kcc.springmini.domain.meetup.model.vo.MeetUpVO;
 import com.kcc.springmini.domain.meetup.model.vo.Question;
 import com.kcc.springmini.domain.meetup.service.MeetUpService;
 import com.kcc.springmini.domain.member.model.dto.MemberApproveRequestDto;
@@ -11,7 +16,9 @@ import com.kcc.springmini.domain.post.model.vo.PostVO;
 import com.kcc.springmini.domain.post.service.PostService;
 import com.kcc.springmini.domain.schedule.service.ScheduleService;
 import com.kcc.springmini.global.auth.PrincipalDetail;
+import com.kcc.springmini.global.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,14 +38,20 @@ public class MeetUpController {
     private final MeetUpService meetUpService;
     private final ScheduleService scheduleService;
     private final MemberService memberService;
+    private final FileService fileService;
+
+    private final EnvVariableProperties properties;
 
     @GetMapping("/{meetUpId}")
     public String meetUp(@AuthenticationPrincipal PrincipalDetail principalDetail,
-            @PathVariable("meetUpId") Long meetUpId,
+                         @PathVariable("meetUpId") Long meetUpId,
     					 Criteria cri, Model model) {
         List<PostVO> posts = postService.findAll(meetUpId); //전체 글 (총 게시글 갯수에만 사용)
-        List<PostVO> totalPaging = postService.findAllWithPaging(cri, meetUpId); //페이징된 글 
-
+        List<PostVO> totalPaging = postService.findAllWithPaging(cri, meetUpId); //페이징된 글
+        MeetUpVO meetUpVO = meetUpService.findById(meetUpId)
+                .orElseThrow(() -> new NotFoundException("모임을 찾을 수 없습니다.", HttpStatus.NOT_FOUND));
+        meetUpVO.setUrl(properties.getS3().getUrl() + meetUpVO.getUrl());
+        model.addAttribute("meetup", meetUpVO);
         model.addAttribute("posts", totalPaging); //현 페이지에서 보여줄 글 목록
 		model.addAttribute("pageMaker", new PageDto(cri, posts.size())); //페이징 수 ex.(|1|2|3|4|5)
         model.addAttribute("totalPosts", posts.size()); //총 게시글
@@ -66,7 +79,7 @@ public class MeetUpController {
     @PostMapping("/register")
     public String postMeetup(@ModelAttribute MeetUpRequestDto dto ,
     		@RequestPart(value = "file", required=false) MultipartFile file) {
-    	meetUpService.insertMeetup(dto);
+    	meetUpService.insertMeetup(dto, file);
     	return "redirect:/";
     }
 

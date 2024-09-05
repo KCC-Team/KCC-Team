@@ -1,9 +1,7 @@
 package com.kcc.springmini.domain.schedule.repository;
 
 import com.kcc.springmini.domain.meetup.model.dto.MeetUpRequestDto;
-import com.kcc.springmini.domain.meetup.repository.MeetUpRepository;
 import com.kcc.springmini.domain.member.model.vo.MemberVO;
-import com.kcc.springmini.domain.member.repository.MemberRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -39,13 +37,13 @@ class ScheduleRepositoryTest {
                 .address("서울시 강남구")
                 .build());
 
-        meetUpRepository.insertMeetup(MeetUpRequestDto.builder()
-                .title("test")
-                .intro("test")
-                .content("test")
-                .person(4)
-                .category("test")
-                .build());
+//        meetUpRepository.insertMeetup(MeetUpRequestDto.builder()
+//                .title("test")
+//                .intro("test")
+//                .content("test")
+//                .person(4)
+//                .category("test")
+//                .build());
     }
 
     @DisplayName("모임 일정 생성")

@@ -3,15 +3,8 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 
-<mapper namespace="com.kcc.springmini.domain.post.repository.mapper.PostMapper">
+<mapper namespace="com.kcc.springmini.domain.post.mapper.PostMapper">
     <cache />
-
-    <select id="findAll" resultMap="postResult">
-        SELECT B.BOARD_ID, B.MEET_UP_ID, B.TITLE, B.CONTENT, M.NICKNAME, B.CREATED_AT, B.MEMBER_ID as b_member_id
-        FROM BOARD B, MEMBER M
-        WHERE b.member_id = m.member_id
-          AND B.MEET_UP_ID = #{meetUpId}
-    </select>
 
     <resultMap id="postResult" type="com.kcc.springmini.domain.post.model.vo.PostVO">
         <id property="postId" column="board_id"/>
@@ -19,6 +12,7 @@
         <result property="title" column="title"/>
         <result property="content" column="content"/>
         <result property="createdAt" column="created_at"/>
+        <result property="fileUrl" column="fileUrl"/>
         <association property="member" column="b_member_id" resultMap="memberResult"/>
     </resultMap>
 
@@ -26,15 +20,24 @@
         <id property="nickname" column="nickname"/>
     </resultMap>
 
+    <select id="findAll" resultMap="postResult">
+        SELECT B.BOARD_ID, B.MEET_UP_ID, B.TITLE, B.CONTENT, M.NICKNAME, B.CREATED_AT, B.MEMBER_ID as b_member_id
+        FROM BOARD B, MEMBER M
+        WHERE b.member_id = m.member_id
+        AND B.MEET_UP_ID = #{meetUpId}
+    </select>
+
+
     
     <select id="findAllWithPaging" parameterType="Map" resultType="com.kcc.springmini.domain.post.model.vo.PostVO">
         <![CDATA[
-        select BOARD_ID as postId, TITLE as title, CONTENT as content, NICKNAME as nickname, CREATED_AT AS createdAt
+        select BOARD_ID as postId, TITLE as title, CONTENT as content, NICKNAME as nickname, CREATED_AT AS createdAt, fileUrl
         from (
              select /*+LEADING(M B) INDEX_DESC(B PK_BOARD) */ rownum rn,
-                    B.BOARD_ID, B.TITLE, B.CONTENT, M.NICKNAME, B.CREATED_AT, B.MEMBER_ID as b_member_id
-             from member M, board B
-             where m.member_id = b.member_id and b.meet_up_id = #{meetUpId, jdbcType=BIGINT}
+                    B.BOARD_ID, B.TITLE, B.CONTENT, M.NICKNAME, B.CREATED_AT, B.MEMBER_ID as b_member_id, F.FILE_UUID_NAME as fileUrl
+             from member M, board B, FILES F
+             where m.member_id = b.member_id and f.member_id = m.member_id
+                and b.meet_up_id = #{meetUpId, jdbcType=BIGINT}
              and rownum <= #{cri.pageNum, jdbcType=BIGINT} * #{cri.amount, jdbcType=BIGINT}
              )
         where rn > (#{cri.pageNum, jdbcType=BIGINT} -1) * #{cri.amount, jdbcType=BIGINT}
@@ -47,9 +50,10 @@
     
 
     <select id="findById" resultMap="postResult">
-        SELECT B.BOARD_ID, B.MEET_UP_ID, B.TITLE, B.CONTENT, B.CREATED_AT, B.MEMBER_ID as b_member_id
-        FROM BOARD B, MEMBER M
+        SELECT B.BOARD_ID, B.MEET_UP_ID, B.TITLE, B.CONTENT, B.CREATED_AT, B.MEMBER_ID as b_member_id, F.FILE_UUID_NAME as fileUrl
+        FROM BOARD B, MEMBER M, FILES F
         WHERE b.member_id = m.member_id
+          AND F.member_id = m.member_id
           AND B.BOARD_ID = #{postId}
     </select>
 

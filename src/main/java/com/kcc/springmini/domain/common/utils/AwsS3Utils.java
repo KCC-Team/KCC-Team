@@ -1,7 +1,8 @@
-package com.kcc.springmini.domain.common.dummy;
+package com.kcc.springmini.domain.common.utils;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.ObjectMetadata;
+import com.kcc.springmini.domain.common.config.EnvVariableProperties;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -11,23 +12,16 @@ import java.io.IOException;
 
 @Service
 @RequiredArgsConstructor
-public class DummyService {
+public class AwsS3Utils {
     private final AmazonS3 amazonS3;
+    private final EnvVariableProperties properties;
 
-    @Value("${cloud.aws.s3.bucket}")
-    private String bucket;
-
-    @Value("${cloud.aws.s3.url")
-    private String url;
-
-    public String saveFile(MultipartFile multipartFile) throws IOException {
-        String originalFilename = multipartFile.getOriginalFilename();
-
+    public String saveFile(MultipartFile multipartFile, String fileName) throws IOException {
         ObjectMetadata metadata = new ObjectMetadata();
         metadata.setContentLength(multipartFile.getSize());
         metadata.setContentType(multipartFile.getContentType());
 
-        amazonS3.putObject(bucket, originalFilename, multipartFile.getInputStream(), metadata);
-        return amazonS3.getUrl(bucket, originalFilename).toString();
+        amazonS3.putObject(properties.getS3().getBucket() + "/suho", fileName, multipartFile.getInputStream(), metadata);
+        return amazonS3.getUrl(properties.getS3().getBucket() + "/suho", fileName).toString();
     }
 }

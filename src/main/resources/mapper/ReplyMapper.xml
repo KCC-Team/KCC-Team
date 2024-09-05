@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 
-<mapper namespace="com.kcc.springmini.domain.reply.repository.mapper.ReplyMapper">
+<mapper namespace="com.kcc.springmini.domain.reply.mapper.ReplyMapper">
     <cache />
     <resultMap id="postReplyResult" type="com.kcc.springmini.domain.reply.model.Reply">
         <id property="replyId" column="REPLY_ID"/>

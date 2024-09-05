@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.kcc.springmini.domain.member.repository.mapper.MemberMapper">
+<mapper namespace="com.kcc.springmini.domain.member.mapper.MemberMapper">
 
     <select id="findById" resultType="com.kcc.springmini.domain.member.model.vo.MemberVO">
         select member_id as memberId, username, password, nickname,

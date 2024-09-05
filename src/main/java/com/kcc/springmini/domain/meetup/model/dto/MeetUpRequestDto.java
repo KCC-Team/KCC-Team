@@ -14,5 +14,4 @@ public class MeetUpRequestDto {
 	private String content;
 	private Integer person;
 	private String  category;
-	private MultipartFile file;
 }

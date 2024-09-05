@@ -83,7 +83,7 @@
     <div style="height: 500px; margin-top: 200px" class="container">
       <section class="post-container">
         <div class="post-header">
-          <img src="profile-image-url" alt="프로필 사진" class="profile-img" />
+          <img src="${post.fileUrl}" alt="프로필 사진" class="profile-img" />
           <div class="text-container">
             <h2 class="fw-bold">${post.member.nickname}</h2>
             <p class="post-date">${post.createdAt}</p>

@@ -104,19 +104,19 @@ public class init implements ApplicationRunner {
                         principalDetailService.loadUserByUsername("admin").getAuthorities()
                 )
         );
-        meetUpService.insertMeetup(MeetUpRequestDto.builder()
-                .title("test")
-                .intro("test")
-                .content("test")
-                .person(4)
-                .category("test")
-                .build());
-        meetUpService.insertMeetup(MeetUpRequestDto.builder()
-                .title("test2")
-                .intro("test2")
-                .content("test2")
-                .person(4)
-                .category("test2")
-                .build());
+//        meetUpService.insertMeetup(MeetUpRequestDto.builder()
+//                .title("test")
+//                .intro("test")
+//                .content("test")
+//                .person(4)
+//                .category("test")
+//                .build());
+//        meetUpService.insertMeetup(MeetUpRequestDto.builder()
+//                .title("test2")
+//                .intro("test2")
+//                .content("test2")
+//                .person(4)
+//                .category("test2")
+//                .build());
     }
 }

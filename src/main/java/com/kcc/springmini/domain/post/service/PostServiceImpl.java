@@ -3,7 +3,7 @@ package com.kcc.springmini.domain.post.service;
 import com.kcc.springmini.domain.meetup.model.dto.Criteria;
 import com.kcc.springmini.domain.post.model.vo.BoardVO;
 import com.kcc.springmini.domain.post.model.vo.PostVO;
-import com.kcc.springmini.domain.post.repository.mapper.PostMapper;
+import com.kcc.springmini.domain.post.mapper.PostMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +14,6 @@ import java.util.Map;
 @Service
 @RequiredArgsConstructor
 public class PostServiceImpl implements PostService{
-
     private final PostMapper postMapper;
 
     @Override
