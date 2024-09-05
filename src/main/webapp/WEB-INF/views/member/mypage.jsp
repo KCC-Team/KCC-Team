@@ -77,7 +77,7 @@
 				<table class="schedule">
 					<tr>
 						<td><c:out value="${schedule.scheduleTitle}" /></td>
-						<td><c:out value="${schedule.scheduleTime}" /></td>
+						<td><c:out value="${schedule.scheduleDateTime}" /></td>
 					</tr>
 				</table>
 			</c:forEach>
