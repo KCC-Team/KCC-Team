@@ -25,6 +25,13 @@
             FOR UPDATE
     </select>
 
+    <select id="isParticipated" parameterType="map" resultType="int">
+        select count(*)
+        from SCHEDULEBELONGMEMBER
+        where schedule_id = #{scheduleId}
+        and member_id = #{memberId}
+    </select>
+
     <!-- 모임 일정 참가인원 삽입 -->
     <insert id="saveMember" parameterType="map">
         insert into SCHEDULEBELONGMEMBER(meet_up_id, member_id, schedule_id)
@@ -35,19 +42,18 @@
         delete from MeetUpSchedule where schedule_id = #{id} and member_id = #{memberId}
     </delete>
 
-    <update id="update" parameterType="ScheduleVO">
+    <update id="update" parameterType="map">
         update MeetUpSchedule
-        set title = #{scheduleTitle},
-            content = #{scheduleDescription},
-            location = #{location},
-            person = #{participantLimit},
-            deadline = TO_TIMESTAMP(#{deadline}, 'YYYY-MM-DD HH24:MI:SS'),
-            appointment_time = TO_TIMESTAMP(#{scheduleTime}, 'YYYY-MM-DD HH24:MI:SS')
-        where schedule_id = #{scheduleId}
+        set title = #{scheduleVO.scheduleTitle},
+            content = #{scheduleVO.scheduleDescription},
+            person = #{scheduleVO.participantLimit},
+            deadline = TO_TIMESTAMP(#{scheduleVO.deadline}, 'YYYY-MM-DD HH24:MI:SS'),
+            appointment_time = TO_TIMESTAMP(#{scheduleVO.scheduleDateTime}, 'YYYY-MM-DD HH24:MI:SS')
+        where schedule_id = #{id}
     </update>
 
     <select id="findById" parameterType="long" resultType="ScheduleResponseDto">
-        select ms.title, ms.content, ms.appointment_time, ms.person, ms.deadline, m.nickname as leader, ms.MEMBER_ID as memberId,
+        select ms.title, ms.content, ms.appointment_time, ms.person, ms.deadline, m.nickname as leader, ms.SCHEDULE_ID as scheduleId,  ms.MEMBER_ID as memberId,
                (select count(*) from SCHEDULEBELONGMEMBER sbm where sbm.schedule_id = ms.schedule_id) as accept_count
         from MeetUpSchedule ms
         inner join Member m on ms.member_id = m.member_id

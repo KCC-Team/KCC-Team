@@ -37,6 +37,10 @@ public class ScheduleController {
             @RequestParam(value = "meetupId") Long meetupId,
             @PathVariable(value = "id") Long id,
             @AuthenticationPrincipal PrincipalDetail principalDetail) {
+        if (scheduleService.isParticipated(meetupId, id, principalDetail.getMember().getMemberId())) {
+            return ResponseEntity.badRequest().body("이미 참여한 일정입니다.");
+        }
+
         scheduleService.participateSchedule(meetupId, id, principalDetail.getMember().getMemberId()
         );
         return ResponseEntity.ok().body("일정 참여가 완료되었습니다.");
@@ -44,9 +48,9 @@ public class ScheduleController {
 
     // ajax delete 미지원
     @PostMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable(value = "id") Long id, @AuthenticationPrincipal PrincipalDetail principalDetail) throws IOException {
-        ScheduleResponseDto byId = scheduleService.findById(id);
-        if (!Objects.equals(byId.getMemberId(), principalDetail.getMember().getMemberId())) {
+    public ResponseEntity<Void> delete(@PathVariable(value = "id") Long id,
+                                       @AuthenticationPrincipal PrincipalDetail principalDetail) throws IOException {
+        if (!Objects.equals(scheduleService.findById(id).getMemberId(), principalDetail.getMember().getMemberId())) {
             throw new ForbiddenException("해당 일정을 삭제할 권한이 없습니다.", FORBIDDEN);
         }
 
@@ -55,7 +59,8 @@ public class ScheduleController {
     }
 
     @GetMapping("/{id}/edit")
-    public ResponseEntity<ScheduleResponseDto> update(@PathVariable(value = "id") Long id, Model model, @AuthenticationPrincipal PrincipalDetail principalDetail) {
+    public ResponseEntity<ScheduleResponseDto> x(@PathVariable(value = "id") Long id,
+                                                      @AuthenticationPrincipal PrincipalDetail principalDetail) {
         if (!Objects.equals(scheduleService.findById(id).getMemberId(), principalDetail.getMember().getMemberId())) {
             throw new ForbiddenException("해당 일정을 수정할 권한이 없습니다.", FORBIDDEN);
         }
@@ -64,13 +69,15 @@ public class ScheduleController {
     }
 
     @PostMapping("/{id}/edit")
-    public ResponseEntity<Void> update(@PathVariable(value = "id") Long id, @AuthenticationPrincipal PrincipalDetail principalDetail, @ModelAttribute @Valid ScheduleVO scheduleVO) {
+    public String update(@PathVariable(value = "id") Long id, @RequestParam(value = "meetupId") Long meetupId,
+                                       @AuthenticationPrincipal PrincipalDetail principalDetail,
+                                       @RequestBody @Valid ScheduleVO scheduleVO) {
         if (!Objects.equals(scheduleService.findById(id).getMemberId(), principalDetail.getMember().getMemberId())) {
             throw new ForbiddenException("해당 일정을 수정할 권한이 없습니다.", FORBIDDEN);
         }
 
         scheduleService.update(id, scheduleVO);
-        return ResponseEntity.ok().build();
+        return "redirect:/meetups/" + meetupId;
     }
 
     @GetMapping("/{id}")
