@@ -25,7 +25,6 @@
             integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
             crossorigin="anonymous"
     ></script>
-
     <link rel="stylesheet" type="text/css" href="../../../resources/common/common.css"/>
     <link rel="stylesheet" type="text/css" href="../../../resources/css/meetupDetail.css">
     <style>
@@ -362,7 +361,7 @@
                 success: function(response) {
                     console.log(response);
                     alert('답변이 제출되었습니다!');
-                    $('#applyModal').modal('hide'); // 모달을 닫습니다.
+                    $('#applyModal').modal('hide'); 
                 },
                 error: function(xhr, status, error) {
                     if (xhr.status === 401) {  // 인증되지 않은 경우

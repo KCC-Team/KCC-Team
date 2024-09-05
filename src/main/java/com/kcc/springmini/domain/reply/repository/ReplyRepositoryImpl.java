@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kcc.springmini.domain.reply.model.Reply;
 import com.kcc.springmini.domain.reply.model.dto.ReplyCreateRequestDto;
-import com.kcc.springmini.domain.reply.model.dto.ReplyRequestDto;
+import com.kcc.springmini.domain.reply.model.dto.ReplyUpdateRequestDto;
 import com.kcc.springmini.domain.reply.repository.mapper.ReplyMapper;
 
 import lombok.RequiredArgsConstructor;
@@ -34,7 +34,7 @@ public class ReplyRepositoryImpl implements ReplyRepository{
 	}
 
 	@Override
-	public void updateReply(ReplyRequestDto reply) {
+	public void updateReply(ReplyUpdateRequestDto reply) {
 		// TODO Auto-generated method stub
 		
 	}

@@ -35,12 +35,12 @@ public class MeetUpController {
     @GetMapping("/{meetUpId}")
     public String meetUp(@AuthenticationPrincipal PrincipalDetail principalDetail,
             @PathVariable("meetUpId") Long meetUpId,
-    					 Criteria cri, Model model) {
+                    Criteria cri, Model model) {
         List<PostVO> posts = postService.findAll(meetUpId); //전체 글 (총 게시글 갯수에만 사용)
         List<PostVO> totalPaging = postService.findAllWithPaging(cri, meetUpId); //페이징된 글 
 
         model.addAttribute("posts", totalPaging); //현 페이지에서 보여줄 글 목록
-		model.addAttribute("pageMaker", new PageDto(cri, posts.size())); //페이징 수 ex.(|1|2|3|4|5)
+        model.addAttribute("pageMaker", new PageDto(cri, posts.size())); //페이징 수 ex.(|1|2|3|4|5)
         model.addAttribute("totalPosts", posts.size()); //총 게시글
         model.addAttribute("totalMembers", meetUpService.getMemberTotal(meetUpId)); //모임 인원
         model.addAttribute("meetupId", meetUpId);
@@ -65,10 +65,10 @@ public class MeetUpController {
     
     @PostMapping("/register")
     public String postMeetup(@ModelAttribute MeetUpRequestDto dto ,
-    		@RequestPart(value = "file", required=false) MultipartFile file) {
-    	
-    	meetUpService.insertMeetup(dto);
-    	return "redirect:/";
+          @RequestPart(value = "file", required=false) MultipartFile file) {
+       
+       meetUpService.insertMeetup(dto);
+       return "redirect:/";
     }
 
     // 모임 참가
@@ -79,11 +79,11 @@ public class MeetUpController {
                             @RequestParam Map<String, String> answers
                           ) throws IOException {
         if (principalDetail == null) {
-        	return "/members/loginForm";
+           return "/members/loginForm";
         }
-    	
-    	Long memberId = principalDetail.getMember().getMemberId();
-    	List<AnswerDto> answersDto = new ArrayList<>();
+       
+       Long memberId = principalDetail.getMember().getMemberId();
+       List<AnswerDto> answersDto = new ArrayList<>();
 
         answers.forEach((key, answer) -> {
             Long questionId = Long.valueOf(key);
@@ -91,9 +91,9 @@ public class MeetUpController {
         });
         
         if(answers.isEmpty()) {
-        	meetUpService.join(meetUpId, principalDetail.getMember().getMemberId(), "일반회원");
+           meetUpService.join(meetUpId, principalDetail.getMember().getMemberId(), "일반회원");
         } else { //승인대기 모임
-        	meetUpService.insertAnswers(answersDto);
+           meetUpService.insertAnswers(answersDto);
         }
         
         return "/meetups/" + meetUpId;
@@ -109,13 +109,13 @@ public class MeetUpController {
     @PostMapping("/{meetUpId}/members/{memberId}/approve")
     @ResponseBody
     public String approveJoin(@PathVariable("meetUpId") Long meetUpId,
-    	    @PathVariable("memberId") Long memberId) {
-    	System.out.println("1231231231");
-		System.out.println(meetUpId);
-    	System.out.println(memberId);
-    	
-    	meetUpService.join(meetUpId, memberId, "일반회원");
-    	memberService.deletePendingMember(new MemberApproveRequestDto(memberId, meetUpId));
-    	return null;
+           @PathVariable("memberId") Long memberId) {
+       System.out.println("1231231231");
+      System.out.println(meetUpId);
+       System.out.println(memberId);
+       
+       meetUpService.join(meetUpId, memberId, "일반회원");
+       memberService.deletePendingMember(new MemberApproveRequestDto(memberId, meetUpId));
+       return null;
     }
 }

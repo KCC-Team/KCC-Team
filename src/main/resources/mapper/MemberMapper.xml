@@ -64,4 +64,6 @@
 	<delete id="deletePendingMember">
 		delete from answer where member_id = #{memberId} and meet_up_id = #{meetUpId}
 	</delete>
+	
+	
 </mapper>

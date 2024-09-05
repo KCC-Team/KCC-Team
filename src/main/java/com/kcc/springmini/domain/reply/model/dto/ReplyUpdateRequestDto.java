@@ -3,7 +3,7 @@ package com.kcc.springmini.domain.reply.model.dto;
 import lombok.Data;
 
 @Data
-public class ReplyRequestDto {
+public class ReplyUpdateRequestDto {
     private Long replyId;
     private String content;
 }

@@ -122,15 +122,20 @@
                 ${reply.content}
               </div>
                 <div class="j-reply-button">
-                  <input type="button" value="댓글달기">
+                  <input type="button" class="jw-reply-button" value="댓글달기">
+                     <c:if test="${reply.writer.memberId eq loginMemberId }">
+                		<input type="button" class="jw-edit-button" value="수정하기">
+                		<input type="button" value="삭제">
+                	</c:if>
                 </div>
               </div>
             </div>
           </div>
         </c:forEach>
-        <textarea id="new-comment" class="form-control jw-add-comment" rows="3" placeholder="댓글을 입력하세요..."></textarea>
-        <button id="add-comment" class="btn btn-primary mt-2 jw-add-button">댓글 추가</button>
+        
       </div>
+      <textarea id="new-comment" class="form-control jw-add-comment" rows="3" placeholder="댓글을 입력하세요..."></textarea>
+        <button id="add-comment" class="btn btn-primary mt-2 jw-add-button">댓글 추가</button>
     </div>
   </div>
 
@@ -156,8 +161,61 @@
             $('#new-comment').val('');
           }
         });
-      });
+       	
+        
+        $('.comment-box').on('click', '.jw-edit-button', function(e) {
+            e.stopPropagation();
 
+            let parentElement = $(this).closest('.comment-box .comment-indent');
+
+            
+            if (parentElement.find('.jw-edit-comment').length > 0) {
+                parentElement.find('.jw-edit-comment').remove();
+                parentElement.find('.jw-save-button').remove();
+            } else {
+                let existingContent = parentElement.find('.j-reply-content').text().trim();
+                console.log(existingContent);
+               
+                let html = "<textarea class='form-control jw-edit-comment mt-2' rows='3'>";
+                html += existingContent += "</textarea>";
+                html += "<button class='btn btn-primary mt-2 jw-save-button'>수정</button>"
+         
+                parentElement.append(html);
+            }
+        });
+        
+        
+     	// 수정 버튼 클릭 이벤트 (텍스트 입력 후 수정)
+        $('.comment-box').on('click', '.jw-save-button', function(e) {
+            e.stopPropagation();
+
+            let parentElement = $(this).closest('.comment-box.comment-indent');
+            let newContent = parentElement.find('.jw-edit-comment').val();
+            let replyId = parentElement.find('.hidden').text();
+			console.log(newContent);
+			console.log(replyId);
+            if (newContent) {
+                updateComment(replyId, newContent);
+            }
+        });
+        
+      });
+      
+      function updateComment(replyId, newContent) {
+    	    $.ajax({
+    	        url: '/reply',
+    	        method: 'PUT',
+    	        contentType: 'application/json; charset=utf-8',
+    	        data: JSON.stringify({
+    	            content: newContent,
+    	            replyId: replyId
+    	        }),
+    	    }).always(function () {
+    	        location.reload();
+    	    });
+    	}
+      
+      
       function addComment(commentText, parentId = null) {
         const url = new URL(window.location.href);
         console.log(url);
@@ -182,7 +240,7 @@
         });
       }
 
-      $('.comment-box').on('click','.j-reply-button > input[type=button]',function(e){
+      $('.comment-box').on('click','.jw-reply-button',function(e){
         e.stopPropagation();
 
         let parentElement = $(this).closest('.comment-box.comment-indent');

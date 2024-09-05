@@ -40,7 +40,7 @@
             WHERE REPLY_ID = #{replyId}
     </select>
 
-    <update id="updateReply" parameterType="com.kcc.springmini.domain.reply.model.dto.ReplyRequestDto">
+    <update id="updateReply" parameterType="com.kcc.springmini.domain.reply.model.dto.ReplyUpdateRequestDto">
         UPDATE REPLY SET CONTENT = #{content}, UPDATED_AT = SYSDATE
         WHERE REPLY_ID = #{replyId}
     </update>
