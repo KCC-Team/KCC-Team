@@ -4,7 +4,7 @@ import com.kcc.springmini.domain.post.model.vo.PostVO;
 import com.kcc.springmini.domain.post.service.PostService;
 import com.kcc.springmini.domain.reply.model.Reply;
 import com.kcc.springmini.domain.reply.model.dto.ReplyCreateRequestDto;
-import com.kcc.springmini.domain.reply.model.dto.ReplyRequestDto;
+import com.kcc.springmini.domain.reply.model.dto.ReplyUpdateRequestDto;
 import com.kcc.springmini.domain.reply.service.ReplyService;
 import com.kcc.springmini.domain.reply.service.ReplyServiceImpl;
 import com.kcc.springmini.global.auth.PrincipalDetail;
@@ -50,8 +50,12 @@ public class ReplyController {
 
     }
 
+    
+    
     @PutMapping("/reply")
-    public void updateReply(@RequestBody ReplyRequestDto reply) {
-        replyService.updateReply(reply);
-    }
+    public void updateReply(@RequestBody ReplyUpdateRequestDto reply) {
+   	 	System.out.println("put call");
+   	 	System.out.println(reply);
+   	 	replyService.updateReply(reply);
+   }
 }

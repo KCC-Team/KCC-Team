@@ -2,7 +2,7 @@ package com.kcc.springmini.domain.reply.service;
 
 import com.kcc.springmini.domain.reply.model.Reply;
 import com.kcc.springmini.domain.reply.model.dto.ReplyCreateRequestDto;
-import com.kcc.springmini.domain.reply.model.dto.ReplyRequestDto;
+import com.kcc.springmini.domain.reply.model.dto.ReplyUpdateRequestDto;
 import com.kcc.springmini.domain.reply.mapper.ReplyMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -28,7 +28,7 @@ public class ReplyServiceImpl implements ReplyService {
     }
 
     @Override
-    public void updateReply(ReplyRequestDto reply) {
+    public void updateReply(ReplyUpdateRequestDto reply) {
          mapper.updateReply(reply);
     }
 
