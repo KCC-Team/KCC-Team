@@ -27,7 +27,7 @@ cloud:
   aws:
     s3:
       bucket: kcc-bucket
-      url: https://kcc-bucket.s3.ap-northeast-2.amazonaws.com/
+      url: https://kcc-bucket.s3.ap-northeast-2.amazonaws.com/suho/
     credentials:
       access-key: ${cloud.aws.accessKey}
       secret-key: ${cloud.aws.secretKey}

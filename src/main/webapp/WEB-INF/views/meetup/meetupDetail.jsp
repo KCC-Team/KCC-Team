@@ -47,15 +47,17 @@
 
 <section class="group-info">
       <span class="group-details">
-          <span class="meet-leader-img"><img src="#" alt="사진"></span>
-          <h1>모임 이름 <span class="meet-name">대형견</span></h1>
+          <span class="meet-leader-img">
+            <img src="${meetup.url}" alt="사진" style="width: 100%; height: 100%; object-fit: cover;">
+        </span>
+          <h1>${meetup.title}<span class="meet-name">${meetup.category}</span></h1>
       </span>
     <div class="meet-member">
         <p class="total_content">
-            <span class="total-board">총게시글</span> <span class="meet-total-count">${totalPosts}</span>
+            <span class="total-board">총 게시글</span> <span class="meet-total-count">${totalPosts}</span>
         </p>
         <p class="total_content">
-            <span class="member-count">모임인원</span> <span class="meet-member-count">${totalMembers}</span>
+        <span class="member-count">모임 인원</span> <span class="meet-member-count">${totalMembers}</span>
         </p>
 
         <span class="form_meet_join">
@@ -90,12 +92,17 @@
         <c:forEach var="post" items="${posts}">
             <div class="posts">
                     <span class="profile-group">
-                        <span class="profile-photo">
-                            <img src="#" alt="이미지">
+                        <span class="profile-photo" style="height: 70px;">
+                            <c:if test="${post.fileUrl == null}">
+                                <img src="https://kcc-bucket.s3.ap-northeast-2.amazonaws.com/suho/zRCdz691z2WGD_yJxEDnFu4kYG8OvUnZ4SfPnj_ZKv4qtF1s9M2DtT9aIDu6ErKoOOlhhiIDKBh1AtDUnzBEfGSF68dkMaGljg7bhHtHlbq4kB3kRUgAqg0Qt32cDfnEjQcL5sgbJlto-Sui70HoAA.png" alt="이미지" style="width: 100%; height: 100%">
+                            </c:if>
+                            <c:if test="${post.fileUrl != null}">
+                                <img src="https://kcc-bucket.s3.ap-northeast-2.amazonaws.com/suho/${post.fileUrl}" alt="이미지" style="width: 100%; height: 100%">
+                            </c:if>
                         </span>
                         <span class="profile-info">
-                            <span id="y-postId" class=".hidden">${post.postId}</span>
-                            <span class="author">${post.member.nickname}</span>
+                            <span id="y-postId" class="hidden">${post.postId}</span>
+                            <span class="author">${post.nickname}</span>
                             <span class="date">${post.createdAt}</span>
                         </span>
                     </span>
@@ -175,11 +182,11 @@
             </c:forEach>
         </div>
         <div class="schedule-sec pagination">
-            <span onclick="loadSchedules(${schedules.currentPage} - 1)">이전</span>
+                <span onclick="loadSchedules(null, ${schedules.currentPage} - 1)">이전</span>
             <c:forEach begin="${schedules.startPage}" end="${schedules.endPage}" var="i">
-                <span class="${i == schedules.currentPage ? 'active' : ''}" onclick="loadSchedules(${i})">${i}</span>
+                <span class="${i == schedules.currentPage ? 'active' : ''}" onclick="loadSchedules(null, ${i})">${i}</span>
             </c:forEach>
-            <span onclick="loadSchedules(${schedules.currentPage} + 1)">다음</span>
+                <span onclick="loadSchedules(null, ${schedules.currentPage} + 1)">다음</span>
         </div>
     </aside>
 </main>
@@ -353,7 +360,6 @@
 
                 formData[questionId] = answer; // formData 객체에 추가
             });
-
 
             $.ajax({
                 url: '/meetups/' + meetUpId + '/join',

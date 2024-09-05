@@ -1,4 +1,4 @@
-package com.kcc.springmini.domain.reply.repository.mapper;
+package com.kcc.springmini.domain.reply.mapper;
 
 import com.kcc.springmini.domain.reply.model.Reply;
 import com.kcc.springmini.domain.reply.model.dto.ReplyCreateRequestDto;

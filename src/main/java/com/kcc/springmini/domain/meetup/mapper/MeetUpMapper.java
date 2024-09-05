@@ -1,6 +1,6 @@
-package com.kcc.springmini.domain.meetup.repository.mapper;
+package com.kcc.springmini.domain.meetup.mapper;
 
-import com.kcc.springmini.domain.meetup.controller.AnswerDto;
+import com.kcc.springmini.domain.meetup.model.dto.AnswerDto;
 import com.kcc.springmini.domain.meetup.model.dto.Criteria;
 import com.kcc.springmini.domain.meetup.model.dto.MeetUpRequestDto;
 import com.kcc.springmini.domain.meetup.model.vo.MeetUpVO;

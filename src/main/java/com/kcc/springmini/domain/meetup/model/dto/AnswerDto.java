@@ -1,6 +1,4 @@
-package com.kcc.springmini.domain.meetup.controller;
-
-import java.util.Map;
+package com.kcc.springmini.domain.meetup.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

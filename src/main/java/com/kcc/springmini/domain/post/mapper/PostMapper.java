@@ -1,4 +1,4 @@
-package com.kcc.springmini.domain.post.repository.mapper;
+package com.kcc.springmini.domain.post.mapper;
 
 import com.kcc.springmini.domain.meetup.model.dto.Criteria;
 import com.kcc.springmini.domain.post.model.vo.BoardVO;
