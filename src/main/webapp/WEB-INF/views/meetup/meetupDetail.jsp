@@ -101,8 +101,8 @@
                             </c:if>
                         </span>
                         <span class="profile-info">
-                            <span id="y-postId" class=".hidden">${post.postId}</span>
-                            <span class="author">${post.member.nickname}</span>
+                            <span id="y-postId" class="hidden">${post.postId}</span>
+                            <span class="author">${post.nickname}</span>
                             <span class="date">${post.createdAt}</span>
                         </span>
                     </span>
@@ -116,33 +116,33 @@
         <div class="pagination">
             <div class="pull-right d-flex justify-content-center"
                  aria-label="Page navigation example">
-              <ul class="pagination">
+                <ul class="pagination">
 
-                <c:if test="${pageMaker.prev}">
-                  <li class="paginate_button page-item prev">
-                    <a href="${pageMaker.startPage -1}" class="page-link">이전</a>
-                  </li>
-                </c:if>
+                    <c:if test="${pageMaker.prev}">
+                        <li class="paginate_button page-item prev">
+                            <a href="${pageMaker.startPage -1}" class="page-link">이전</a>
+                        </li>
+                    </c:if>
 
-                <c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
-                  <li class="paginate_button page-item ${pageMaker.cri.pageNum == num ? "active":""} ">
-                    <a href="${num}" class="page-link">${num}</a>
-                  </li>
-                </c:forEach>
+                    <c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+                        <li class="paginate_button page-item ${pageMaker.cri.pageNum == num ? "active":""} ">
+                            <a href="${num}" class="page-link">${num}</a>
+                        </li>
+                    </c:forEach>
 
-                <c:if test="${pageMaker.next}">
-                  <li class="paginate_button page-item next">
-                    <a href="${pageMaker.endPage + 1 }" class="page-link">다음</a>
-                  </li>
-                </c:if>
+                    <c:if test="${pageMaker.next}">
+                        <li class="paginate_button page-item next">
+                            <a href="${pageMaker.endPage + 1 }" class="page-link">다음</a>
+                        </li>
+                    </c:if>
 
-              </ul>
+                </ul>
             </div>
             <form id='actionForm' action="/meetups/${meetupId}" method='get'>
-              <input type='hidden' name='pageNum' value='${pageMaker.cri.pageNum}'>
-              <input type='hidden' name='amount' value='${pageMaker.cri.amount}'>
-              <input type='hidden' name='type' value='<c:out value="${ pageMaker.cri.type }"/>'>
-              <input type='hidden' name='keyword' value='<c:out value="${ pageMaker.cri.keyword }"/>'>
+                <input type='hidden' name='pageNum' value='${pageMaker.cri.pageNum}'>
+                <input type='hidden' name='amount' value='${pageMaker.cri.amount}'>
+                <input type='hidden' name='type' value='<c:out value="${ pageMaker.cri.type }"/>'>
+                <input type='hidden' name='keyword' value='<c:out value="${ pageMaker.cri.keyword }"/>'>
             </form>
         </div>
     </section>
@@ -286,7 +286,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body ">
-               <form id="applyForm">
+                <form id="applyForm">
                     <!-- 질문 제목과 답변을 동적으로 추가할 컨테이너 -->
                 </form>
             </div>
@@ -304,61 +304,69 @@
 <script type="text/javascript" src="../../../resources/js/meetupDetail.js"></script>
 <script>
     $(document).ready(function() {
-    	var meetUpId = '<c:out value="${meetupId}"/>';
+        var meetUpId = '<c:out value="${meetupId}"/>';
 
-    	$('.post-section').on('click', '.posts', function() {
+        $('.post-section').on('click', '.posts', function() {
             // 클릭된 .posts 요소 내부의 #y-postId 값을 가져옵니다.
             let postId = $(this).find('#y-postId').text();
             console.log(postId);
             location.href = "/posts/" + postId;
         });
-        
+
         $('#y-applyButton').on('click', function(){
-        	console.log('button click');
-        	$.ajax({
-        		url: '/meetups/' + meetUpId + '/questions',
-        		type: 'get',
-        		dataType: 'json',
-        		success: function(response) {
-        			if (response.length === 0) { //즉시가입 모임
+            console.log('button click');
+            $.ajax({
+                url: '/meetups/' + meetUpId + '/questions',
+                type: 'get',
+                dataType: 'json',
+                success: function(response) {
+                    if (response.length === 0) { //즉시가입 모임
                         handleNoQuestions();
                         return;
                     }
-        			
+
                     var $form = $('#applyForm');
                     $form.empty();
-                   
-        			$.each(response, function(index, question) {
-        				let questionHTML = "<div class='mb-3'>";
-        				questionHTML += "<label class='col-form-label'>질문 " + (index+1) + ": " + question.content + "</label>";
-        				questionHTML += "<textarea class='form-control' name='" + question.questionId + "'" + " rows='3'></textarea>";
-        				questionHTML += "</div>";
-                       
+
+                    $.each(response, function(index, question) {
+                        let questionHTML = "<div class='mb-3'>";
+                        questionHTML += "<label class='col-form-label'>질문 " + (index+1) + ": " + question.content + "</label>";
+                        questionHTML += "<textarea class='form-control' name='" + question.questionId + "'" + " rows='3'></textarea>";
+                        questionHTML += "</div>";
+
                         $form.append(questionHTML);
                     });
-        			
-        			 $('#applyModal').modal('show');
-        		} 
-        	})
+
+                    $('#applyModal').modal('show');
+                },
+                error: function(xhr, status, error) {
+                    if (xhr.status === 401) {  // 인증되지 않은 경우
+                        var response = JSON.parse(xhr.responseText);
+                        alert("로그인이 필요합니다.");
+                        window.location.href = response.loginUrl;  // 로그인 페이지로 리디렉션
+                    } else {
+                        console.error("Error: " + error);
+                    }
+                }
+            })
         });
-        
+
         $('#submitAnswers').on('click', function() {
             var formData = {};
 
             $('#applyForm textarea').each(function() {
                 var questionId = $(this).attr('name'); // name 속성에서 questionId 추출
                 var answer = $(this).val();
-                             
+
                 formData[questionId] = answer; // formData 객체에 추가
             });
-            
-            
+
             $.ajax({
                 url: '/meetups/' + meetUpId + '/join',
                 type: 'POST',
                 data: formData,
                 success: function(response) {
-                	console.log(response);
+                    console.log(response);
                     alert('답변이 제출되었습니다!');
                     $('#applyModal').modal('hide'); // 모달을 닫습니다.
                 },
@@ -376,14 +384,14 @@
     });
 
     function handleNoQuestions() {
-    	var meetUpId = '<c:out value="${meetupId}"/>';
-    	$.ajax({
+        var meetUpId = '<c:out value="${meetupId}"/>';
+        $.ajax({
             url: '/meetups/' + meetUpId + '/join',
             type: 'POST',
             success: function(response) {
-            	location.href = response;		
+                location.href = response;
                 $('#applyModal').modal('hide');
-            }      
+            }
         });
     }
 </script>

@@ -90,7 +90,7 @@
 				<span>승인 대기 목록</span>
 			</div>
 
-			<c:if test="${answer == null}">
+			<c:if test="${empty answers}">
 				<div class="item">
 					<p class="label">대기중인 승인 목록이 없습니다.</p>
 				</div>

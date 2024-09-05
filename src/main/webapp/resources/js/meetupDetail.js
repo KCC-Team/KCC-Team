@@ -39,6 +39,10 @@ $(function() {
     let apply_btn = document.querySelector("#y-applyButton");
 
     $('#post_create_form').submit(function() {
+        if (apply_btn) {
+            alert("모임 참가 후 게시글 작성이 가능합니다.");
+            return false;
+        }
         let title = $("#title").val();
         let content = $("#content").val();
         if (title == '') {
@@ -200,6 +204,13 @@ function formatDate(dateString) {
 function applySchedule() {
     const meetupId = window.location.pathname.split('/')[2];
     const scheduleId = $('.schedule_id').val();
+    const apply_button = document.querySelector("#y-applyButton");
+
+    if (apply_button) {
+        alert("모임 참가 승인 후 일정 생성이 가능합니다.");
+        return false;
+    }
+
     $.ajax({
         url: `/schedules/${scheduleId}/participate?meetupId=${meetupId}`,
         type: 'post',
@@ -308,5 +319,41 @@ function filterSchedule(type) {
                 $('#scheduleList').fadeIn(100);
             }
         });
+    });
+}
+
+function searchSchedule() {
+    let search = $('.search').val();
+    console.log('search:', search);
+    loadSchedules(search, 1);
+}
+
+function filterSchedule(type) {
+    const pathArray = window.location.pathname.split('/');
+    const meetupId = pathArray[2];
+
+    let url;
+    if (type !== null && type !== undefined) {
+        url = `/schedules?meetupId=${meetupId}&type=${type}&page=1`;
+    } else {
+        url = `/schedules?meetupId=${meetupId}&page=1`;
+    }
+
+    $.ajax({
+        url: url,
+        type: 'get',
+        success: function(response) {
+            console.log(response);
+            updateScheduleList(response.responses);
+
+            if (response.responses.length === 0) {
+                updateSchedulePagination(1, 1, 1);
+            } else {
+                updateSchedulePagination(response.currentPage, response.startPage, response.endPage);
+            }
+        },
+        error: function(errorResponse) {
+            alert(errorResponse.responseJSON.messages.error);
+        }
     });
 }

@@ -2,7 +2,6 @@ package com.kcc.springmini.domain.meetup.controller;
 
 import com.kcc.springmini.domain.common.config.EnvVariableProperties;
 import com.kcc.springmini.domain.common.service.FileService;
-import com.kcc.springmini.domain.common.utils.AwsS3Utils;
 import com.kcc.springmini.domain.meetup.model.dto.AnswerDto;
 import com.kcc.springmini.domain.meetup.model.dto.Criteria;
 import com.kcc.springmini.domain.meetup.model.dto.MeetUpRequestDto;
@@ -117,7 +116,10 @@ public class MeetUpController {
         model.addAttribute("message", "모임에 가입을 축하드립니다!!!");
         return meetUpService.findQuestions(meetUpId);
     }
-
+    
+    
+    
+    
     @PostMapping("/{meetUpId}/members/{memberId}/approve")
     @ResponseBody
     public String approveJoin(@PathVariable("meetUpId") Long meetUpId,
