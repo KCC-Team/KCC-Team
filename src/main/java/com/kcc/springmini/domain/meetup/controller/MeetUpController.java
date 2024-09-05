@@ -66,6 +66,7 @@ public class MeetUpController {
     @PostMapping("/register")
     public String postMeetup(@ModelAttribute MeetUpRequestDto dto ,
     		@RequestPart(value = "file", required=false) MultipartFile file) {
+    	
     	meetUpService.insertMeetup(dto);
     	return "redirect:/";
     }

@@ -94,8 +94,8 @@
                             <img src="#" alt="이미지">
                         </span>
                         <span class="profile-info">
-                            <span id="y-postId" class=".hidden">${post.postId}</span>
-                            <span class="author">${post.member.nickname}</span>
+                            <span id="y-postId" class="hidden">${post.postId}</span>
+                            <span class="author">${post.nickname}</span>
                             <span class="date">${post.createdAt}</span>
                         </span>
                     </span>

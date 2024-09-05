@@ -77,7 +77,11 @@ public class MeetUpServiceImpl implements MeetUpService{
 		Long memberId = principalDetail.getMember().getMemberId();
 		
 		join(meetupId, memberId, "모임장");
-		insertQuestion(meetupId, dto.getContent());
+		
+		List<String> contentList = dto.getContentList();
+		for(String content: contentList) {
+			insertQuestion(meetupId, content);
+		}
 	}
 
     @Transactional
