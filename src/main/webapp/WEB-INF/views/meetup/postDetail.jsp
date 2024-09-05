@@ -31,6 +31,10 @@
       href="../../../resources/css/postDetail.css"
     />
     <style>
+      .container {
+        margin-bottom: 30px;
+      }
+
       .comment-box {
         margin-bottom: 15px;
         padding-left: 0;
@@ -80,7 +84,7 @@
     <%@ include file="../../../resources/common/header.jsp" %>
   </header>
 
-    <div style="height: 500px; margin-top: 200px" class="container">
+    <div class="container">
       <section class="post-container">
         <div class="post-header">
           <img src="profile-image-url" alt="프로필 사진" class="profile-img" />

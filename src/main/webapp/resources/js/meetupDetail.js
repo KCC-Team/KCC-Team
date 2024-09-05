@@ -39,6 +39,10 @@ $(function() {
     let apply_btn = document.querySelector("#y-applyButton");
 
     $('#post_create_form').submit(function() {
+        if (apply_btn) {
+            alert("모임 참가 후 게시글 작성이 가능합니다.");
+            return false;
+        }
         let title = $("#title").val();
         let content = $("#content").val();
         if (title == '') {
@@ -47,10 +51,6 @@ $(function() {
         }
         if (content == '') {
             alert("게시글을 입력해주세요.");
-            return false;
-        }
-        if (apply_btn) {
-            alert("모임 참가 후 게시글 작성이 가능합니다.");
             return false;
         }
     });
@@ -183,6 +183,13 @@ function formatDate(dateString) {
 function applySchedule() {
     const meetupId = window.location.pathname.split('/')[2];
     const scheduleId = $('.schedule_id').val();
+    const apply_button = document.querySelector("#y-applyButton");
+
+    if (apply_button) {
+        alert("모임 참가 승인 후 일정 생성이 가능합니다.");
+        return false;
+    }
+
     $.ajax({
         url: `/schedules/${scheduleId}/participate?meetupId=${meetupId}`,
         type: 'post',
