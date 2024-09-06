@@ -50,21 +50,6 @@ public class MemberController {
         return "member/joinForm";
     }
 
-//    @GetMapping("/mypage")
-//    public String mypage(Principal principal, Model model) {
-//       // String username = principal.getName();
-//        String username = "test0"; //테스트용
-//
-//        model.addAttribute("meetupList", memberService.getMeetupList(username));
-//        model.addAttribute("scheduleList", memberService.getScheduleList(username));
-//        return "member/mypage";
-//    }
-    
-//    @GetMapping("/mypage")
-//    public String mypage(Principal principal, Model model, @AuthenticationPrincipal PrincipalDetail principalDetail) {
-//       // String username = principal.getName();
-//        String username = "test0"; //테스트용
-// 
     @GetMapping("/mypage")
     public String mypage(Principal principal,@AuthenticationPrincipal PrincipalDetail principalDetail, Model model) {
        String username = principal.getName();
