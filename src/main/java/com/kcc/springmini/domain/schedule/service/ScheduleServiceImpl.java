@@ -40,7 +40,7 @@ public class ScheduleServiceImpl implements ScheduleService {
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
         if (meetUpService.findById(meetupId).isEmpty()) {
-            throw new NotFoundException("존재하지 않는 모임입니다.", HttpStatus.BAD_REQUEST);
+            throw new NotFoundException("존재하지 않는 모임입니다.");
         }
 
         scheduleVO.setMeetUpId(meetupId);
@@ -64,12 +64,12 @@ public class ScheduleServiceImpl implements ScheduleService {
 
         // 모임 일정이 마감되었는지 확인 (비관 락)
         if (scheduleMapper.lockScheduleMember(scheduleId) == 0) {
-            throw new BadRequestException("모임 일정이 마감되었습니다.", HttpStatus.BAD_REQUEST);
+            throw new BadRequestException("모임 일정이 마감되었습니다.");
         }
 
         // 모임 일정 참여자 생성
         if (scheduleMapper.saveMember(map) == 0) {
-            throw new BadRequestException("모임 일정에 참여할 수 없습니다.", HttpStatus.BAD_REQUEST);
+            throw new BadRequestException("모임 일정에 참여할 수 없습니다.");
         }
     }
 
@@ -85,7 +85,7 @@ public class ScheduleServiceImpl implements ScheduleService {
     @Override
     public void delete(Long id, Long memberId) {
         if (scheduleMapper.delete(id, memberId) == 0) {
-            throw new BadRequestException("모임 일정을 삭제할 수 없습니다.", HttpStatus.BAD_REQUEST);
+            throw new BadRequestException("모임 일정을 삭제할 수 없습니다.");
         }
     }
 
@@ -98,7 +98,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 
         ScheduleResponseDto schedule = scheduleMapper.findById(id);
         if (schedule == null) {
-            throw new NotFoundException("존재하지 않는 일정입니다.", HttpStatus.BAD_REQUEST);
+            throw new NotFoundException("존재하지 않는 일정입니다.");
         }
 
         LocalDate deadline = LocalDate.parse(scheduleVO.getDeadline());
@@ -106,7 +106,7 @@ public class ScheduleServiceImpl implements ScheduleService {
         scheduleVO.setScheduleDateTime(LocalDateTime.parse(scheduleVO.getScheduleDateTime(), inputFormatter).format(outputFormatter));
 
         if (scheduleMapper.update(id, scheduleVO) == 0) {
-            throw new BadRequestException("모임 일정을 수정할 수 없습니다.", HttpStatus.BAD_REQUEST);
+            throw new BadRequestException("모임 일정을 수정할 수 없습니다.");
         }
     }
 

@@ -61,13 +61,6 @@ public class ControllerExceptionHandler {
         }
     }
 
-    @ExceptionHandler(RuntimeException.class)
-    @ResponseBody
-    public ResponseEntity<String> handleRuntimeException(HttpServletRequest request, RuntimeException e) {
-        log.error("handleRuntimeException", e);
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("서버 오류가 발생했습니다.");
-    }
-
     @ExceptionHandler({
             NotFoundException.class,
             BadRequestException.class,
@@ -75,9 +68,16 @@ public class ControllerExceptionHandler {
             ForbiddenException.class,
     })
     @ResponseBody
-    public ResponseEntity<String> handleException(HttpServletRequest request, NotFoundException e) {
+    public ResponseEntity<String> handleException(NotFoundException e) {
         log.error("handleNotFoundException", e);
         return ResponseEntity.status(e.getCode()).body(e.getMessage());
+    }
+
+    @ExceptionHandler(RuntimeException.class)
+    @ResponseBody
+    public ResponseEntity<String> handleRuntimeException(RuntimeException e) {
+        log.error("handleRuntimeException", e);
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
     }
 
     // 요청 URL에 따라 뷰 이름을 결정하는 메서드

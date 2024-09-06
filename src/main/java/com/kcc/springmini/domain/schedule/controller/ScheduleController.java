@@ -51,7 +51,7 @@ public class ScheduleController {
     public ResponseEntity<Void> delete(@PathVariable(value = "id") Long id,
                                        @AuthenticationPrincipal PrincipalDetail principalDetail) throws IOException {
         if (!Objects.equals(scheduleService.findById(id).getMemberId(), principalDetail.getMember().getMemberId())) {
-            throw new ForbiddenException("해당 일정을 삭제할 권한이 없습니다.", FORBIDDEN);
+            throw new ForbiddenException("해당 일정을 삭제할 권한이 없습니다.");
         }
 
         scheduleService.delete(id, principalDetail.getMember().getMemberId());
@@ -62,7 +62,7 @@ public class ScheduleController {
     public ResponseEntity<ScheduleResponseDto> x(@PathVariable(value = "id") Long id,
                                                       @AuthenticationPrincipal PrincipalDetail principalDetail) {
         if (!Objects.equals(scheduleService.findById(id).getMemberId(), principalDetail.getMember().getMemberId())) {
-            throw new ForbiddenException("해당 일정을 수정할 권한이 없습니다.", FORBIDDEN);
+            throw new ForbiddenException("해당 일정을 수정할 권한이 없습니다.");
         }
 
         return ResponseEntity.ok().body(scheduleService.findById(id));
@@ -73,7 +73,7 @@ public class ScheduleController {
                                        @AuthenticationPrincipal PrincipalDetail principalDetail,
                                        @RequestBody @Valid ScheduleVO scheduleVO) {
         if (!Objects.equals(scheduleService.findById(id).getMemberId(), principalDetail.getMember().getMemberId())) {
-            throw new ForbiddenException("해당 일정을 수정할 권한이 없습니다.", FORBIDDEN);
+            throw new ForbiddenException("해당 일정을 수정할 권한이 없습니다.");
         }
 
         scheduleService.update(id, scheduleVO);

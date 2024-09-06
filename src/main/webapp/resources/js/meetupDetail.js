@@ -163,6 +163,7 @@ function deleteSchedule() {
             location.href = `/meetups/${meetupId}`;
         },
         error: function(error) {
+            console.log(error.responseJSON);
             alert(error.responseJSON.error);
         }
     });

@@ -54,10 +54,10 @@ public class MemberServiceImpl implements MemberService {
                 try {
                     awsS3Utils.saveFile(file, fileName);
                 } catch (IOException e) {
-                    throw new BadRequestException("파일 저장에 실패했습니다.", HttpStatus.BAD_REQUEST);
+                    throw new BadRequestException("파일 저장에 실패했습니다.");
                 }
             } else {
-                throw new BadRequestException("파일 저장에 실패했습니다.", HttpStatus.BAD_REQUEST);
+                throw new BadRequestException("파일 저장에 실패했습니다.");
             }
         }
     }

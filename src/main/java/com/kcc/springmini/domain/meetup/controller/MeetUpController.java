@@ -51,7 +51,7 @@ public class MeetUpController {
         List<PostVO> posts = postService.findAll(meetUpId); //전체 글 (총 게시글 갯수에만 사용)
         List<PostVO> totalPaging = postService.findAllWithPaging(cri, meetUpId); //페이징된 글
         MeetUpVO meetUpVO = meetUpService.findById(meetUpId)
-                .orElseThrow(() -> new NotFoundException("모임을 찾을 수 없습니다.", HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new NotFoundException("모임을 찾을 수 없습니다."));
         meetUpVO.setUrl(properties.getS3().getUrl() + meetUpVO.getUrl());
         model.addAttribute("meetup", meetUpVO);
         model.addAttribute("posts", totalPaging); //현 페이지에서 보여줄 글 목록

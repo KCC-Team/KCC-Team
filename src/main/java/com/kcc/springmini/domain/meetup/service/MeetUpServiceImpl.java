@@ -63,7 +63,7 @@ public class MeetUpServiceImpl implements MeetUpService{
     @Override
     public void join(Long meetUpId, Long memberId, String grade) {
         if (isPass(meetUpId, memberId)) {
-            throw new AlreadyExistException("이미 가입한 모임입니다.", HttpStatus.BAD_REQUEST);
+            throw new AlreadyExistException("이미 가입한 모임입니다.");
         }
         
         Map<String, Object> map = Map.of("meetupId", meetUpId, "memberId", memberId, "grade", grade);
@@ -86,7 +86,7 @@ public class MeetUpServiceImpl implements MeetUpService{
             try {
                 awsS3Utils.saveFile(file, fileName);
             } catch (IOException e) {
-                throw new BadRequestException("파일 저장에 실패했습니다.", HttpStatus.BAD_REQUEST);
+                throw new BadRequestException("파일 저장에 실패했습니다.");
             }
         }
 		
