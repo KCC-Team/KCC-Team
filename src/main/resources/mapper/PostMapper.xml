@@ -12,6 +12,7 @@
         <result property="title" column="title"/>
         <result property="content" column="content"/>
         <result property="createdAt" column="created_at"/>
+        <result property="nickname" column="nickname"/>
         <result property="fileUrl" column="fileUrl"/>
         <association property="member" column="b_member_id" resultMap="memberResult"/>
     </resultMap>
@@ -50,7 +51,7 @@
     
 
     <select id="findById" resultMap="postResult">
-        SELECT B.BOARD_ID, B.MEET_UP_ID, B.TITLE, B.CONTENT, B.CREATED_AT, B.MEMBER_ID as b_member_id, F.FILE_UUID_NAME as fileUrl
+        SELECT B.BOARD_ID, B.MEET_UP_ID, B.TITLE, B.CONTENT, B.CREATED_AT, B.MEMBER_ID as b_member_id, F.FILE_UUID_NAME as fileUrl,NICKNAME as nickname
         FROM BOARD B, MEMBER M, FILES F
         WHERE b.member_id = m.member_id
           AND F.member_id = m.member_id

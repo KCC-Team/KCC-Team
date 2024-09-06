@@ -10,7 +10,7 @@
         <![CDATA[
         select meet_up_id, title, person, category, intro
         from (
-             select /*+INDEX_ASC(meetup PK_MeetUp) */ rownum rn,
+             select /*+INDEX_DESC(meetup PK_MeetUp) */ rownum rn,
                     meet_up_id, title, person, category, intro
              from meetup
              where rownum <= #{pageNum} * #{amount}
@@ -23,7 +23,7 @@
         select meet_up_id, title, person, category, intro
         from
         (
-            select /*+INDEX_ASC(meetup PK_MeetUp) */ rownum rn,
+            select /*+INDEX_DESC(meetup PK_MeetUp) */ rownum rn,
                 meet_up_id, title, person, category, intro
             from meetup
             where
@@ -94,13 +94,7 @@
     	WHERE GRADE = '모임장' AND MEMBER_ID = #{meberId} 
     </select>
    
-    <resultMap id="AnswerDetailResultMap" type="com.kcc.springmini.domain.member.model.dto.QuestionAnswer">
-        <result property="questionId" column="question_id"/>
-        <result property="answer" column="answer"/>
-        <result property="nickname" column="nickname"/>
-        <result property="memberId" column="member_id"/>
-        <result property="questionContent" column="question_content"/>
-    </resultMap>
+    
  
     <resultMap id="AnswerResultMap" type="com.kcc.springmini.domain.member.model.dto.MemberQAResponseDto">
         <id property="meetUpId" column="meet_up_id"/>
@@ -108,7 +102,14 @@
         <collection property="answerDetails" resultMap="AnswerDetailResultMap"/>
     </resultMap>
 
-    <!-- SQL to get answers with member nickname and question content -->
+   	<resultMap id="AnswerDetailResultMap" type="com.kcc.springmini.domain.member.model.dto.QuestionAnswer">
+        <result property="questionId" column="question_id"/>
+        <result property="answer" column="answer"/>
+        <result property="nickname" column="nickname"/>
+        <result property="memberId" column="member_id"/>
+        <result property="questionContent" column="question_content"/>
+    </resultMap>
+   
     <select id="findMemberQA" resultMap="AnswerResultMap">
         SELECT a.meet_up_id, mu.title as meetUpTitle, a.question_id, jq.content AS question_content, 
                a.answer, m.nickname, m.member_id as member_id
