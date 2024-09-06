@@ -28,7 +28,7 @@ public class MemberServiceImpl implements MemberService {
     private final MemberMapper memberMapper;
     private final FileMapper fileMapper;
     private final AwsS3Utils awsS3Utils;
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+//    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
     public MemberVO findById(String username) {
@@ -37,9 +37,9 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public void save(MemberVO member, MultipartFile file) {
-        String rawPassword = member.getPassword();
-        String encryptedPassword = bCryptPasswordEncoder.encode(rawPassword);
-        member.setPassword(encryptedPassword);
+//        String rawPassword = member.getPassword();
+//        String encryptedPassword = bCryptPasswordEncoder.encode(rawPassword);
+//        member.setPassword(encryptedPassword);
         memberMapper.save(member);
 
         if (file != null) {
@@ -64,9 +64,9 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public int update(MemberVO member) {
-        String rawPassword = member.getPassword();
-        String encryptedPassword = bCryptPasswordEncoder.encode(rawPassword);
-        member.setPassword(encryptedPassword);
+//        String rawPassword = member.getPassword();
+//        String encryptedPassword = bCryptPasswordEncoder.encode(rawPassword);
+//        member.setPassword(encryptedPassword);
         return memberMapper.update(member);
     }
 

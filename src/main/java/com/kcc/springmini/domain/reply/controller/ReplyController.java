@@ -33,7 +33,6 @@ public class ReplyController {
     @GetMapping("/replies")
     public String getPostAllReplies(@RequestParam("post") Long postId, Model model) {
         List<Reply> allPostReplies = replyService.getAllPostReplies(postId);
-        System.out.println("allPostReplies = " + allPostReplies);
         model.addAttribute("postId", postId);
         model.addAttribute("replies", allPostReplies);
         System.out.println("meetup");

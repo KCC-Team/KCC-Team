@@ -13,6 +13,7 @@
         <result property="dept" column="DEPT"/>
         <result property="orderNumber" column="ORDER_NUMBER"/>
         <result property="topReplyId" column="TOP_REPLY_ID"/>
+        <result property="fileUrl" column="fileUrl"/>
         <association property="writer" column="MEMBER_ID" resultMap="memberResult"/>
     </resultMap>
 
@@ -23,10 +24,12 @@
 
     <select id="getAllPostReplies" resultMap="postReplyResult">
         SELECT
-            R.REPLY_ID, R.CONTENT, R.CREATED_AT, R.UPDATED_AT ,R.DEPT, R.ORDER_NUMBER, R.TOP_REPLY_ID,
-            R.MEMBER_ID, M.NICKNAME
-        FROM REPLY R, MEMBER M
+            R.REPLY_ID, R.CONTENT, R.CREATED_AT, R.UPDATED_AT ,R.DEPT, 
+            R.ORDER_NUMBER, R.TOP_REPLY_ID,
+            R.MEMBER_ID, M.NICKNAME, F.FILE_UUID_NAME as fileUrl
+        FROM REPLY R, MEMBER M, FILES F
         WHERE R.MEMBER_ID = M.MEMBER_ID
+          AND R.MEMBER_ID = F.MEMBER_ID
           AND BOARD_ID = #{boardId}
         START WITH TOP_REPLY_ID IS NULL
         CONNECT BY PRIOR REPLY_ID = TOP_REPLY_ID

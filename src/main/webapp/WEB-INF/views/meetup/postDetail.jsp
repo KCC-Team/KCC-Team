@@ -90,7 +90,7 @@
 			<div class="post-header">
 				<img src="${post.fileUrl}" alt="프로필 사진" class="profile-img" />
 				<div class="text-container">
-					<h2 class="fw-bold">${post.member.nickname}</h2>
+					<h2 class="fw-bold">${post.nickname}</h2>
 					<p class="post-date">${post.createdAt}</p>
 				</div>
 			</div>
@@ -111,12 +111,18 @@
 					<div class="comment-box comment-indent"
 						style="--dept-level: ${reply.dept};">
 						<div class="p-2 bg-light">
-							<div class="j-reply-name-date-box">
-								<span class="hidden">${reply.replyId}</span> <strong>${reply.writer.nickname}</strong>
-								<small>${reply.createdAt}</small>
+							<div class="post-header">
+								<span class="hidden">${reply.replyId}</span>
+								<img src="${reply.fileUrl}" alt="프로필 사진" class="profile-img" />
+								<div class="text-container">
+									<strong>${reply.writer.nickname}</strong>
+									<small>${reply.createdAt}</small>
+								</div>
 							</div>
+						
+					
 							<div class="j-reply-content-box">
-								<div class="j-reply-content">${reply.content}</div>
+								<div class="j-reply-content" style="margin-top:10px;">${reply.content}</div>
 								<div class="j-reply-button">
 									<input type="button" class="jw-reply-button" value="댓글달기">
 									<c:if test="${reply.writer.memberId eq loginMemberId }">

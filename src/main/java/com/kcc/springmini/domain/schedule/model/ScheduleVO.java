@@ -37,7 +37,6 @@ public class ScheduleVO implements Serializable {
     @NotNull(message = "마감 기한을 입력해주세요.")
     private String deadline;
 
-    //    @FutureOrPresent(message = "약속 시간은 현재 시간 이후여야 합니다.")
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private String scheduleDateTime;
 

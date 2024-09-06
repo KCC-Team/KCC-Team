@@ -105,7 +105,7 @@ public class MeetUpController {
             answersDto.add(new AnswerDto(memberId, questionId, answer, meetUpId));
         });
         
-        if(answers.isEmpty()) {
+        if(answers.isEmpty()) { //질문이 없다면 즉시가입
         	meetUpService.join(meetUpId, principalDetail.getMember().getMemberId(), "일반회원");
         } else { //승인대기 모임
         	meetUpService.insertAnswers(answersDto);
@@ -128,10 +128,6 @@ public class MeetUpController {
     @ResponseBody
     public String approveJoin(@PathVariable("meetUpId") Long meetUpId,
     	    @PathVariable("memberId") Long memberId) {
-    	System.out.println("1231231231");
-		System.out.println(meetUpId);
-    	System.out.println(memberId);
-    	
     	meetUpService.join(meetUpId, memberId, "일반회원");
     	memberService.deletePendingMember(new MemberApproveRequestDto(memberId, meetUpId));
     	return null;

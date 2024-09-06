@@ -12,7 +12,7 @@
         values(#{scheduleId}, #{meetUpId}, #{memberId}, #{scheduleTitle}, #{scheduleDescription},
                #{location}, #{participantLimit},
                TO_TIMESTAMP(#{deadline}, 'YYYY-MM-DD HH24:MI:SS'),
-               TO_TIMESTAMP(#{scheduleDateTime}, 'YYYY-MM-DD HH24:MI:SS'), systimestamp, 'T')
+               TO_TIMESTAMP(#{scheduleDateTime}, 'YYYY-MM-DD HH24:MI:SS'), sysdate, 'T')
     </insert>
 
     <!-- 모임 일정 맴버 생성 (참가하기) -->

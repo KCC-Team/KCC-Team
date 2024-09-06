@@ -149,47 +149,45 @@
     </section>
 
     <aside class="schedule-sec">
-        <div class="schdule-section">
-            <span class="meet-date">일정</span>
-            <div>
-                <select id="sortOrder">
-                    <option value="latest" selected>최신순</option>
-                    <option value="deadline">마감일자 순</option>
-                </select>
-            </div>
-            <br>
-            <div class="search-area">
-                <input class="search" type="text" placeholder="일정 검색하기">
-                <span class="icon-placeholder"><i class="fas fa-search icon-placeholder"></i></span>
-            </div>
-            <br>
-            <span class="schedule-header">
-                    <c:if test="${isPass == 1}">
-                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#createMeetUpModal">
-                            일정 생성
-                        </button>
-                    </c:if>
-                </span>
+        <div>
+            <select id="sortOrder">
+                <option value="latest" selected>최신순</option>
+                <option value="deadline">마감일자 순</option>
+            </select>
+        </div>
+        <br>
+        <div class="search-area">
+            <input class="search" type="text" placeholder="일정 검색하기">
+            <span class="icon-placeholder"><i class="fas fa-search icon-placeholder"></i></span>
+        </div>
+        <br>
+        <span class="schedule-header">
+                <span class="meet-date">일정</span>
+                <c:if test="${isPass == 1}">
+                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#createMeetUpModal">
+                        일정 생성
+                    </button>
+                </c:if>
+            </span>
 
-            <div id="scheduleList">
-                <c:forEach var="schedule" items="${schedules.responses}">
-                    <div class="schedule">
-                        <h4><strong>🌳 ${schedule.title} 🌳</strong></h4>
-                        <p>${schedule.content}</p>
-                        <br>
-                        <p>일정: ${schedule.appointment_time}</p>
-                        <p>제한 인원: ${schedule.person}인</p>
-                        <input type="hidden" value="${schedule.schedule_id}">
-                    </div>
-                </c:forEach>
-            </div>
-            <div class="schedule-sec pagination">
-                <span onclick="loadSchedules(null, ${schedules.currentPage} - 1)">이전</span>
-                <c:forEach begin="${schedules.startPage}" end="${schedules.endPage}" var="i">
-                    <span class="${i == schedules.currentPage ? 'active' : ''}" onclick="loadSchedules(null, ${i})">${i}</span>
-                </c:forEach>
-                <span onclick="loadSchedules(null, ${schedules.currentPage} + 1)">다음</span>
-            </div>
+        <div id="scheduleList">
+            <c:forEach var="schedule" items="${schedules.responses}">
+                <div class="schedule">
+                    <h4><strong>🌳 ${schedule.title} 🌳</strong></h4>
+                    <p>${schedule.content}</p>
+                    <br>
+                    <p>일정: ${schedule.appointment_time}</p>
+                    <p>제한 인원: ${schedule.person}인</p>
+                    <input type="hidden" value="${schedule.schedule_id}">
+                </div>
+            </c:forEach>
+        </div>
+        <div class="schedule-sec pagination">
+            <span onclick="loadSchedules(null, ${schedules.currentPage} - 1)">이전</span>
+            <c:forEach begin="${schedules.startPage}" end="${schedules.endPage}" var="i">
+                <span class="${i == schedules.currentPage ? 'active' : ''}" onclick="loadSchedules(null, ${i})">${i}</span>
+            </c:forEach>
+            <span onclick="loadSchedules(null, ${schedules.currentPage} + 1)">다음</span>
         </div>
     </aside>
 </main>

@@ -43,6 +43,10 @@ public class PostController {
         System.out.println(findPost);
         
         List<Reply> allPostReplies = replyService.getAllPostReplies(postId);
+        for(Reply reply : allPostReplies) {
+        	reply.setFileUrl(properties.getS3().getUrl() + reply.getFileUrl());
+        }
+        
         
         Long loginMemberId = principalDetail.getMember().getMemberId();
 
